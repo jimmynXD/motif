@@ -30,7 +30,7 @@ function App() {
       </section>
       <footer>
         <button className="brand" onClick={onCreate}>
-          Createe
+          Create
         </button>
         <button onClick={onCancel}>Cancel</button>
       </footer>
