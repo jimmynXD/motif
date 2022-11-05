@@ -15,6 +15,11 @@ module.exports = (env, argv) => ({
     code: './src/code/index.ts', // The entry point for your plugin code
   },
 
+  devServer: {
+    static: './dist',
+    hot: true
+  },
+
   module: {
     rules: [
       // Converts TypeScript code to JavaScript
