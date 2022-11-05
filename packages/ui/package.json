@@ -1,9 +1,9 @@
 {
   "name": "ui",
   "version": "0.0.0",
-  "main": "./index.tsx",
-  "types": "./index.tsx",
-  "license": "MIT",
+  "main": "./src/index.tsx",
+  "types": "./src/index.tsx",
+  "license": "UNLICENSED",
   "scripts": {
     "lint": "eslint *.ts*"
   },
