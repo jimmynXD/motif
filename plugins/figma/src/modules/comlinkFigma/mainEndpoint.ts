@@ -6,16 +6,6 @@ interface Options {
   pluginId?: string;
 }
 
-export interface PluginMessage {
-  id: string
-  type: "APPLY"
-  path: string[]
-  argumentList: {
-    type: "RAW"
-    value: unknown
-  }[]
-}
-
 export const mainEndpoint = ({
   targetOrigin = "*",
   pluginId,
@@ -54,4 +44,3 @@ export const mainEndpoint = ({
     },
   };
 };
-

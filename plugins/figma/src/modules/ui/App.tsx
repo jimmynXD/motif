@@ -1,6 +1,6 @@
 import * as React from "react";
 import "./style/globals.css";
-import mainServices from './mainService'
+import mainServices from "./mainService";
 
 declare function require(path: string): any;
 
@@ -18,15 +18,19 @@ function App() {
         <label htmlFor="input">Rectangle Count</label>
       </section>
       <footer>
-        <button className="brand" onClick={() => mainServices.createRectangle( Number(inputRef.current?.value || 0))}>
+        <button
+          className="brand"
+          onClick={() =>
+            mainServices.createRectangle(Number(inputRef.current?.value || 0))
+          }
+        >
           Create
         </button>
-          <button onClick={() => mainServices.test}>Log</button>
+        <button onClick={() => mainServices.test}>Log</button>
         <button onClick={() => mainServices.close()}>Cancel</button>
       </footer>
     </main>
   );
 }
 
-export default App
-
+export default App;

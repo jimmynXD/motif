@@ -1,33 +1,31 @@
-
 export const createRectangle = (count: number) => {
+  const nodes = [];
 
-    const nodes = [];
+  for (let i = 0; i < count; i++) {
+    const rect = figma.createRectangle();
+    rect.x = i * 150;
+    rect.fills = [{ type: "SOLID", color: { r: 1, g: 0.5, b: 0 } }];
+    figma.currentPage.appendChild(rect);
+    nodes.push(rect);
+  }
 
-    for (let i = 0; i < count; i++) {
-      const rect = figma.createRectangle();
-      rect.x = i * 150;
-      rect.fills = [{ type: "SOLID", color: { r: 1, g: 0.5, b: 0 } }];
-      figma.currentPage.appendChild(rect);
-      nodes.push(rect);
-    }
+  figma.currentPage.selection = nodes;
+  figma.viewport.scrollAndZoomIntoView(nodes);
 
-    figma.currentPage.selection = nodes;
-    figma.viewport.scrollAndZoomIntoView(nodes);
-
-    console.log(`created ${nodes.length} rectangles`)
-}
+  console.log(`created ${nodes.length} rectangles`);
+};
 
 export const log = (msg: string) => {
-  console.log('Hello from motifXD', msg)
-}
+  console.log("Hello from motifXD", msg);
+};
 
 export const close = () => {
-  console.log('close plugin plz')
-  figma.closePlugin()
-}
+  console.log("close plugin plz");
+  figma.closePlugin();
+};
 
 export const test = {
   log: (msg: string) => {
-    console.log(msg)
-  }
-}
+    console.log(msg);
+  },
+};

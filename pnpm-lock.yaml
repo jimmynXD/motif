@@ -116,7 +116,6 @@ importers:
       '@types/react-dom': ^18.0.8
       comlink: ^4.3.1
       css-loader: ^6.7.1
-      figma-comlink: ^0.0.3
       html-webpack-inline-source-plugin: ^0.0.10
       html-webpack-plugin: ^5.5.0
       nodemon: ^2.0.20
@@ -133,7 +132,6 @@ importers:
       webpack-cli: ^4.10.0
     dependencies:
       comlink: 4.3.1
-      figma-comlink: 0.0.3_comlink@4.3.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     devDependencies:
@@ -150,47 +148,6 @@ importers:
       ts-loader: 9.4.1_qqxisngxjbp7lstdk7boexbu3e
       tsconfig: link:../../packages/tsconfig
       tsconfig-paths-webpack-plugin: 4.0.0
-      typescript: 4.8.4
-      url-loader: 4.1.1_webpack@5.74.0
-      webpack: 5.74.0_webpack-cli@4.10.0
-      webpack-cli: 4.10.0_webpack@5.74.0
-
-  plugins/motifxd:
-    specifiers:
-      '@figma/plugin-typings': ^1.55.1
-      '@types/node': '16'
-      '@types/react': ^18.0.25
-      '@types/react-dom': ^18.0.8
-      css-loader: ^6.7.1
-      html-webpack-inline-source-plugin: ^0.0.10
-      html-webpack-plugin: ^5.5.0
-      nodemon: ^2.0.20
-      react: ^18.2.0
-      react-dev-utils: ^12.0.1
-      react-dom: 18.2.0
-      style-loader: ^3.3.1
-      ts-loader: ^9.4.1
-      tsconfig: workspace:*
-      typescript: ^4.8.4
-      url-loader: ^4.1.1
-      webpack: ^5.74.0
-      webpack-cli: ^4.10.0
-    dependencies:
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-    devDependencies:
-      '@figma/plugin-typings': 1.55.1
-      '@types/node': 16.18.3
-      '@types/react': 18.0.25
-      '@types/react-dom': 18.0.8
-      css-loader: 6.7.1_webpack@5.74.0
-      html-webpack-inline-source-plugin: 0.0.10
-      html-webpack-plugin: 5.5.0_webpack@5.74.0
-      nodemon: 2.0.20
-      react-dev-utils: 12.0.1_qqxisngxjbp7lstdk7boexbu3e
-      style-loader: 3.3.1_webpack@5.74.0
-      ts-loader: 9.4.1_qqxisngxjbp7lstdk7boexbu3e
-      tsconfig: link:../../packages/tsconfig
       typescript: 4.8.4
       url-loader: 4.1.1_webpack@5.74.0
       webpack: 5.74.0_webpack-cli@4.10.0
@@ -1872,14 +1829,6 @@ packages:
     resolution: {integrity: sha512-YpkpUnK8od0o1hmeSc7UUs/eB/vIPWJYjKck2QKIzAf71Vm1AAQ3EbuZB3g2JIy+pg+ERD0vqI79KyZiB2e2Nw==}
     dependencies:
       reusify: 1.0.4
-
-  /figma-comlink/0.0.3_comlink@4.3.1:
-    resolution: {integrity: sha512-eao1e61YcoB01E5Q1Og7xfH3i9yhyOjKUA3fTpuWrvvCtQEOfob7lP2FoUQBCdgAcehUi33WbOFZ6f5mTn5ERA==}
-    peerDependencies:
-      comlink: ^4.3.1
-    dependencies:
-      comlink: 4.3.1
-    dev: false
 
   /file-entry-cache/6.0.1:
     resolution: {integrity: sha512-7Gps/XWymbLk2QLYK4NzpMOrYjMhdIxXuIvy2QBsLE6ljuodKvdkWs/cpyJJ3CVIVpH0Oi1Hvg1ovbMzLdFBBg==}

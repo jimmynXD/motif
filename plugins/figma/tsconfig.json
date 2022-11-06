@@ -10,9 +10,17 @@
     "isolatedModules": false,
     "baseUrl": ".",
     "paths": {
-      "@/*":["src/modules/*"],
-      "@labxd/comlink-figma": ["src/modules/comlinkFigma"]
-    }
+      "@/*": [
+        "src/modules/*"
+      ],
+      "@labxd/comlink-figma": [
+        "src/modules/comlinkFigma"
+      ]
+    },
+    "strict": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ]
 }
