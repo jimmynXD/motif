@@ -1,5 +1,6 @@
 const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 const path = require('path')
 const webpack = require('webpack')
@@ -11,8 +12,8 @@ module.exports = (env, argv) => ({
   devtool: argv.mode === 'production' ? false : 'inline-source-map',
 
   entry: {
-    ui: './src/ui/index.ts', // The entry point for your UI code
-    code: './src/code/index.ts', // The entry point for your plugin code
+    ui: './src/modules/ui/index.ts', // The entry point for your UI code
+    code: './src/modules/main/index.ts', // The entry point for your plugin code
   },
 
   devServer: {
@@ -44,7 +45,7 @@ module.exports = (env, argv) => ({
   },
 
   // Webpack tries these extensions for you if you omit the extension like "import './file'"
-  resolve: { extensions: ['.tsx', '.ts', '.jsx', '.js'] },
+  resolve: { plugins: [new TsconfigPathsPlugin()],  extensions: ['.tsx', '.ts', '.jsx', '.js'] },
 
   output: {
     filename: '[name].js',
@@ -58,7 +59,7 @@ module.exports = (env, argv) => ({
     }),
     new HtmlWebpackPlugin({
       inject: "body",
-      template: './src/ui/index.html',
+      template: './src/modules/ui/index.html',
       filename: 'ui.html',
       chunks: ['ui']
     }),

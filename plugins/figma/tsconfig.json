@@ -1,12 +1,18 @@
 {
   "compilerOptions": {
+    "moduleResolution": "node",
     "target": "es6",
     "jsx": "react",
     "typeRoots": [
       "./node_modules/@types",
       "./node_modules/@figma"
     ],
-    "isolatedModules": false
+    "isolatedModules": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*":["src/modules/*"],
+      "@labxd/comlink-figma": ["src/modules/comlinkFigma"]
+    }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

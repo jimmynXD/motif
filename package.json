@@ -11,7 +11,7 @@
     "dev": "turbo run dev --parallel",
     "dev:web": "pnpm run dev --filter web",
     "dev:docs": "pnpm run dev --filter docs",
-    "dev:plugin": "pnpm run dev --filter motifxd",
+    "dev:plugin": "pnpm run dev --filter @labxd/motif-figma-plugin",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
