@@ -1,7 +1,7 @@
 import type { Endpoint } from "comlink";
 import { Message } from "comlink/dist/umd/protocol";
 
-interface Options {
+export interface MainEndpointOptions {
   targetOrigin?: string;
   pluginId?: string;
 }
@@ -9,7 +9,7 @@ interface Options {
 export const mainEndpoint = ({
   targetOrigin = "*",
   pluginId,
-}: Options = {}): Endpoint => {
+}: MainEndpointOptions = {}): Endpoint => {
   const listeners = new WeakMap();
 
   return {

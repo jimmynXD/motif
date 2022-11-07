@@ -1,8 +1,8 @@
 import * as Comlink from "comlink";
 import { mainEndpoint } from "@labxd/comlink-figma";
-import { MainServices } from "@/shared/types";
+import { LinkedMainServices } from "@/meta/main";
 
-export const mainServices = Comlink.wrap<MainServices>(
+export const mainServices = Comlink.wrap<LinkedMainServices>(
   mainEndpoint({
     pluginId: "sdhhskdjh980uhi",
   })

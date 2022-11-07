@@ -21,13 +21,17 @@ function App() {
         <button
           className="brand"
           onClick={() =>
-            mainServices.createRectangle(Number(inputRef.current?.value || 0))
+            mainServices.test.createRectangle(
+              Number(inputRef.current?.value || 0)
+            )
           }
         >
-          Create
+          Createee
         </button>
-        <button onClick={() => mainServices.test}>Log</button>
-        <button onClick={() => mainServices.close()}>Cancel</button>
+        <button onClick={() => mainServices.test.log("Hello World")}>
+          Log
+        </button>
+        <button onClick={() => mainServices.meta.close()}>Cancel</button>
       </footer>
     </main>
   );

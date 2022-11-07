@@ -1,3 +1,5 @@
+import { createMainService, Service } from "@/comlinkFigma";
+
 export const createRectangle = (count: number) => {
   const nodes = [];
 
@@ -24,8 +26,9 @@ export const close = () => {
   figma.closePlugin();
 };
 
-export const test = {
-  log: (msg: string) => {
-    console.log(msg);
-  },
+export const service: Service = {
+  createRectangle,
+  log,
 };
+
+export default createMainService(service);

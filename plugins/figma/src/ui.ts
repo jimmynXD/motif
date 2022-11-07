@@ -1,6 +1,6 @@
 import { createElement } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App";
+import App from "@/meta/ui/App";
 
 const container = document.getElementById("motifxd-panel");
 
