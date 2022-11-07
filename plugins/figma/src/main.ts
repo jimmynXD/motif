@@ -1,10 +1,11 @@
-import { linkedServices } from "@/meta/main";
-import { exposeMainServices } from "@labxd/comlink-figma";
+import { exposeMainServices } from "@labxd/comlink-figma"
+
+import { linkedServices } from "@/meta/main"
 
 const main = () => {
-  exposeMainServices(linkedServices);
+  exposeMainServices(linkedServices)
 
-  figma.showUI(__html__, { themeColors: true, height: 300 });
-};
+  figma.showUI(__html__, { themeColors: true, width: 400, height: 600 })
+}
 
-main();
+main()
