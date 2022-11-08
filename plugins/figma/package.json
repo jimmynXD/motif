@@ -14,10 +14,15 @@
     "@types/node": "16",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.8",
+    "autoprefixer": "^10.4.13",
+    "clsx": "^1.2.1",
     "css-loader": "^6.7.1",
     "html-webpack-inline-source-plugin": "^0.0.10",
     "html-webpack-plugin": "^5.5.0",
+    "motifxd-tailwind-config": "*",
     "nodemon": "^2.0.20",
+    "postcss": "^8.4.18",
+    "postcss-loader": "^7.0.1",
     "react-dev-utils": "^12.0.1",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.4.1",
@@ -29,6 +34,7 @@
     "webpack-cli": "^4.10.0"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.4",
     "comlink": "^4.3.1",
     "react": "^18.2.0",
     "react-dom": "18.2.0",
