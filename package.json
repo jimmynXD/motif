@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "typecheck": "turbo run typecheck --parallel",
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "dev:web": "pnpm run dev --filter web",

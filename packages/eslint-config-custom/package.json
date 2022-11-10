@@ -3,15 +3,30 @@
   "version": "0.0.0",
   "main": "index.js",
   "license": "UNLICENSED",
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "exports": {
+    ".": "./src/index.js",
+    "./base": "./src/base.js",
+    "./next": "./src/next.js"
+  },
   "dependencies": {
-    "eslint": "^7.23.0",
+    "@babel/core": "^7.20.2",
+    "@babel/eslint-parser": "^7.19.1",
+    "@babel/preset-env": "^7.20.2",
+    "@typescript-eslint/eslint-plugin": "^5.42.1",
+    "@typescript-eslint/parser": "^5.42.1",
     "eslint-config-next": "13.0.2",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-config-turbo": "latest",
     "eslint-plugin-react": "7.31.8",
-    "eslint-config-turbo": "latest"
+    "eslint-plugin-react-hooks": "^4.6.0"
   },
   "devDependencies": {
-    "typescript": "^4.7.4"
+    "@types/eslint": "^8.4.10",
+    "eslint": "^7.32.0",
+    "typescript": "^4.8.4"
   },
   "publishConfig": {
     "access": "public"

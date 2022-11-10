@@ -1,8 +1,7 @@
 module.exports = {
   // next is the issue
-  extends: ["turbo", "prettier"],
+  extends: ["./base.js", "next"],
   rules: {
     "@next/next/no-html-link-for-pages": "off",
-    "react/jsx-key": "off",
   },
 }
