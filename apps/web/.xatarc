@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://labxd-f0laki.us-east-1.xata.sh/db/motifxd",
+  "codegen": {
+    "output": "src/modules/db/api/generated.ts"
+  }
+}

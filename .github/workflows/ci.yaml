@@ -56,6 +56,14 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           server-token: ${{ secrets.TURBO_SERVER_TOKEN }}
 
+      # TODO: Pick branch dynamically
+      - name: Generate DB type
+        run: pnpm run db:gen
+        working-directory: apps/web
+        env:
+          XATA_API_KEY: ${{ secrets.XATA_API_KEY }}
+          XATA_FALLBACK_BRANCH: dev
+
       - name: Lint
         run: pnpm run lint --api="http://127.0.0.1:9080" --token="${{ secrets.TURBO_SERVER_TOKEN }}"
 

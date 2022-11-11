@@ -13,7 +13,9 @@
     "web#build": {
       "env": [
         "URL",
-        "PORT"
+        "PORT",
+        "GOOGLE_ID",
+        "GOOGLE_SECRET"
       ]
     },
     "lint": {

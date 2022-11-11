@@ -13,6 +13,9 @@
     "paths": {
       "@/*": [
         "src/modules/*"
+      ],
+      "web/api/*": [
+        "src/modules/web/api/*"
       ]
     }
   }

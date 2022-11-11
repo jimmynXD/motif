@@ -1,4 +1,4 @@
-import { Button } from "ui"
+import { useSession, signIn, signOut } from "next-auth/react"
 
 import { trpc } from "@/meta/web"
 
@@ -6,6 +6,8 @@ export default function Web() {
   const { isLoading, error, data } = trpc.hello.useQuery({
     text: "Hello",
   })
+
+  const { data: session } = useSession()
 
   if (isLoading) {
     return <div>Loading...</div>
@@ -18,7 +20,9 @@ export default function Web() {
   return (
     <div>
       <h1>{data.greeting}</h1>
-      <Button />
+      <button onClick={() => (session ? signOut() : signIn())}>
+        {session ? "signOut" : "singin"}
+      </button>
     </div>
   )
 }
