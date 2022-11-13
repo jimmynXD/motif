@@ -1,4 +1,4 @@
-import { createMainService, Service } from "@/comlinkFigma"
+import { createMainService } from "@/comlinkFigma"
 import { TypographyTokenInterface } from "../types"
 
 export const getTypes = () => {
@@ -32,7 +32,7 @@ export const getTypes = () => {
   return typographyValues
 }
 
-export const service: Service = {
+export const service = {
   getTypes,
 }
 

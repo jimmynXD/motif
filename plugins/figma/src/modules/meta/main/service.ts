@@ -1,8 +1,8 @@
-import { createMainService, Service } from "@/comlinkFigma";
+import { createMainService } from "@/comlinkFigma"
 
-export const service: Service = {
+export const service = {
   close: () => {
-    figma.closePlugin();
+    figma.closePlugin()
   },
-};
-export default createMainService(service);
+}
+export default createMainService(service)

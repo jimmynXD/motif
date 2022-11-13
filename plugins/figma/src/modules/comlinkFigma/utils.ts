@@ -1,24 +1,12 @@
-import { expose, proxy, wrap } from "comlink";
-import { mainEndpoint, type MainEndpointOptions } from "./mainEndpoint";
-import { uiEndpoint } from "./uiEndpoint";
+import { expose, proxy, wrap } from "comlink"
+import { mainEndpoint, type MainEndpointOptions } from "./mainEndpoint"
+import { uiEndpoint } from "./uiEndpoint"
 
-type Func = (...args: Array<any>) => unknown;
+export const createMainService = proxy
 
-export interface Service {
-  [Key: string]: Func;
+export const exposeMainServices = (services: Record<string, unknown>) => {
+  expose(services, uiEndpoint())
 }
-
-export const createMainService = <T extends Service>(service: T) => {
-  return proxy(service);
-};
-
-export interface Services {
-  [k: string]: ReturnType<typeof createMainService>;
-}
-
-export const exposeMainServices = <T extends Services>(services: T) => {
-  expose(services, uiEndpoint());
-};
 
 export const loadMainServices = <T>(opts?: MainEndpointOptions) =>
-  wrap<T>(mainEndpoint(opts));
+  wrap<T>(mainEndpoint(opts))

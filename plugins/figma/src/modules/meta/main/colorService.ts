@@ -1,5 +1,4 @@
-import { createMainService, Service } from "@/comlinkFigma"
-import { ColorTokenInterface } from "../types"
+import { createMainService } from "@/comlinkFigma"
 
 // multiple rgb values by 255
 const rgbValue = (value: number) => Math.round(value * 255)
@@ -27,11 +26,12 @@ export const getColors = () => {
         b: rgbValue(rgbColor.b),
       }
 
-      const color: ColorTokenInterface = {
+      const color = {
         token: colorName,
         hex: `#${rgbToHex(rgb.r, rgb.g, rgb.b)}`,
         rgb,
       }
+
       return color
     }
   })
@@ -39,7 +39,7 @@ export const getColors = () => {
   return colorValues
 }
 
-export const service: Service = {
+export const service = {
   getColors,
 }
 
