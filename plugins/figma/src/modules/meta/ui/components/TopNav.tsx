@@ -1,8 +1,8 @@
-import * as React from "react"
+import { FC } from "react"
 import clsx from "clsx"
 import { NavLink } from "react-router-dom"
 
-export const TopNav: React.FC = () => {
+export const TopNav: FC = () => {
   const NavArray = [
     {
       name: "Tokens",
@@ -13,6 +13,7 @@ export const TopNav: React.FC = () => {
       path: "/deploy",
     },
   ]
+
   return (
     <section className="flex bg-white sticky top-0 z-10">
       {NavArray.map((nav) => (

@@ -1,5 +1,4 @@
 import { createMainService } from "@/comlinkFigma"
-import { TypographyTokenInterface } from "../types"
 
 export const getTypes = () => {
   // get all text styles from figma
@@ -17,7 +16,7 @@ export const getTypes = () => {
         ? `${style.lineHeight.value}px`
         : undefined
 
-    const typography: TypographyTokenInterface = {
+    const typography = {
       token: typographyName,
       fontFamily: style.fontName.family,
       fontWeight: style.fontName.style.toLowerCase(),
@@ -26,6 +25,7 @@ export const getTypes = () => {
       lineHeightRelative,
       letterSpacing: style.letterSpacing.value,
     }
+
     return typography
   })
 

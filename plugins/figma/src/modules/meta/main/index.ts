@@ -1,13 +1,9 @@
 import { default as metaMainService } from "./service"
-import { default as testMainService } from "./testService"
-import { default as colorMainService } from "./colorService"
-import { default as typographyMainService } from "./typographyService"
+import { mainService as tokenService } from "@/tokens/main"
 
 export const linkedServices = {
   meta: metaMainService,
-  test: testMainService,
-  color: colorMainService,
-  typography: typographyMainService,
+  tokens: tokenService,
 }
 
 export type LinkedMainServices = typeof linkedServices

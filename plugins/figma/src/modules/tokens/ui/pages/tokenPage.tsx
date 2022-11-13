@@ -1,4 +1,3 @@
-import * as React from "react"
 import clsx from "clsx"
 import { useQuery } from "@tanstack/react-query"
 import { getFigmaData } from "../api"
@@ -50,34 +49,37 @@ export const TokenPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {data?.colorResults.map((color, index) => (
-                  <tr key={index} className="group">
-                    <td className="border-b border-b-xd-neutral-300 py-1 group-last:border-b-transparent">
-                      <span
-                        style={{ backgroundColor: color.hex }}
-                        className={clsx(
-                          "w-7 h-7 rounded-full inline-block border border-xd-neutral-300 border-inset"
-                        )}
-                      />
-                    </td>
-                    <td
-                      className={clsx(
-                        "px-4 py-2 text-xd-success-700",
-                        "border-b border-b-xd-neutral-300 group-last:border-b-transparent"
-                      )}
-                    >
-                      {color.token.replace(/\./g, "-")}
-                    </td>
-                    <td
-                      className={clsx(
-                        "text-right px-4 py-2 text-xd-primary-black-rgb",
-                        "border-b border-b-xd-neutral-300 group-last:border-b-transparent"
-                      )}
-                    >
-                      {color.hex}
-                    </td>
-                  </tr>
-                ))}
+                {data?.colorResults.map(
+                  (color, index) =>
+                    color && (
+                      <tr key={index} className="group">
+                        <td className="border-b border-b-xd-neutral-300 py-1 group-last:border-b-transparent">
+                          <span
+                            style={{ backgroundColor: color.hex }}
+                            className={clsx(
+                              "w-7 h-7 rounded-full inline-block border border-xd-neutral-300 border-inset"
+                            )}
+                          />
+                        </td>
+                        <td
+                          className={clsx(
+                            "px-4 py-2 text-xd-success-700",
+                            "border-b border-b-xd-neutral-300 group-last:border-b-transparent"
+                          )}
+                        >
+                          {color.token.replace(/\./g, "-")}
+                        </td>
+                        <td
+                          className={clsx(
+                            "text-right px-4 py-2 text-xd-primary-black-rgb",
+                            "border-b border-b-xd-neutral-300 group-last:border-b-transparent"
+                          )}
+                        >
+                          {color.hex}
+                        </td>
+                      </tr>
+                    )
+                )}
               </tbody>
             </table>
           </div>

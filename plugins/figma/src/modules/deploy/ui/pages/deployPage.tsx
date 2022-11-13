@@ -5,7 +5,7 @@
 import * as React from "react"
 import { TopNav, XDButton } from "@/meta/ui/components"
 import { useQuery } from "@tanstack/react-query"
-import { getFigmaData } from "@/tokens/api"
+import { getFigmaData } from "@/tokens/ui/api"
 
 export const DeployPage = () => {
   const { data, isLoading, error, refetch } = useQuery(["tokens"], getFigmaData)

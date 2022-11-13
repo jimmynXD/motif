@@ -1,8 +1,8 @@
 import "./styles/globals.css"
 import React from "react"
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
-import { DeployPage } from "@/deploy/pages"
-import { TokenPage } from "@/tokens/pages"
+import { DeployPage } from "@/deploy/ui/pages"
+import { TokenPage } from "@/tokens/ui/pages"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { HashRouter as Router, Routes, Route, Outlet } from "react-router-dom"
 
@@ -12,6 +12,7 @@ function App() {
       queries: { refetchOnWindowFocus: false },
     },
   })
+
   return (
     <QueryClientProvider client={queryClient}>
       <Router>

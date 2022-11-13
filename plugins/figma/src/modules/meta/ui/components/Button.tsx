@@ -1,12 +1,13 @@
 import clsx from "clsx"
-import * as React from "react"
+import { FC } from "react"
 
 export interface XDButtonInterface
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode
   className?: string
 }
-export const XDButton: React.FC<XDButtonInterface> = ({
+
+export const XDButton: FC<XDButtonInterface> = ({
   children,
   className,
   ...theRest
