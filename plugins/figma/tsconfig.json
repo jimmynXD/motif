@@ -3,24 +3,15 @@
     "moduleResolution": "node",
     "target": "es6",
     "jsx": "react-jsx",
-    "typeRoots": [
-      "./node_modules/@types",
-      "./node_modules/@figma"
-    ],
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": ["./node_modules/@types", "./node_modules/@figma"],
     "isolatedModules": false,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "src/modules/*"
-      ],
-      "@labxd/comlink-figma": [
-        "src/modules/comlinkFigma"
-      ]
+      "@/*": ["src/modules/*"],
+      "@labxd/comlink-figma": ["src/modules/comlinkFigma"]
     },
     "strict": true
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

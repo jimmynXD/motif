@@ -1,37 +1,39 @@
-import { createMainService, Service } from '@/comlinkFigma';
+import { createMainService, Service } from "@/comlinkFigma"
+import { TypographyTokenInterface } from "../types"
 
 export const getTypes = () => {
   // get all text styles from figma
-  const textStyles = figma.getLocalTextStyles();
+  const textStyles = figma.getLocalTextStyles()
 
   const typographyValues = textStyles.map((style) => {
-    // replace / with .
-    const typographyName = style.name.toLowerCase().replace(/\//g, '.');
+    const typographyName = style.name.toLowerCase().replace(/\//g, ".")
     const lineHeightRelative =
-      style.lineHeight.unit === 'PIXELS' &&
-      Math.round((style.lineHeight.value / style.fontSize) * 100) / 100;
+      style.lineHeight.unit === "PIXELS"
+        ? Math.round((style.lineHeight.value / style.fontSize) * 100) / 100
+        : undefined
+
     const lineHeightAbsolute =
-      style.lineHeight.unit === 'PIXELS' && `${style.lineHeight.value}px`;
+      style.lineHeight.unit === "PIXELS"
+        ? `${style.lineHeight.value}px`
+        : undefined
 
-    return {
+    const typography: TypographyTokenInterface = {
       token: typographyName,
-      style: {
-        fontFamily: style.fontName.family,
-        fontWeight: style.fontName.style.toLowerCase(),
-        fontSize: style.fontSize,
-        lineHeight: lineHeightAbsolute,
-        lineHeightRelative,
-        letterSpacing: style.letterSpacing.value,
-      },
-    };
-  });
+      fontFamily: style.fontName.family,
+      fontWeight: style.fontName.style.toLowerCase(),
+      fontSize: style.fontSize,
+      lineHeight: lineHeightAbsolute,
+      lineHeightRelative,
+      letterSpacing: style.letterSpacing.value,
+    }
+    return typography
+  })
 
-  console.log('\ntypes', typographyValues);
-  return typographyValues;
-};
+  return typographyValues
+}
 
 export const service: Service = {
   getTypes,
-};
+}
 
-export default createMainService(service);
+export default createMainService(service)
