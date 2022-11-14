@@ -3,8 +3,17 @@ import { useQuery } from "@tanstack/react-query"
 import { getFigmaData } from "../api"
 import { TopNav, XDButton } from "@/meta/ui/components"
 
+import { trpc } from "@/meta/ui"
+
 export const TokenPage = () => {
   const { data, isLoading, error, refetch } = useQuery(["tokens"], getFigmaData)
+
+  const t = trpc.hello.useQuery({
+    text: "hello",
+  })
+
+  // TODO: remove later. only for ref
+  console.log(t.data)
 
   if (isLoading) {
     return <span>Loading...</span>
