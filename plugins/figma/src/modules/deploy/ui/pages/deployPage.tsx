@@ -7,6 +7,8 @@ import { TopNav, XDButton } from "@/meta/ui/components"
 import { useQuery } from "@tanstack/react-query"
 import { getFigmaData } from "@/tokens/ui/api"
 
+import { trpc } from "@/meta/ui"
+
 export const DeployPage = () => {
   const { data, isLoading, error, refetch } = useQuery(["tokens"], getFigmaData)
 
@@ -16,6 +18,19 @@ export const DeployPage = () => {
   const textCount = React.useMemo(() => {
     return data?.textResults.length
   }, [data])
+
+  const deployMutation = trpc.token.publishMany.useMutation()
+
+  const handleSubmission = async () => {
+    if (!data || isLoading) {
+      return
+    }
+
+    await deployMutation.mutateAsync({
+      colorTokens: data.colorResults,
+      typographyTokens: data.textResults,
+    })
+  }
 
   if (isLoading) {
     return <span>Loading...</span>
@@ -56,7 +71,11 @@ export const DeployPage = () => {
             <span className="flex-1">Pull In Updates</span>
             <span className="material-symbols-rounded">refresh</span>
           </XDButton>
-          <button disabled className="w-full button button-primary button-sm">
+          <button
+            disabled={deployMutation.isLoading}
+            className="w-full button button-primary button-sm"
+            onClick={handleSubmission}
+          >
             <span className="flex-1">Push Updates To Deployments</span>
             <span className="material-symbols-rounded">send</span>
           </button>

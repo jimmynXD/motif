@@ -1,4 +1,5 @@
 import { createMainService } from "@/comlinkFigma"
+import { ColorToken } from "../shared/types"
 
 // multiple rgb values by 255
 const rgbValue = (value: number) => Math.round(value * 255)
@@ -15,26 +16,30 @@ export const getColors = () => {
   // get all colors from figma
   const colors = figma.getLocalPaintStyles()
 
-  const colorValues = colors.map((style) => {
-    const colorName = style.name.toLowerCase().replace(/\//g, ".")
-    const rgbColor = style.paints[0].type === "SOLID" && style.paints[0].color
+  const isColor = (val?: ColorToken): val is ColorToken => !!val
 
-    if (rgbColor) {
-      const rgb = {
-        r: rgbValue(rgbColor.r),
-        g: rgbValue(rgbColor.g),
-        b: rgbValue(rgbColor.b),
+  const colorValues = colors
+    .map((style) => {
+      const name = style.name.toLowerCase().replace(/\//g, ".")
+      const rgbColor = style.paints[0].type === "SOLID" && style.paints[0].color
+
+      if (rgbColor) {
+        const rgb = {
+          r: rgbValue(rgbColor.r),
+          g: rgbValue(rgbColor.g),
+          b: rgbValue(rgbColor.b),
+        }
+
+        const color = {
+          name,
+          hex: `#${rgbToHex(rgb.r, rgb.g, rgb.b)}`,
+          rgb,
+        }
+
+        return color
       }
-
-      const color = {
-        token: colorName,
-        hex: `#${rgbToHex(rgb.r, rgb.g, rgb.b)}`,
-        rgb,
-      }
-
-      return color
-    }
-  })
+    })
+    .filter(isColor)
 
   return colorValues
 }

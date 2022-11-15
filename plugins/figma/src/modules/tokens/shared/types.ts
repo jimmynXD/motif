@@ -1,5 +1,5 @@
-export interface ColorTokenInterface {
-  token: string
+export interface ColorToken {
+  name: string
   hex: string
   rgb: {
     r: number
@@ -8,8 +8,8 @@ export interface ColorTokenInterface {
   }
 }
 
-export interface TypographyTokenInterface {
-  token: string
+export interface TypographyToken {
+  name: string
   fontFamily: string
   fontWeight: string
   fontSize: number

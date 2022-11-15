@@ -3,7 +3,7 @@ import { useSession, signIn, signOut } from "next-auth/react"
 import { trpc } from "@/meta/web"
 
 export default function Web() {
-  const { isLoading, error, data } = trpc.hello.useQuery({
+  const { isLoading, error, data } = trpc.test.hello.useQuery({
     text: "Hello",
   })
 

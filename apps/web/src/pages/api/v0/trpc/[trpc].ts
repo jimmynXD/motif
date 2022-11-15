@@ -1,4 +1,4 @@
-import { appRouter, runExpressMiddleware } from "@/meta/api"
+import { appRouter, createContext, runExpressMiddleware } from "@/meta/api"
 import * as trpcNext from "@trpc/server/adapters/next"
 import Cors from "cors"
 import type { NextApiRequest, NextApiResponse } from "next"
@@ -10,7 +10,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   return trpcNext.createNextApiHandler({
     router: appRouter,
-    createContext: () => ({}),
+    createContext,
   })(req, res)
 }
 

@@ -1,6 +1,7 @@
 import { initTRPC } from "@trpc/server"
+import { Context } from "./utils"
 
-const t = initTRPC.create()
+export const t = initTRPC.context<Context>().create()
 
 /**
  * Unprotected procedure

@@ -5,7 +5,7 @@ export const getTypes = () => {
   const textStyles = figma.getLocalTextStyles()
 
   const typographyValues = textStyles.map((style) => {
-    const typographyName = style.name.toLowerCase().replace(/\//g, ".")
+    const name = style.name.toLowerCase().replace(/\//g, ".")
     const lineHeightRelative =
       style.lineHeight.unit === "PIXELS"
         ? Math.round((style.lineHeight.value / style.fontSize) * 100) / 100
@@ -17,12 +17,16 @@ export const getTypes = () => {
         : undefined
 
     const typography = {
-      token: typographyName,
-      fontFamily: style.fontName.family,
-      fontWeight: style.fontName.style.toLowerCase(),
-      fontSize: style.fontSize,
-      lineHeight: lineHeightAbsolute,
-      lineHeightRelative,
+      name,
+      font: {
+        weight: style.fontName.style.toLowerCase(),
+        family: style.fontName.family,
+        size: style.fontSize,
+      },
+      line: {
+        height: lineHeightAbsolute,
+        heightRelative: lineHeightRelative,
+      },
       letterSpacing: style.letterSpacing.value,
     }
 

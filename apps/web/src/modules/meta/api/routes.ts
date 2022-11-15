@@ -1,7 +1,8 @@
 import { z } from "zod"
-import { mergeRouters, publicProcedure, router } from "./_app"
+import { publicProcedure, router } from "./_app"
+import { tokenRouter } from "../../tokens/api"
 
-export const testRoutes = router({
+export const testRouter = router({
   hello: publicProcedure
     .input(
       z.object({
@@ -15,7 +16,10 @@ export const testRoutes = router({
     }),
 })
 
-export const appRouter = mergeRouters(testRoutes)
+export const appRouter = router({
+  test: testRouter,
+  token: tokenRouter,
+})
 
 // export type definition of API
 export type AppRouter = typeof appRouter

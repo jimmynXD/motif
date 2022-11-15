@@ -1,3 +1,6 @@
+import { getXataClient } from "../../db/api"
+import { inferAsyncReturnType } from "@trpc/server"
+import type { CreateNextContextOptions } from "@trpc/server/adapters/next"
 import type { NextApiRequest, NextApiResponse } from "next"
 
 // Helper method to wait for a middleware to execute before continuing
@@ -17,3 +20,13 @@ export function runExpressMiddleware(
     })
   })
 }
+
+export const createContext = async ({ req, res }: CreateNextContextOptions) => {
+  return {
+    req,
+    res,
+    xata: getXataClient(),
+  }
+}
+
+export type Context = inferAsyncReturnType<typeof createContext>

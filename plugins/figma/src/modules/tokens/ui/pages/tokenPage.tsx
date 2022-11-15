@@ -8,11 +8,10 @@ import { trpc } from "@/meta/ui"
 export const TokenPage = () => {
   const { data, isLoading, error, refetch } = useQuery(["tokens"], getFigmaData)
 
-  const t = trpc.hello.useQuery({
+  // TODO: remove later. only for ref
+  const t = trpc.test.hello.useQuery({
     text: "hello",
   })
-
-  // TODO: remove later. only for ref
   console.log(t.data)
 
   if (isLoading) {
@@ -76,7 +75,7 @@ export const TokenPage = () => {
                             "border-b border-b-xd-neutral-300 group-last:border-b-transparent"
                           )}
                         >
-                          {color.token.replace(/\./g, "-")}
+                          {color.name.replace(/\./g, "-")}
                         </td>
                         <td
                           className={clsx(
@@ -119,7 +118,7 @@ export const TokenPage = () => {
                         "align-top"
                       )}
                     >
-                      <span>{text.token.replace(/\./g, "-")}</span>
+                      <span>{text.name.replace(/\./g, "-")}</span>
                     </td>
                     <td
                       className={clsx(
@@ -129,15 +128,15 @@ export const TokenPage = () => {
                     >
                       <div className="text-xd-primary-purple-700 space-x-1">
                         <span>font-size&#58;</span>
-                        <span>{text.fontSize}px</span>
+                        <span>{text.font.size}px</span>
                       </div>
                       <div className="text-xd-primary-purple-700 space-x-1">
                         <span>font-weight&#58;</span>
-                        <span>{text.fontWeight}</span>
+                        <span>{text.font.family}</span>
                       </div>
                       <div className="text-xd-primary-purple-700 space-x-1">
                         <span>line-height&#58;</span>
-                        <span>{text.lineHeight}</span>
+                        <span>{text.line.height}</span>
                       </div>
                     </td>
                   </tr>
