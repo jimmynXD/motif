@@ -1,42 +1,72 @@
 import clsx from "clsx"
 import { useQuery } from "@tanstack/react-query"
 import { getFigmaData } from "../api"
-import { TopNav, XDButton } from "@/meta/ui/components"
-
-import { trpc } from "@/meta/ui"
+import { DiffStateUI, LoadingUI, TopNav, XDButton } from "@/meta/ui/components"
+import { mainServices } from "@/meta/ui"
 
 export const TokenPage = () => {
   const { data, isLoading, error, refetch } = useQuery(["tokens"], getFigmaData)
 
-  // TODO: remove later. only for ref
-  const t = trpc.test.hello.useQuery({
-    text: "hello",
-  })
-  console.log(t.data)
+  const createTokenHandler = async () => {
+    const genPrimaryColorTokenPromise =
+      mainServices.tokens.template.genColorTokens("Colors - Primary")
+    const genSecondaryColorTokenPromise =
+      mainServices.tokens.template.genColorTokens("Colors - Secondary")
+
+    await Promise.all([
+      genPrimaryColorTokenPromise,
+      genSecondaryColorTokenPromise,
+    ])
+
+    refetch()
+  }
 
   if (isLoading) {
-    return <span>Loading...</span>
+    return <LoadingUI />
   }
 
   if (error instanceof Error) {
-    return <span>{error?.message}</span>
+    return <DiffStateUI subMsg="Try Reloading.">{error?.message}</DiffStateUI>
   }
 
-  if (!data) return <span>no data</span>
+  if (!data)
+    return (
+      <DiffStateUI icon="breaking_news_alt_1" subMsg="Try Reloading.">
+        No data found.
+      </DiffStateUI>
+    )
 
   return (
     <main>
       <TopNav />
       <section className="py-8">
-        <div className="flex justify-center">
+        <div className="flex flex-col items-center space-y-8 px-8">
           <XDButton
+            className="w-full"
             onClick={() => {
               refetch()
             }}
           >
-            <span>Pull In Updates</span>
+            <span className="flex-1">Pull In Updates</span>
             <span className="material-symbols-rounded">refresh</span>
           </XDButton>
+          <button
+            onClick={createTokenHandler}
+            className="button button-primary button-sm space-x-2 w-full"
+          >
+            <span className="flex-1">Generate Color Tokens</span>
+            <span className="material-symbols-rounded">loupe</span>
+          </button>
+          <button
+            onClick={() => {
+              mainServices.tokens.template.genTextTokens("Typography")
+              refetch()
+            }}
+            className="button button-primary button-sm space-x-2 w-full"
+          >
+            <span className="flex-1">Generate Text Style Tokens</span>
+            <span className="material-symbols-rounded">loupe</span>
+          </button>
         </div>
         <div className="pt-8">
           <div className="leading-5 text-xs text-center bg-xd-secondary-black-rgb text-white">
@@ -128,11 +158,15 @@ export const TokenPage = () => {
                     >
                       <div className="text-xd-primary-purple-700 space-x-1">
                         <span>font-size&#58;</span>
+                        <span>{text.font.family}</span>
+                      </div>
+                      <div className="text-xd-primary-purple-700 space-x-1">
+                        <span>font-size&#58;</span>
                         <span>{text.font.size}px</span>
                       </div>
                       <div className="text-xd-primary-purple-700 space-x-1">
                         <span>font-weight&#58;</span>
-                        <span>{text.font.family}</span>
+                        <span>{text.font.weight}</span>
                       </div>
                       <div className="text-xd-primary-purple-700 space-x-1">
                         <span>line-height&#58;</span>

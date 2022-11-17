@@ -3,14 +3,19 @@
  */
 
 import * as React from "react"
-import { TopNav, XDButton } from "@/meta/ui/components"
+import { DiffStateUI, LoadingUI, TopNav, XDButton } from "@/meta/ui/components"
 import { useQuery } from "@tanstack/react-query"
 import { getFigmaData } from "@/tokens/ui/api"
 
 import { trpc } from "@/meta/ui"
+import { useNavigate, useLocation, Outlet } from "react-router-dom"
 
 export const DeployPage = () => {
   const { data, isLoading, error, refetch } = useQuery(["tokens"], getFigmaData)
+
+  const location = useLocation()
+
+  const navigate = useNavigate()
 
   const colorCount = React.useMemo(() => {
     return data?.colorResults.length
@@ -26,21 +31,32 @@ export const DeployPage = () => {
       return
     }
 
+    // TODO: Check if there are any changes since last deployment
+
     await deployMutation.mutateAsync({
       colorTokens: data.colorResults,
       typographyTokens: data.textResults,
     })
+
+    return navigate("/deploy/success", { relative: "route" })
   }
 
   if (isLoading) {
-    return <span>Loading...</span>
+    return <LoadingUI />
   }
 
   if (error instanceof Error) {
-    return <span>{error?.message}</span>
+    return <DiffStateUI subMsg="Try Reloading.">{error?.message}</DiffStateUI>
   }
 
-  if (!data) return <span>no data</span>
+  if (!data)
+    return (
+      <DiffStateUI icon="breaking_news_alt_1" subMsg="Try Reloading.">
+        No data found.
+      </DiffStateUI>
+    )
+
+  if (location.pathname === "/deploy/success") return <Outlet />
 
   return (
     <main className="flex flex-col h-full">
