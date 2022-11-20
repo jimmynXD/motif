@@ -1,5 +1,6 @@
 import { createMainService } from "@/comlinkFigma"
 import { ColorToken } from "../shared/types"
+import { genBaseTextColor } from "./generateService"
 
 // multiple rgb values by 255
 const rgbValue = (value: number) => Math.round(value * 255)
@@ -44,8 +45,28 @@ export const getColors = () => {
   return colorValues
 }
 
+const getBaseTextColor = () => {
+  const data = genBaseTextColor("Typography")
+
+  if (!data) return
+
+  const rgb = {
+    r: rgbValue(data.r),
+    g: rgbValue(data.g),
+    b: rgbValue(data.b),
+  }
+  const color = {
+    name: "root/color",
+    hex: `#${rgbToHex(rgb.r, rgb.g, rgb.b)}`,
+    rgb,
+  }
+
+  return color
+}
+
 export const service = {
   getColors,
+  getBaseTextColor,
 }
 
 export default createMainService(service)

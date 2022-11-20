@@ -55,9 +55,10 @@ export const HeroBanner: FC = () => {
             Your Design System as an API
           </div>
           <p>
-            Handoffs between designer to developer just got a whole lot easierXD
-            Designers creates the styles and designs, motif creates an API, and
-            developers sit back and get it in directly to their codebase.
+            Handoffs between designer to developer just got a whole lot easier!
+            Designers create and update their styles in Figma, we translate
+            those styles and create an API, all while the devs sit back and get
+            it in directly into their codebase.
           </p>
           <div
             className={clsx(

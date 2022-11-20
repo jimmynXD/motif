@@ -27,7 +27,7 @@ function App() {
           </Routes>
         </Router>
         <Outlet />
-        <ReactQueryDevtools initialIsOpen={false} />
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       </TRPCProvider>
     </QueryClientProvider>
   )

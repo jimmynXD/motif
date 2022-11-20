@@ -127,6 +127,28 @@ export const genTextTokens = (sectionName: string) => {
   })
 }
 
+export const genBaseTextColor = (sectionName: string) => {
+  const isText = (val?: SceneNode): val is TextNode => !!val
+
+  // find the text element labeled text/root
+  const [findBase] = accessSection(sectionName)
+    .findAll((node) => node.type === "TEXT")
+    .filter(isText)
+    .filter((text) => text.name === "text/root")
+
+  if (!Array.isArray(findBase.fills) || findBase.fills.length <= 0) return
+  const isPaint = (val?: Paint): val is Paint => !!val
+
+  // type of solid will have the color object we need
+  const [style] = findBase.fills.filter(isPaint).map((item) => {
+    if (item.type === "SOLID") {
+      return item.color
+    }
+  })
+
+  return style
+}
+
 export const service = {
   genPage,
   genColorTokens,

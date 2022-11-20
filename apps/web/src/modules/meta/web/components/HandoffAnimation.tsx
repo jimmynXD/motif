@@ -25,7 +25,7 @@ export const HandoffAnimation: FC = () => {
           className={clsx(
             "absolute right-4 top-1/2 -translate-y-1/2 max-w-[80px] sm:max-w-[25%] text-sm tracking-wide max-h-[280]",
             "lg:text-base lg:text-white",
-            "xl:max-w-[40%]"
+            "xl:max-w-[30%]"
           )}
         >
           <p className="hidden sm:block">
@@ -57,7 +57,7 @@ export const HandoffAnimation: FC = () => {
           className={clsx(
             "absolute right-4 top-1/2 -translate-y-1/2 max-w-[80px] sm:max-w-[25%] text-sm tracking-wide max-h-[280]",
             "lg:text-base lg:text-white",
-            "xl:max-w-[40%]"
+            "xl:max-w-[30%]"
           )}
         >
           <p className="hidden sm:block">
@@ -114,7 +114,7 @@ export const HandoffAnimation: FC = () => {
           className={clsx(
             "absolute right-4 top-1/2 -translate-y-1/2 max-w-[80px] sm:max-w-[25%] text-sm tracking-wide max-h-[280]",
             "lg:text-base lg:text-white",
-            "xl:max-w-[40%]"
+            "xl:max-w-[30%]"
           )}
         >
           <p className="hidden sm:block">
