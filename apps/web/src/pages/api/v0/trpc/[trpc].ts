@@ -1,4 +1,5 @@
-import { appRouter, createContext, runExpressMiddleware } from "@/meta/api"
+import { createContext, runExpressMiddleware } from "@/meta/api"
+import { appRouter } from "@/meta/api/routes"
 import * as trpcNext from "@trpc/server/adapters/next"
 import Cors from "cors"
 import type { NextApiRequest, NextApiResponse } from "next"

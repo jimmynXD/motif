@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": [
-        "src/modules/*"
+        "src/modules/*",
+        "./node_modules/web/src/modules/*"
       ],
       "@labxd/comlink-figma": [
         "src/modules/comlinkFigma"

@@ -1,4 +1,4 @@
-import { publicProcedure, router } from "../../meta/api/_app"
+import { publicProcedure, router } from "../../meta/api"
 import { tokensService, publishManyTokensArgs } from "./service"
 
 export const tokenRouter = router({

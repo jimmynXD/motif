@@ -1,6 +1,6 @@
 import { httpBatchLink } from "@trpc/client"
 import { createTRPCNext } from "@trpc/next"
-import { type AppRouter } from "@/meta/api"
+import { type AppRouter } from "../api/routes"
 
 function getBaseUrl() {
   if (typeof window !== "undefined")
@@ -20,6 +20,9 @@ export const trpc = createTRPCNext<AppRouter>({
     return {
       links: [
         httpBatchLink({
+          headers: () => ({
+            cookie: ctx?.req?.headers?.cookie ?? "",
+          }),
           /**
            * If you want to use SSR, you need to use the server's full URL
            * @link https://trpc.io/docs/ssr

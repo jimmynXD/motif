@@ -22,6 +22,8 @@
     "@xata.io/client": "^0.20.2",
     "autoprefixer": "^10.4.13",
     "cors": "^2.8.5",
+    "lodash.uniqby": "^4.7.0",
+    "nanoid": "^4.0.0",
     "motifxd-tailwind-config": "workspace:*",
     "next": "13.0.3",
     "next-auth": "^4.16.4",
@@ -39,6 +41,7 @@
     "@babel/core": "^7.0.0",
     "@svgr/webpack": "^6.5.1",
     "@types/cors": "^2.8.12",
+    "@types/lodash.uniqby": "^4.7.7",
     "@types/node": "^18.0.0",
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
@@ -52,11 +55,11 @@
   "typesVersions": {
     "*": {
       "api": [
-        "./src/modules/meta/api/index.ts"
+        "./src/modules/meta/api/routes.ts"
       ]
     }
   },
   "exports": {
-    "./api": "./src/modules/meta/api/index.ts"
+    "./api": "./src/modules/meta/api/routes.ts"
   }
 }
