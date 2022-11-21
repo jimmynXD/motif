@@ -1,5 +1,5 @@
 import { createMainService } from "@/comlinkFigma"
-import { accessSection, rgbToHex, rgbValue } from "./utils"
+import { rgbToHex, rgbValue } from "./utils"
 
 export const genPage = () => {
   const root = figma.root
@@ -31,9 +31,20 @@ export const genColorTokens = (sectionName: string, prefix?: string) => {
   // type guards
   const isRectangle = (val?: SceneNode): val is RectangleNode => !!val
 
+  const isSection = (val?: SceneNode): val is SectionNode =>
+    !!val && val.type === "SECTION"
+
+  const [findSection] = figma.currentPage
+    .findChildren(
+      (node) => node.type === "SECTION" && node.name === sectionName
+    )
+    .filter(isSection)
+
+  if (!findSection) return console.log(sectionName, " cannot be found")
+
   // find all rectangles inside the section
   // sort alphabetically
-  const findRectangles = accessSection(sectionName)
+  const findRectangles = findSection
     .findAll((node) => node.type === "RECTANGLE")
     .filter(isRectangle)
     .sort((a, b) => a.name.localeCompare(b.name))
@@ -87,8 +98,19 @@ export const genTextTokens = (sectionName: string) => {
   // type guards
   const isText = (val?: SceneNode): val is TextNode => !!val
 
+  const isSection = (val?: SceneNode): val is SectionNode =>
+    !!val && val.type === "SECTION"
+
+  const [findSection] = figma.currentPage
+    .findChildren(
+      (node) => node.type === "SECTION" && node.name === sectionName
+    )
+    .filter(isSection)
+
+  if (!findSection) return console.log(sectionName, " cannot be found")
+
   // find all text nodes inside the section
-  const findText = accessSection(sectionName)
+  const findText = findSection
     .findAll((node) => node.type === "TEXT")
     .filter(isText)
     .sort((a, b) => a.name.localeCompare(b.name))
@@ -127,14 +149,35 @@ export const genTextTokens = (sectionName: string) => {
   })
 }
 
-export const genBaseTextColor = (sectionName: string) => {
-  const isText = (val?: SceneNode): val is TextNode => !!val
+export const genRootTextColor = (sectionName: string) => {
+  const dsPage = figma.root.children.filter((page) =>
+    page.name.toLowerCase().endsWith("design system")
+  )[0]
 
+  // jump to dsPage
+  if (figma.currentPage !== dsPage) {
+    figma.currentPage = dsPage
+    alert("Redirecting to the Design System page")
+  }
+
+  const isText = (val?: SceneNode): val is TextNode => !!val
+  const isSection = (val?: SceneNode): val is SectionNode =>
+    !!val && val.type === "SECTION"
+
+  const [findSection] = figma.currentPage
+    .findChildren(
+      (node) => node.type === "SECTION" && node.name === sectionName
+    )
+    .filter(isSection)
+
+  if (!findSection) return console.log(sectionName, " cannot be found")
   // find the text element labeled text/root
-  const [findBase] = accessSection(sectionName)
+  const [findBase] = findSection
     .findAll((node) => node.type === "TEXT")
     .filter(isText)
-    .filter((text) => text.name === "text/root")
+    .filter((text) => text.name === "root/text")
+
+  if (!findBase) return
 
   if (!Array.isArray(findBase.fills) || findBase.fills.length <= 0) return
   const isPaint = (val?: Paint): val is Paint => !!val

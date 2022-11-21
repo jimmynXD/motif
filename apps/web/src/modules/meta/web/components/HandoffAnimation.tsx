@@ -7,11 +7,14 @@ import ServerPNG from "../assets/server.png"
 
 export const HandoffAnimation: FC = () => {
   return (
-    <div className={clsx("flex flex-col items-center pt-20")}>
+    <div className={clsx("page-max-xl flex flex-col items-center pt-28")}>
+      <div className="font-bold tracking-wider text-2xl md:text-3xl">
+        Seamless handoff between designers and devs
+      </div>
       {/* designer widget */}
       <div
         className={clsx(
-          "w-full flex justify-center py-6 relative",
+          "mt-8 w-full flex justify-center py-6 relative",
           "bg-gradient-to-r from-red-500 to-red-500",
           "after:px-2 after:absolute after:left-0 after:-translate-x-1/4 after:top-1/2 after:-translate-y-1/2 after:rotate-90",
           "after:h-8 after:content-['DESIGNER'] after:text-2xl after:font-bold",

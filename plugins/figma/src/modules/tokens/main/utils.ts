@@ -9,20 +9,6 @@ export const rgbToHex = (r: number, g: number, b: number) => {
 // create rgb values
 export const rgbValue = (value: number) => Math.round(value * 255)
 
-// access a specific section in a page
-export const accessSection = (sectionName: string) => {
-  const isSection = (val?: SceneNode): val is SectionNode =>
-    !!val && val.type === "SECTION"
-
-  const [findSection] = figma.currentPage
-    .findChildren(
-      (node) => node.type === "SECTION" && node.name === sectionName
-    )
-    .filter(isSection)
-
-  return findSection
-}
-
 //   // find all frames inside the section
 //   const isFrame = (val?: SceneNode): val is FrameNode => !!val
 //   const findFrames = findSection

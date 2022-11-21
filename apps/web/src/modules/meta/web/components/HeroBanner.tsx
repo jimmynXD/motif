@@ -41,7 +41,9 @@ export const HeroBanner: FC = () => {
   }
 
   return (
-    <div className={clsx("flex flex-col items-center", "lg:flex-row")}>
+    <div
+      className={clsx("page-max-xl flex flex-col items-center", "lg:flex-row")}
+    >
       <section
         className={clsx(
           "flex flex-col md:items-center w-full",

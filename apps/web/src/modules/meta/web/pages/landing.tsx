@@ -5,6 +5,7 @@ import {
   HeroBanner,
   PageLayout,
   TopNav,
+  VideoDemo,
 } from "../components"
 export const LandingPage: NextPage = () => {
   return (
@@ -15,8 +16,9 @@ export const LandingPage: NextPage = () => {
       footer={<Footer />}
       cls={"bg-black/90"}
     >
-      <main className="page-max-xl pt-16 pb-8 text-white">
+      <main className="pt-16 pb-8 text-white">
         <HeroBanner />
+        <VideoDemo />
         <HandoffAnimation />
       </main>
     </PageLayout>

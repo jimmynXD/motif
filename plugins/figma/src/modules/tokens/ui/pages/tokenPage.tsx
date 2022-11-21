@@ -5,12 +5,15 @@ import { DiffStateUI, LoadingUI, TopNav } from "@/meta/ui/components"
 import { mainServices } from "@/meta/ui"
 import { useState } from "react"
 
+const rootTextName = "root.text"
 export const TokenPage = () => {
   const { data, isLoading, error, refetch } = useQuery(["tokens"], getFigmaData)
 
   const [lastRefresh, setLastRefresh] = useState(new Date().toLocaleString())
 
-  const textRoot = data?.textResults.filter((item) => item.name === "text.root")
+  const textRoot = data?.textResults.filter(
+    (item) => item.name === rootTextName
+  )
 
   const createTokenHandler = async () => {
     const genPrimaryColorTokenPromise =
@@ -58,7 +61,7 @@ export const TokenPage = () => {
             <span className="material-symbols-rounded">loupe</span>
           </button>
         </div>
-        {textRoot && (
+        {!!textRoot && textRoot?.length > 0 && (
           <div className="pt-8">
             <div className="leading-5 text-xs text-center bg-xd-secondary-black-rgb text-white">
               Base Text Styles
@@ -92,7 +95,8 @@ export const TokenPage = () => {
                         "border-b border-b-xd-neutral-300 group-last:border-b-transparent"
                       )}
                     >
-                      {data.baseColorResults?.hex}
+                      {!!data.rootTextColorResults &&
+                        data.rootTextColorResults.hex}
                     </td>
                   </tr>
                   <tr className="group">
@@ -248,7 +252,7 @@ export const TokenPage = () => {
               </thead>
               <tbody>
                 {data?.textResults
-                  .filter((item) => item.name !== "text.root")
+                  .filter((item) => item.name !== rootTextName)
                   .map((text, index) => (
                     <tr key={index} className="group">
                       <td
