@@ -18,6 +18,7 @@ export const genPage = () => {
 }
 
 export const genColorTokens = (sectionName: string, prefix?: string) => {
+  genPage()
   const dsPage = figma.root.children.filter((page) =>
     page.name.toLowerCase().endsWith("design system")
   )[0]
@@ -85,6 +86,7 @@ export const genColorTokens = (sectionName: string, prefix?: string) => {
 }
 
 export const genTextTokens = (sectionName: string) => {
+  genPage()
   const dsPage = figma.root.children.filter((page) =>
     page.name.toLowerCase().endsWith("design system")
   )[0]
@@ -150,6 +152,7 @@ export const genTextTokens = (sectionName: string) => {
 }
 
 export const genRootTextColor = (sectionName: string) => {
+  genPage()
   const dsPage = figma.root.children.filter((page) =>
     page.name.toLowerCase().endsWith("design system")
   )[0]
