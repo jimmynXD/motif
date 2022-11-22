@@ -1,0 +1,25 @@
+{
+  "name": "@motifxd/tailwind",
+  "version": "0.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "files": [
+    "src"
+  ],
+  "keywords": [],
+  "author": "jimmynXD",
+  "license": "MIT",
+  "peerDependencies": {
+    "tailwindcss": ">3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18",
+    "tailwindcss": "3.2.4",
+    "tsconfig": "workspace:*",
+    "typescript": "4.9.3"
+  }
+}

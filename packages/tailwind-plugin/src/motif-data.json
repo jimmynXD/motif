@@ -1,0 +1,48 @@
+{
+  "colorTokens": {
+    "primary": {
+      "purple": "#F630FF"
+    },
+    "secondary": {
+      "yellow": "#ff0",
+      "red": "#ff0000"
+    }
+  },
+  "typography": {
+    "fontFamily": "Roboto, sans-serif",
+    "fontSize": "16px",
+    "lineHeight": "1.5",
+    "fontWeight": 400,
+    "color": "#212121",
+    "variant": {
+      "headline": [
+        {
+          "name": "xl",
+          "fontSize": 32,
+          "lineHeight": 40,
+          "fontWeight": "bold"
+        },
+        {
+          "name": "2xl",
+          "fontSize": 40,
+          "lineHeight": 48,
+          "fontWeight": "bold"
+        }
+      ],
+      "paragraph": [
+        {
+          "name": "xl",
+          "fontSize": 32,
+          "lineHeight": 40,
+          "fontWeight": "bold"
+        },
+        {
+          "name": "2xl",
+          "fontSize": 40,
+          "lineHeight": 48,
+          "fontWeight": "bold"
+        }
+      ]
+    }
+  }
+}
