@@ -10,8 +10,13 @@ export const genPage = () => {
     ).length > 0
 
   if (!hasDSPage) {
-    const createPage = figma.createPage()
-    return (createPage.name = "Design System")
+    figma.createPage().name = "Design System"
+    const dsNode = root.findChild((item) =>
+      // return child that has name of design system. returns undefined if not found
+      item.name.toLowerCase().endsWith("design system")
+    ) as PageNode
+
+    return root.insertChild(0, dsNode)
   }
 
   return console.log("Design System page already exists")

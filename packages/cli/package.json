@@ -1,0 +1,82 @@
+{
+  "name": "@motifxd/cli",
+  "version": "0.0.0",
+  "description": "motifXD CLI for working with the motif ecosystem inside your terminal",
+  "author": "jimmynXD",
+  "bin": {
+    "motif": "./bin/run"
+  },
+  "license": "UNLICENSED",
+  "main": "dist/index.js",
+  "files": [
+    "/bin",
+    "/dist",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json",
+    "motif-data.json"
+  ],
+  "dependencies": {
+    "@oclif/core": "^1.19.1",
+    "@oclif/plugin-help": "^5",
+    "@oclif/plugin-plugins": "^2.1.7",
+    "env-paths": "^3.0.0",
+    "ink": "^3.2.0",
+    "ink-big-text": "^1.2.0",
+    "ink-gradient": "^2.0.0",
+    "ink-select-input": "^4.2.1",
+    "react": "^18.2.0",
+    "zod": "^3.19.1"
+  },
+  "devDependencies": {
+    "@oclif/test": "^2.2.10",
+    "@types/ink-big-text": "^1.2.1",
+    "@types/ink-gradient": "^2.0.1",
+    "@types/node": "^18",
+    "@types/react": "^18.0.25",
+    "eslint": "7.32.0",
+    "eslint-config-oclif": "^4",
+    "eslint-config-oclif-typescript": "^1.0.3",
+    "oclif": "^3",
+    "shx": "^0.3.3",
+    "ts-node": "^10.9.1",
+    "tsconfig": "workspace:*",
+    "tslib": "^2.4.1",
+    "typescript": "^4.8.4",
+    "eslint-config-custom": "workspace:*"
+  },
+  "oclif": {
+    "bin": "motif",
+    "dirname": "motif",
+    "commands": "./dist/commands",
+    "plugins": [
+      "@oclif/plugin-help",
+      "@oclif/plugin-plugins"
+    ],
+    "topicSeparator": " ",
+    "topics": {
+      "hello": {
+        "description": "Say hello to the world and others"
+      }
+    }
+  },
+  "scripts": {
+    "build": "shx rm -rf dist && tsc -b",
+    "lint": "eslint . --ext .ts",
+    "postpack": "shx rm -f oclif.manifest.json",
+    "posttest": "yarn lint",
+    "prepack": "yarn build && oclif manifest && oclif readme",
+    "version": "oclif readme && git add README.md"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "bugs": "https://github.com/https://github.com/HouseOfXD/motifXD/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HouseOfXD/motifXD.git"
+  },
+  "keywords": [
+    "oclif"
+  ],
+  "types": "dist/index.d.ts"
+}
