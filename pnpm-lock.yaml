@@ -147,6 +147,7 @@ importers:
       ink-big-text: ^1.2.0
       ink-gradient: ^2.0.0
       ink-select-input: ^4.2.1
+      nodemon: ^2.0.20
       oclif: ^3
       react: ^18.2.0
       shx: ^0.3.3
@@ -176,6 +177,7 @@ importers:
       eslint-config-custom: link:../eslint-config-custom
       eslint-config-oclif: 4.0.0_eslint@7.32.0
       eslint-config-oclif-typescript: 1.0.3_77fvizpdb3y4icyeo2mf4eo7em
+      nodemon: 2.0.20
       oclif: 3.2.28
       shx: 0.3.4
       ts-node: 10.9.1_wup25etrarvlqkprac7h35hj7u
