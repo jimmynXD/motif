@@ -1,1 +1,1 @@
-export { default } from "@/user/web/pages/WorkspaceRoot"
+export { WorkspaceRoot as default } from "@/user/web"

@@ -1,4 +1,4 @@
-import { router } from "@/meta/api"
+import { publicProcedure, router } from "@/meta/api"
 import { userProcedure, workspaceProcedure } from "./procedures"
 import uniqBy from "lodash.uniqby"
 import {
@@ -11,6 +11,7 @@ import {
 import { getWorkspace } from "./service"
 import { WorkspaceRecord } from "@/db/api"
 import { enhanceWithUserWorkspaceRoles } from "./middlewares"
+import { z } from "zod"
 
 export const workspaceRouter = router({
   create: userProcedure
@@ -58,4 +59,11 @@ export const userRouter = router({
 
     return createWorkspace({ ctx, input: { isDefault: true } })
   }),
+  createEarlyAccessEntry: publicProcedure
+    .input(z.object({ email: z.string() }))
+    .mutation(async ({ ctx, input: { email } }) => {
+      return ctx.xata.db.EarlyAccessUser.create({
+        email,
+      })
+    }),
 })

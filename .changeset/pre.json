@@ -1,0 +1,19 @@
+{
+  "mode": "pre",
+  "tag": "alpha",
+  "initialVersions": {
+    "docs": "0.0.0",
+    "web": "0.0.0",
+    "@motifxd/cli": "0.0.0",
+    "eslint-config-custom": "0.0.0",
+    "motifxd-tailwind-config": "0.0.0",
+    "@motifxd/tailwind": "0.0.0",
+    "tsconfig": "0.0.0",
+    "ui": "0.0.0",
+    "@labxd/motif-figma-plugin": "0.0.0",
+    "@motifxd/motif-figma-plugin": "0.0.0"
+  },
+  "changesets": [
+    "thirty-paws-turn"
+  ]
+}

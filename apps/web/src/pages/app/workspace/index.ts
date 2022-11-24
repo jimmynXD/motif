@@ -1,1 +1,1 @@
-export { default } from "@/user/web/pages/RedirectDefault"
+export { RedirectRootWorkspace as default } from "@/user/web"

@@ -26,7 +26,7 @@ export const PageLayout: FC<PageLayoutProps> = ({
       <Head>
         <title>
           {pageTitle}
-          {!primary && " - labXD"}
+          {!primary ? " - labXD" : ""}
         </title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>

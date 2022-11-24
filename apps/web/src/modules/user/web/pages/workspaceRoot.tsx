@@ -1,9 +1,15 @@
+import { PageLayout, TopNav } from "@/meta/web"
+import clsx from "clsx"
+import { NextPage } from "next"
 import { useRouter } from "next/router"
-import { useEffect, type FC } from "react"
+import { useEffect } from "react"
 import { AllWorkspaces } from "../containers"
 import { WorkspaceRootContainer } from "../containers/WorkspaceRootContainer"
 
-const WorkspaceRoot: FC = () => {
+/**
+ * Workspace root page
+ */
+export const WorkspaceRoot: NextPage = () => {
   const router = useRouter()
   const { workspaceSlug } = router.query
 
@@ -22,11 +28,11 @@ const WorkspaceRoot: FC = () => {
   }
 
   return (
-    <>
-      <AllWorkspaces />
-      <WorkspaceRootContainer slug={workspaceSlug} />
-    </>
+    <PageLayout pageTitle="Workspace" topNav={<TopNav pageLevel />}>
+      <main className={clsx("fixed inset-0")}>
+        <AllWorkspaces />
+        <WorkspaceRootContainer slug={workspaceSlug} />
+      </main>
+    </PageLayout>
   )
 }
-
-export default WorkspaceRoot

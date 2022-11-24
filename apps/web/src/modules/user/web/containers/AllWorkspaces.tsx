@@ -2,6 +2,7 @@ import { trpc } from "@/meta/web"
 import { FC } from "react"
 
 import Link from "next/link"
+import clsx from "clsx"
 
 export const AllWorkspaces: FC = () => {
   const { data, isLoading, error, refetch } =
@@ -22,7 +23,9 @@ export const AllWorkspaces: FC = () => {
   }
 
   return (
-    <>
+    <aside
+      className={clsx("absolute left-0 top-16 bottom-0", "w-72 bg-red-500")}
+    >
       <input
         type="text"
         onKeyDown={async (e) => {
@@ -36,6 +39,6 @@ export const AllWorkspaces: FC = () => {
           {workspace.name}
         </Link>
       ))}
-    </>
+    </aside>
   )
 }

@@ -1,28 +1,37 @@
 {
   "name": "motifxd-monorepo",
   "private": true,
+  "description": "all things motifXD",
   "scripts": {
     "bootstrap": "pnpm install && husky install",
-    "typecheck": "turbo run typecheck --parallel",
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
-    "dev:web": "pnpm run dev --filter web",
+    "dev:cli": "pnpm run dev --filter @motifxd/cli",
     "dev:docs": "pnpm run dev --filter docs",
-    "dev:plugin:only": "pnpm run dev --filter @labxd/motif-figma-plugin",
-    "dev:plugin": "pnpm run dev --filter web --filter @labxd/motif-figma-plugin",
-    "lint": "turbo run lint --parallel",
+    "dev:plugin": "pnpm run dev --filter web --filter @motifxd/figma-plugin",
+    "dev:plugin:only": "pnpm run dev --filter @motifxd/figma-plugin",
+    "dev:web": "pnpm run dev --filter web",
+    "format": "prettier --write \"**/*.{js,ts,tsx,md}\"",
+    "format:packagejson": "syncpack format",
+    "hook:pre-commit": "concurrently pnpm:hook:pre-commit:lint pnpm:hook:pre-commit:typecheck pnpm:hook:pre-commit:syncpack",
     "hook:pre-commit:lint": "lint-staged",
+    "hook:pre-commit:syncpack": "syncpack",
     "hook:pre-commit:typecheck": "pnpm run typecheck",
-    "hook:pre-commit": "concurrently pnpm:hook:pre-commit:lint pnpm:hook:pre-commit:typecheck",
-    "format": "prettier --write \"**/*.{js,ts,tsx,md}\""
+    "lint": "turbo run lint --parallel",
+    "typecheck": "turbo run typecheck --parallel"
+  },
+  "dependencies": {
+    "@changesets/cli": "^2.25.2"
   },
   "devDependencies": {
     "concurrently": "^7.6.0",
-    "eslint-config-custom": "0.0.0",
+    "eslint-config-custom": "workspace:*",
     "git-commit-msg-linter": "^4.2.1",
     "husky": "^8.0.2",
     "lint-staged": "^13.0.3",
     "prettier": "^2.8.0",
+    "syncpack": "^8.3.9",
+    "tsconfig": "workspace:*",
     "turbo": "^1.6.3"
   },
   "engines": {

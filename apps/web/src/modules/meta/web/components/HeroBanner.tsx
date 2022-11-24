@@ -4,14 +4,17 @@ import { FC, useState } from "react"
 import TokensPNG from "../assets/tokens.png"
 import DeployPNG from "../assets/deploy.png"
 import { ToastBanner, Variant } from "./Banner"
+import { trpc } from "@/meta/web"
 export const HeroBanner: FC = () => {
+  // get mutation function
+  const earlyAccessMutation = trpc.user.createEarlyAccessEntry.useMutation()
   const [emailInput, setEmailInput] = useState<string>("")
 
   const handleInputOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmailInput(e.target.value)
   }
 
-  const handleEmailSubmit = () => {
+  const handleEmailSubmit = async () => {
     if (!emailInput) return
 
     const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g
@@ -24,20 +27,26 @@ export const HeroBanner: FC = () => {
       return
     }
 
-    console.log("email recorded\n", emailInput)
+    try {
+      await earlyAccessMutation.mutateAsync({ email: emailInput })
+      ToastBanner({
+        duration: 10000,
+        title: (
+          <span>
+            You have signed up with{" "}
+            <b className="underline underline-offset-2">{emailInput}</b>.
+          </span>
+        ),
+        children:
+          "Next steps is to be on the lookout for an email from us. We anticipate before the new year.",
+      })
+    } catch (error) {
+      ToastBanner({
+        title: "Already registered. Thank you much again!",
+        variant: Variant.ERROR,
+      })
+    }
     setEmailInput("")
-
-    return ToastBanner({
-      duration: 10000,
-      title: (
-        <span>
-          You have signed up with{" "}
-          <b className="underline underline-offset-2">{emailInput}</b>.
-        </span>
-      ),
-      children:
-        "Next steps is to be on the lookout for an email from us. We anticipate before the new year.",
-    })
   }
 
   return (

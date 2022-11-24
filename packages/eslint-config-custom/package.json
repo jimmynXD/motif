@@ -1,15 +1,15 @@
 {
   "name": "eslint-config-custom",
   "version": "0.0.0",
-  "main": "index.js",
   "license": "UNLICENSED",
-  "scripts": {
-    "lint": "eslint ."
-  },
+  "main": "index.js",
   "exports": {
     ".": "./src/index.js",
     "./base": "./src/base.js",
     "./next": "./src/next.js"
+  },
+  "scripts": {
+    "lint": "eslint ."
   },
   "dependencies": {
     "@babel/core": "^7.20.2",
@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@types/eslint": "^8.4.10",
-    "eslint": "^7.32.0",
-    "typescript": "^4.8.4"
+    "eslint": "7.32.0",
+    "typescript": "4.8.4"
   }
 }

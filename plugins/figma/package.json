@@ -1,19 +1,35 @@
 {
-  "name": "@labxd/motif-figma-plugin",
-  "version": "0.0.0",
-  "description": "",
-  "scripts": {
-    "lint": "eslint . --ext .ts,.tsx",
-    "typecheck": "tsc --noEmit",
-    "build": "webpack",
-    "dev": "nodemon --watch ./src -e ts,tsx --exec \"pnpm run build\""
+  "name": "@motifxd/figma-plugin",
+  "version": "0.1.0-alpha.0",
+  "description": "figma plugin for motifXD",
+  "author": {
+    "name": "labXD",
+    "email": "engineering@labxd.com",
+    "url": "https://labxd.com"
   },
-  "keywords": [],
-  "author": "",
   "license": "UNLICENSED",
+  "scripts": {
+    "build": "webpack",
+    "dev": "nodemon --watch ./src -e ts,tsx --exec \"pnpm run build\"",
+    "lint": "eslint . --ext .ts,.tsx",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@headlessui/react": "1.7.4",
+    "@tanstack/react-query": "^4.15.0",
+    "@tanstack/react-query-devtools": "^4.15.0",
+    "@trpc/client": "10.1.0",
+    "@trpc/react-query": "10.1.0",
+    "@trpc/server": "10.1.0",
+    "comlink": "^4.3.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-router-dom": "^6.4.3",
+    "type-fest": "^3.2.0"
+  },
   "devDependencies": {
     "@figma/plugin-typings": "^1.55.1",
-    "@types/node": "18",
+    "@types/node": "^18",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.8",
     "autoprefixer": "^10.4.13",
@@ -23,32 +39,20 @@
     "eslint-config-custom": "workspace:*",
     "html-webpack-inline-source-plugin": "^0.0.10",
     "html-webpack-plugin": "^5.5.0",
-    "motifxd-tailwind-config": "*",
+    "motifxd-tailwind-config": "workspace:*",
     "nodemon": "^2.0.20",
-    "postcss": "^8.4.18",
+    "postcss": "8.4.19",
     "postcss-loader": "^7.0.1",
     "react-dev-utils": "^12.0.1",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.4.1",
     "tsconfig": "workspace:*",
     "tsconfig-paths-webpack-plugin": "^4.0.0",
-    "typescript": "^4.8.4",
+    "typescript": "4.8.4",
     "url-loader": "^4.1.1",
     "web": "workspace:*",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0"
   },
-  "dependencies": {
-    "@headlessui/react": "^1.7.4",
-    "@tanstack/react-query": "^4.15.0",
-    "@tanstack/react-query-devtools": "^4.15.0",
-    "@trpc/client": "10.1.0",
-    "@trpc/react-query": "10.1.0",
-    "@trpc/server": "10.1.0",
-    "comlink": "^4.3.1",
-    "react": "^18.2.0",
-    "react-dom": "18.2.0",
-    "react-router-dom": "^6.4.3",
-    "type-fest": "^3.2.0"
-  }
+  "keywords": []
 }

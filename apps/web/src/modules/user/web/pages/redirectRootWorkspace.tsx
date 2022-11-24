@@ -3,7 +3,7 @@ import { type NextPage } from "next"
 import { useRouter } from "next/router"
 import { useEffect } from "react"
 
-const RedirectDefaultWorkspace: NextPage = () => {
+export const RedirectRootWorkspace: NextPage = () => {
   const { isLoading, data, error } = trpc.user.getDefaultWorkspace.useQuery()
   const router = useRouter()
 
@@ -27,5 +27,3 @@ const RedirectDefaultWorkspace: NextPage = () => {
 
   return null
 }
-
-export default RedirectDefaultWorkspace

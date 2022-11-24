@@ -43,7 +43,7 @@ export default class Login extends Command {
         fs.rm(apiKeyPath)
       }
     } catch {
-      this.log("no key found.\nGenerating a new key...")
+      this.log("no key found")
     }
   }
 
@@ -52,16 +52,14 @@ export default class Login extends Command {
 
     const loginUrl = "https://motifxd.com/login"
 
-    this.getAPIKey()
+    await this.getAPIKey()
 
     if (flags.token) {
       const json = JSON.stringify(
         {
           token: flags.token,
           createdAt: new Date().toLocaleString(),
-          expiresAt: new Date(
-            Date.now() + 60 * 60 * 1000
-          ).toLocaleString(),
+          expiresAt: new Date(Date.now() + 60 * 60 * 1000).toLocaleString(),
         },
         null,
         2
