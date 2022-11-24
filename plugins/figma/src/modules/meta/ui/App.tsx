@@ -4,7 +4,7 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
 
 import { DeployPage, SuccessPage } from "@/deploy/ui/pages"
 import { TokenPage } from "@/tokens/ui/pages"
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { HashRouter as Router, Routes, Route, Outlet } from "react-router-dom"
 import { TRPCProvider } from "./TRPCProvider"
 

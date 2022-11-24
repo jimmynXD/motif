@@ -2,7 +2,11 @@
   "name": "@motifxd/cli",
   "version": "0.0.0",
   "description": "motifXD CLI for working with the motif ecosystem inside your terminal",
-  "author": "jimmynXD",
+  "author": {
+    "name": "jimmy and walee",
+    "email": "founders@labxd.com",
+    "url": "https://labxd.com"
+  },
   "bin": {
     "motif": "./bin/run"
   },
@@ -19,7 +23,7 @@
     "@oclif/core": "^1.19.1",
     "@oclif/plugin-help": "^5",
     "@oclif/plugin-plugins": "^2.1.7",
-    "env-paths": "^3.0.0",
+    "eslint-config-custom": "workspace:*",
     "ink": "^3.2.0",
     "ink-big-text": "^1.2.0",
     "ink-gradient": "^2.0.0",

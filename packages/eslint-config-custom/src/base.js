@@ -1,5 +1,5 @@
-module.exports = {
-  extends: ["eslint:recommended", "prettier", "turbo"],
+const config = {
+  extends: ["eslint:recommended", "turbo", "prettier"],
   env: {
     browser: true,
     amd: true,
@@ -23,12 +23,11 @@ module.exports = {
         babelOptions: {
           babelrc: false,
           configFile: false,
-          // your babel options
-          presets: ["@babel/preset-env"],
+          presets: [require.resolve("@babel/preset-env")],
         },
       },
     },
   ],
 }
 
-/* module.exports = config */
+module.exports = config

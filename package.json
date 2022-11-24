@@ -1,8 +1,8 @@
 {
   "name": "motifxd-monorepo",
-  "version": "0.0.0",
   "private": true,
   "scripts": {
+    "bootstrap": "pnpm install && husky install",
     "typecheck": "turbo run typecheck --parallel",
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
@@ -10,12 +10,19 @@
     "dev:docs": "pnpm run dev --filter docs",
     "dev:plugin:only": "pnpm run dev --filter @labxd/motif-figma-plugin",
     "dev:plugin": "pnpm run dev --filter web --filter @labxd/motif-figma-plugin",
-    "lint": "turbo run lint",
+    "lint": "turbo run lint --parallel",
+    "hook:pre-commit:lint": "lint-staged",
+    "hook:pre-commit:typecheck": "pnpm run typecheck",
+    "hook:pre-commit": "concurrently pnpm:hook:pre-commit:lint pnpm:hook:pre-commit:typecheck",
     "format": "prettier --write \"**/*.{js,ts,tsx,md}\""
   },
   "devDependencies": {
-    "eslint-config-custom": "workspace:*",
-    "prettier": "2.7.1",
+    "concurrently": "^7.6.0",
+    "eslint-config-custom": "0.0.0",
+    "git-commit-msg-linter": "^4.2.1",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.8.0",
     "turbo": "^1.6.3"
   },
   "engines": {
