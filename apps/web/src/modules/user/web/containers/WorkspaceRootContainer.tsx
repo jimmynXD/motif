@@ -1,6 +1,7 @@
 import { trpc } from "@/meta/web"
 import clsx from "clsx"
 import { FC } from "react"
+import { ProjectsContainer } from "./ProjectsContainer"
 
 export const WorkspaceRootContainer: FC<{ slug: string }> = ({ slug }) => {
   const { isLoading, error, data } = trpc.workspace.getWithSlug.useQuery({
@@ -17,8 +18,8 @@ export const WorkspaceRootContainer: FC<{ slug: string }> = ({ slug }) => {
   }
 
   return (
-    <div className={clsx("")}>
-      ddd{data.name}, {data.id}
+    <div className={clsx("pl-72 pt-20")}>
+      <ProjectsContainer workspaceName={data.name} workspaceId={data.id} />
     </div>
   )
 }

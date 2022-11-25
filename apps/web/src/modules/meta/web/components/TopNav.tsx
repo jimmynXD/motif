@@ -1,14 +1,19 @@
-import { FC } from "react"
+import { FC, ReactNode } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import XDLogo from "../assets/xd-logo-dark.png"
 import clsx from "clsx"
 import LogoSrc from "../assets/xd-logo.png"
+import { Button } from "ui"
+import { useSession, signIn, signOut } from "next-auth/react"
 interface TopNavInterface {
+  children?: ReactNode
   pageLevel?: boolean
 }
 
-export const TopNav: FC<TopNavInterface> = ({ pageLevel }) => {
+export const TopNav: FC<TopNavInterface> = ({ children, pageLevel }) => {
+  const { data: session } = useSession()
+
   if (pageLevel) {
     return (
       <header
@@ -28,7 +33,7 @@ export const TopNav: FC<TopNavInterface> = ({ pageLevel }) => {
               </span>
             </Link>
           </div>
-          <div className={clsx("flex-1")}></div>
+          <div className={clsx("flex-1")}>{children}</div>
           <div>
             <div
               className={clsx(
@@ -44,6 +49,7 @@ export const TopNav: FC<TopNavInterface> = ({ pageLevel }) => {
       </header>
     )
   }
+
   return (
     <nav>
       <div className="page-max-xl px-4 text-white flex">
@@ -58,6 +64,21 @@ export const TopNav: FC<TopNavInterface> = ({ pageLevel }) => {
               </span>
             </Link>
           </span>
+        </div>
+        <div className="flex items-center">
+          <Button
+            onPress={() => {
+              session
+                ? signOut()
+                : signIn("google", {
+                    redirect: true,
+                    // TODO: replace /w url from env
+                    callbackUrl: "http://localhost:3000/app/workspace",
+                  })
+            }}
+          >
+            {session ? "Log out" : "Log in"}
+          </Button>
         </div>
       </div>
     </nav>

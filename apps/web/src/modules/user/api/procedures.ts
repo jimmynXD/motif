@@ -9,3 +9,5 @@ export const userProcedure = publicProcedure.use(isAuthenticated)
 export const workspaceProcedure = userProcedure
   .use(enhanceWithUserWorkspaceRoles)
   .use(hasWorkspaceAccess)
+
+export const projectProcedure = workspaceProcedure

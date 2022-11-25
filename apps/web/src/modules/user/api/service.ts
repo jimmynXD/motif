@@ -56,7 +56,7 @@ export const createWorkspace: ServiceHandler<
     role: {
       id: workspaceOwnerRole.id,
     },
-    ...currDate,
+    ...dates,
   })
 
   if (input?.isDefault) {
@@ -67,7 +67,7 @@ export const createWorkspace: ServiceHandler<
       workspace: {
         id: workspace.id,
       },
-      ...currDate,
+      ...dates,
     })
   }
 

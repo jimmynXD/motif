@@ -12,7 +12,49 @@ import { getWorkspace } from "./service"
 import { WorkspaceRecord } from "@/db/api"
 import { enhanceWithUserWorkspaceRoles } from "./middlewares"
 import { z } from "zod"
+import { nanoid } from "nanoid"
+/**
+ * TODO: projectRouter isn't working with projectProcedure
+ */
+export const projectRouter = router({
+  create: userProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        name: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const res = await ctx.xata.db.Project.create({
+        name: input.name,
+        slug:
+          input.name.replace("'", "").toLowerCase().split(" ").join("-") +
+          `-${nanoid()}`,
+        workspace: {
+          id: input.id,
+        },
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      })
+      console.log("res", res)
+      return res
+    }),
+  getAllProjectsInWorkspace: userProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const res = await ctx.xata.db.Project.filter({
+        workspace: {
+          id: input.id,
+        },
+      }).getAll()
 
+      return res
+    }),
+})
 export const workspaceRouter = router({
   create: userProcedure
     .input(createWorkspaceInput)
