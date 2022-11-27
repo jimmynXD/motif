@@ -4,16 +4,12 @@ import Image from "next/image"
 import XDLogo from "../assets/xd-logo-dark.png"
 import clsx from "clsx"
 import LogoSrc from "../assets/xd-logo.png"
-import { Button } from "ui"
-import { useSession, signIn, signOut } from "next-auth/react"
 interface TopNavInterface {
   children?: ReactNode
   pageLevel?: boolean
 }
 
 export const TopNav: FC<TopNavInterface> = ({ children, pageLevel }) => {
-  const { data: session } = useSession()
-
   if (pageLevel) {
     return (
       <header
@@ -64,21 +60,6 @@ export const TopNav: FC<TopNavInterface> = ({ children, pageLevel }) => {
               </span>
             </Link>
           </span>
-        </div>
-        <div className="flex items-center">
-          <Button
-            onPress={() => {
-              session
-                ? signOut()
-                : signIn("google", {
-                    redirect: true,
-                    // TODO: replace /w url from env
-                    callbackUrl: "http://localhost:3000/app/workspace",
-                  })
-            }}
-          >
-            {session ? "Log out" : "Log in"}
-          </Button>
         </div>
       </div>
     </nav>

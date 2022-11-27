@@ -1,17 +1,26 @@
+import clsx from "clsx"
 import { FC } from "react"
 import YouTube, { YouTubeProps } from "react-youtube"
-
 export const VideoDemo: FC = () => {
   const onPlayerReady: YouTubeProps["onReady"] = (event) => {
     event.target.pauseVideo()
   }
   return (
-    <section className="text-center mt-16 md:mt-28">
-      <div className="font-bold tracking-wider text-2xl md:text-3xl">
+    <section className="text-center pt-28">
+      <div className="px-4 md:px-0 font-bold tracking-wider text-2xl md:text-3xl">
         Same workflow, better results
       </div>
-      <div className="mt-8 relative flex flex-col items-center">
-        <div id="demo" className="w-full md:max-w-[640px] lg:max-w-[800px]">
+      <div
+        className={clsx(
+          "mt-8 relative flex items-center justify-center",
+          "flex-col space-y-8",
+          "lg:flex-row lg:space-y-0"
+        )}
+      >
+        <div
+          id="demo"
+          className="w-full md:max-w-[640px] lg:max-w-[800px] xl:max-w-[1000px]"
+        >
           <YouTube
             className="youtube-container z-10"
             videoId="w2WsCVYQG0k"

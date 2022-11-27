@@ -39,17 +39,8 @@ export const Footer: FC = () => {
   return (
     <footer className="pt-12 pb-8 px-4">
       <div className="page-max-xl">
-        <div className="text-white text-center">
-          <label
-            htmlFor="signupEmail"
-            className="button text-xl underline underline-offset-4 text-purple-300"
-          >
-            Get early access by signing up above!
-          </label>
-        </div>
         <ul
           className={clsx(
-            "pt-12",
             "space-y-6",
             "md:flex md:space-y-0 md:space-x-4 lg:space-x-12"
           )}
@@ -60,7 +51,7 @@ export const Footer: FC = () => {
                 <HighlightButton
                   left={item.left}
                   className={"h-full w-full"}
-                  variant={HightlightVariant.PURPLE}
+                  variant={HightlightVariant.GREEN}
                 >
                   <span className="flex-1">{item.children}</span>
                 </HighlightButton>

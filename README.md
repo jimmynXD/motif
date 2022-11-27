@@ -4,3 +4,8 @@
 
 - `../` when pulling from same module
 - `@/..` when pulling from other modules
+
+## Building component classes
+
+- layout
+- container styling

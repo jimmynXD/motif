@@ -1,5 +1,6 @@
 import { NextPage } from "next"
 import {
+  CallToActionBottom,
   Footer,
   HandoffAnimation,
   HeroBanner,
@@ -7,6 +8,7 @@ import {
   TopNav,
   VideoDemo,
 } from "../components"
+
 export const LandingPage: NextPage = () => {
   return (
     <PageLayout
@@ -20,6 +22,7 @@ export const LandingPage: NextPage = () => {
         <HeroBanner />
         <VideoDemo />
         <HandoffAnimation />
+        <CallToActionBottom />
       </main>
     </PageLayout>
   )

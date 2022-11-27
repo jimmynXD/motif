@@ -1,7 +1,13 @@
 import { useSession, signIn, signOut } from "next-auth/react"
 
 import { trpc } from "@/meta/web"
+import { useRouter } from "next/router"
+import { useEffect } from "react"
 
+/**
+ * TODO: Replace this page with a proper login page
+ *
+ */
 export default function Web() {
   const { isLoading, error, data } = trpc.test.hello.useQuery({
     text: "Hello",
@@ -9,12 +15,24 @@ export default function Web() {
 
   const { data: session } = useSession()
 
+  const router = useRouter()
+
+  useEffect(() => {
+    if (process.env.NODE_ENV === "production") {
+      router.replace("/404")
+    }
+  }, [])
+
   if (isLoading) {
     return <div>Loading...</div>
   }
 
   if (error) {
     return <div>{error.message}</div>
+  }
+
+  if (process.env.NODE_ENV === "production") {
+    return null
   }
 
   return (
@@ -31,7 +49,7 @@ export default function Web() {
               })
         }
       >
-        {session ? "signOut" : "singin"}
+        {session ? "signOut" : "sign in"}
       </button>
     </div>
   )

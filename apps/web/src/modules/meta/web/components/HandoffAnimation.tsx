@@ -7,8 +7,8 @@ import ServerPNG from "../assets/server.png"
 
 export const HandoffAnimation: FC = () => {
   return (
-    <div className={clsx("page-max-xl flex flex-col items-center pt-28")}>
-      <div className="font-bold tracking-wider text-2xl md:text-3xl">
+    <section className={clsx("page-max-xl flex flex-col items-center pt-28")}>
+      <div className="px-4 md:px-0 font-bold tracking-wider text-2xl md:text-3xl text-center">
         Seamless handoff between designers and devs
       </div>
       {/* designer widget */}
@@ -135,6 +135,6 @@ export const HandoffAnimation: FC = () => {
           </p>
         </aside>
       </div>
-    </div>
+    </section>
   )
 }
