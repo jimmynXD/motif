@@ -51,7 +51,7 @@
     "@types/node": "^18",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.8",
-    "@xata.io/cli": "^0.10.1",
+    "@xata.io/cli": "^0.11.0",
     "clsx": "^1.2.1",
     "eslint": "7.32.0",
     "eslint-config-custom": "workspace:*",
