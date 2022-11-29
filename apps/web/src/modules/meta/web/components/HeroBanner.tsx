@@ -33,7 +33,7 @@ export const HeroBanner: FC = () => {
         <EmailSignUp />
       </div>
       <aside className={clsx("pt-12", "lg:pt-0 lg:pr-4")}>
-        <div className="max-w-2xl">
+        <div className="max-w-2xl rounded">
           <Image src={DemoAnimation} alt="demo-image" />
         </div>
       </aside>

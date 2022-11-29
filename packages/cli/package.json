@@ -31,7 +31,6 @@
     "@oclif/core": "^1.19.1",
     "@oclif/plugin-help": "^5",
     "@oclif/plugin-plugins": "^2.1.7",
-    "eslint-config-custom": "workspace:*",
     "ink": "^3.2.0",
     "ink-big-text": "^1.2.0",
     "ink-gradient": "^2.0.0",
@@ -40,13 +39,13 @@
     "zod": "^3.19.1"
   },
   "devDependencies": {
+    "eslint-config-custom": "workspace:*",
     "@oclif/test": "^2.2.10",
     "@types/ink-big-text": "^1.2.1",
     "@types/ink-gradient": "^2.0.1",
     "@types/node": "^18",
     "@types/react": "^18.0.25",
     "eslint": "7.32.0",
-    "eslint-config-custom": "workspace:*",
     "eslint-config-oclif": "^4",
     "eslint-config-oclif-typescript": "^1.0.3",
     "nodemon": "^2.0.20",
