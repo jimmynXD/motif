@@ -4,36 +4,35 @@ import { rgbToHex, rgbValue } from "./utils"
 export const genPage = () => {
   const root = figma.root
 
-  const hasDSPage =
+  const DSExists =
     root.children.filter((page) =>
       page.name.toLowerCase().endsWith("design system")
     ).length > 0
 
-  if (!hasDSPage) {
-    figma.createPage().name = "Design System"
-    const dsNode = root.findChild((item) =>
-      // return child that has name of design system. returns undefined if not found
-      item.name.toLowerCase().endsWith("design system")
-    ) as PageNode
-
-    return root.insertChild(0, dsNode)
-  }
-
-  return console.log("Design System page already exists")
-}
-
-export const genColorTokens = (sectionName: string, prefix?: string) => {
-  genPage()
-  const dsPage = figma.root.children.filter((page) =>
+  const dsPage = root.children.filter((page) =>
     page.name.toLowerCase().endsWith("design system")
   )[0]
 
-  // jump to dsPage
-  if (figma.currentPage !== dsPage) {
-    figma.currentPage = dsPage
-    alert("Redirecting to the Design System page")
+  if (DSExists) {
+    if (figma.currentPage !== dsPage) {
+      alert("Redirecting to the Design System page")
+      return (figma.currentPage = dsPage)
+    }
+    return figma.currentPage
   }
 
+  figma.createPage().name = "Design System"
+
+  const dsNode = root.findChild((item) =>
+    item.name.toLowerCase().endsWith("Design System")
+  ) as PageNode
+
+  root.insertChild(0, dsNode)
+
+  return (figma.currentPage = dsNode)
+}
+
+export const genColorTokens = (sectionName: string, prefix?: string) => {
   // type guards
   const isRectangle = (val?: SceneNode): val is RectangleNode => !!val
 
@@ -48,6 +47,9 @@ export const genColorTokens = (sectionName: string, prefix?: string) => {
 
   if (!findSection) return console.log(sectionName, " cannot be found")
 
+  // get list of local colors
+  const localColors = figma.getLocalPaintStyles()
+
   // find all rectangles inside the section
   // sort alphabetically
   const findRectangles = findSection
@@ -60,9 +62,9 @@ export const genColorTokens = (sectionName: string, prefix?: string) => {
     const colors: Paint[] = []
 
     // check if token exists
-    const existingStyle = figma
-      .getLocalPaintStyles()
-      .find(({ name: localName }) => localName === rec.name.toLowerCase())
+    const existingStyle = localColors.find(
+      ({ name: localName }) => localName === rec.name.toLowerCase()
+    )
 
     // update existing token or create new token
     const newStyle = existingStyle ?? figma.createPaintStyle()
@@ -91,17 +93,6 @@ export const genColorTokens = (sectionName: string, prefix?: string) => {
 }
 
 export const genTextTokens = (sectionName: string) => {
-  genPage()
-  const dsPage = figma.root.children.filter((page) =>
-    page.name.toLowerCase().endsWith("design system")
-  )[0]
-
-  // jump to dsPage
-  if (figma.currentPage !== dsPage) {
-    figma.currentPage = dsPage
-    alert("Redirecting to the Design System page")
-  }
-
   // type guards
   const isText = (val?: SceneNode): val is TextNode => !!val
 
@@ -157,17 +148,6 @@ export const genTextTokens = (sectionName: string) => {
 }
 
 export const genRootTextColor = (sectionName: string) => {
-  genPage()
-  const dsPage = figma.root.children.filter((page) =>
-    page.name.toLowerCase().endsWith("design system")
-  )[0]
-
-  // jump to dsPage
-  if (figma.currentPage !== dsPage) {
-    figma.currentPage = dsPage
-    alert("Redirecting to the Design System page")
-  }
-
   const isText = (val?: SceneNode): val is TextNode => !!val
   const isSection = (val?: SceneNode): val is SectionNode =>
     !!val && val.type === "SECTION"

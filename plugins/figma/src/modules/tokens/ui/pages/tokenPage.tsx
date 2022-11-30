@@ -11,8 +11,6 @@ export const TokenPage = () => {
   const { data, isLoading, error, refetch } = useQuery(["tokens"], getFigmaData)
 
   const [lastRefresh, setLastRefresh] = useState(
-    // remove comma between date and time
-
     new Date()
       // 24hour format
       .toLocaleString("en-US", {
@@ -27,17 +25,28 @@ export const TokenPage = () => {
   )
 
   const createTokenHandler = async () => {
+    const genDSPagePromise = mainServices.tokens.template.genPage()
     const genPrimaryColorTokenPromise =
       mainServices.tokens.template.genColorTokens("Colors - Primary")
     const genSecondaryColorTokenPromise =
       mainServices.tokens.template.genColorTokens("Colors - Secondary")
     const genTypeStyleTokenPromoise =
       mainServices.tokens.template.genTextTokens("Typography")
+    const removeUnusedColorTokensPromise =
+      mainServices.tokens.remove.removeColorTokens([
+        "Colors - Primary",
+        "Colors - Secondary",
+      ])
+    const removeUnusedTextTokensPromise =
+      mainServices.tokens.remove.removeTypographyTokens(["Typography"])
 
     await Promise.all([
+      genDSPagePromise,
       genPrimaryColorTokenPromise,
       genSecondaryColorTokenPromise,
       genTypeStyleTokenPromoise,
+      removeUnusedColorTokensPromise,
+      removeUnusedTextTokensPromise,
     ])
 
     refetch()
@@ -330,7 +339,7 @@ export const TokenPage = () => {
       </section>
       <footer className="text-xd-secondary-black-rgb bg-gray-100 flex items-center fixed bottom-0 left-0 right-0 text-[10px] leading-none bg-white border-t-2 border-t-gray-200">
         <div className="pl-4">
-          <span>v.alpha-0</span>
+          <span>v.alpha-1</span>
         </div>
         <div className="px-4 flex-1 flex justify-end items-center">
           <span>updated: {lastRefresh}</span>

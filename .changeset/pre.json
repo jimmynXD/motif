@@ -11,9 +11,11 @@
     "tsconfig": "0.0.0",
     "ui": "0.0.0",
     "@labxd/motif-figma-plugin": "0.0.0",
-    "@motifxd/motif-figma-plugin": "0.0.0"
+    "@motifxd/motif-figma-plugin": "0.0.0",
+    "@motifxd/figma-plugin": "0.1.0-alpha.0"
   },
   "changesets": [
+    "brown-sloths-mix",
     "thirty-paws-turn"
   ]
 }
