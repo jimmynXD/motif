@@ -18,16 +18,12 @@ export const PageLayout: FC<PageLayoutProps> = ({
   footer,
   innerCls,
   topNav,
-  primary,
   pageTitle,
 }) => {
   return (
     <>
       <Head>
-        <title>
-          {pageTitle}
-          {!primary ? " - labXD" : ""}
-        </title>
+        <title>{pageTitle}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <BaseLayout className={cls}>

@@ -13,7 +13,6 @@ import {
 export const LandingPage: NextPage = () => {
   return (
     <PageLayout
-      primary
       pageTitle="motifXD DesignOps"
       topNav={<TopNav />}
       footer={<Footer />}

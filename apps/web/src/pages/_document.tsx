@@ -29,7 +29,7 @@ class MyDocument extends Document {
           <meta property="og:title" content="motifXD" />
           <meta
             property="og:description"
-            content="figma plugin to generate a design system as an api"
+            content="DesignOps Toolchain Development"
           />
           <meta property="og:url" content="https://motifxd.com" />
           <meta property="og:type" content="website" />
@@ -40,7 +40,7 @@ class MyDocument extends Document {
           <meta name="twitter:title" content="Haus of XD" />
           <meta
             name="twitter:description"
-            content="Haus of XD is the voice for motifXD, a design system api generator"
+            content="Haus of XD is the voice for motifXD, developing the DesignOps toolchain."
           />
           <meta name="twitter:image" content="https://motif.com/cover.png" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
