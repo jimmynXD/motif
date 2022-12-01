@@ -47,19 +47,37 @@ export const TopNav: FC<TopNavInterface> = ({ children, pageLevel }) => {
   }
 
   return (
-    <nav>
-      <div className="page-max-xl px-4 text-white flex">
-        <div className={clsx("flex-1 flex items-center justify-center p-4")}>
+    <nav className="">
+      <div className="relative page-max-xl p-4 text-white flex flex-col space-y-4 md:space-y-0 md:flex-row">
+        <div
+          className={clsx(
+            "flex items-center flex-1 justify-center md:justify-start"
+          )}
+        >
           <span className="">
             <Link href="/" className="flex items-center justify-center">
-              <span className="font-bold font-display text-lg lg:text-4xl text-indigo-100">
+              <span className="font-bold font-display text-xl lg:text-2xl text-red-50">
                 motifXD
               </span>
-              <span>
+              <span className="">
                 <Image alt="motifxd" src={XDLogo} className="w-16 lg:w-20" />
               </span>
             </Link>
           </span>
+        </div>
+        <div className="hidden lg:block absolute top-1/2 -translate-y-1/2 -translate-x-1/2 left-1/2">
+          <span className="font-semibold tracking-wider font-display text-lg lg:text-3xl">
+            DesignOps starts here
+          </span>
+        </div>
+        <div className="flex items-center justify-center md:justify-end">
+          <Link
+            href="https://www.figma.com/community/plugin/1176582292266618363"
+            target={"_blank"}
+            className={clsx("button button-red")}
+          >
+            Figma Plugin Now Available
+          </Link>
         </div>
       </div>
     </nav>

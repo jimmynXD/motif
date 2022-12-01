@@ -10,7 +10,7 @@ export const CallToActionBottom: FC = () => {
       className={clsx("pt-28 flex justify-between items-center", "flex-col")}
     >
       <div className="px-4 md:px-0 font-bold tracking-wider text-2xl md:text-3xl text-center">
-        The future of design system management
+        Manage Design System with our Figma Plugin
       </div>
       <div className={clsx("flex flex-col w-full items-center")}>
         <aside
@@ -26,7 +26,7 @@ export const CallToActionBottom: FC = () => {
             <Image src={DeployPNG} alt="demo-image" />
           </span>
         </aside>
-        <div className={clsx("flex-1 flex justify-center w-full")}>
+        <div className={clsx("pt-28 flex-1 flex justify-center w-full")}>
           <EmailSignUp full />
         </div>
       </div>

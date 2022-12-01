@@ -69,7 +69,7 @@ export const EmailSignUp: FC<EmailSignUpProps> = ({ full }) => {
       >
         <label className={clsx("space-y-2", "max-w-lg md:w-full")}>
           <div className="text-lg font-medium px-4 w-full text-center">
-            Early access to our plugin
+            Early access to tailwindcss plugin for devs
           </div>
           <div className="lg:max-w-lg bg-white flex items-center rounded-full pl-1 group-focus-within:ring group-focus-within:ring-purple-300">
             <input

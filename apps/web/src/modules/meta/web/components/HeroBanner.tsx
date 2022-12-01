@@ -16,18 +16,15 @@ export const HeroBanner: FC = () => {
           "lg:w-[unset] lg:pr-12"
         )}
       >
-        <div className={clsx("px-4 md:max-w-lg space-y-8 text-left")}>
+        <div className={clsx("px-4 md:max-w-lg space-y-8 text-center")}>
           <div
-            className={clsx(
-              "font-bold tracking-wider text-3xl text-center",
-              "md:text-3xl"
-            )}
+            className={clsx("font-bold tracking-wider text-3xl", "md:text-3xl")}
           >
-            Your design system, your way
+            Design systems for every project and every team
           </div>
           <p className={clsx("text-xl font-medium text-slate-200 text-center")}>
-            Handoffs just got easier. Manage designs in Figma and we&apos;ll get
-            them into your codebase instantly!
+            We are making handoffs easier. Manage designs in Figma and devs get
+            them into the codebase instantly!
           </p>
         </div>
         <EmailSignUp />
