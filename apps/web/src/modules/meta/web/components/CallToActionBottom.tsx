@@ -27,7 +27,7 @@ export const CallToActionBottom: FC = () => {
           </span>
         </aside>
         <div className={clsx("pt-28 flex-1 flex justify-center w-full")}>
-          <EmailSignUp full />
+          <EmailSignUp full inputId="signUpEmailBottom" />
         </div>
       </div>
     </section>

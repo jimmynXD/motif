@@ -27,7 +27,7 @@ export const HeroBanner: FC = () => {
             them into the codebase instantly!
           </p>
         </div>
-        <EmailSignUp />
+        <EmailSignUp inputId="signUpEmailTop" />
       </div>
       <aside className={clsx("pt-12", "lg:pt-0 lg:pr-4")}>
         <div className="max-w-2xl rounded">

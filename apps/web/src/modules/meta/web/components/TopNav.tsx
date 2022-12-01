@@ -74,7 +74,7 @@ export const TopNav: FC<TopNavInterface> = ({ children, pageLevel }) => {
           <Link
             href="https://www.figma.com/community/plugin/1176582292266618363"
             target={"_blank"}
-            className={clsx("button button-red")}
+            className={clsx("button bg-red-600")}
           >
             Figma Plugin Now Available
           </Link>

@@ -6,8 +6,9 @@ import { trpc } from "@/meta/web"
 
 interface EmailSignUpProps {
   full?: boolean
+  inputId: string
 }
-export const EmailSignUp: FC<EmailSignUpProps> = ({ full }) => {
+export const EmailSignUp: FC<EmailSignUpProps> = ({ full, inputId }) => {
   const earlyAccessMutation = trpc.user.createEarlyAccessEntry.useMutation()
   const [emailInput, setEmailInput] = useState<string>("")
 
@@ -74,8 +75,8 @@ export const EmailSignUp: FC<EmailSignUpProps> = ({ full }) => {
           <div className="lg:max-w-lg bg-white flex items-center rounded-full pl-1 group-focus-within:ring group-focus-within:ring-purple-300">
             <input
               type={"email"}
-              id={"signupEmail"}
-              name={"signupEmail"}
+              id={inputId}
+              name={inputId}
               placeholder={"Enter your email"}
               value={emailInput}
               onChange={handleInputOnChange}

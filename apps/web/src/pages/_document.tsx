@@ -17,13 +17,16 @@ class MyDocument extends Document {
   }
   render() {
     return (
-      <Html>
+      <Html lang="en">
         <Head>
           <meta
             name="keywords"
-            content="figma plugin, ux, dx, labxd, motifxd, motif, developer experience, designer experience,"
+            content="figma plugin, ux, dx, labxd, motifxd, motif, developer experience, designer experience, designops, api"
           />
-          <meta name="description" content="" />
+          <meta
+            name="description"
+            content="Whether its large-scale enterprise systems or small-team projects, we specialize in integrating design tools into developer workflows - so you can ship with confidence."
+          />
           <link rel="canonical" href="https://motifxd.com/" />
 
           <meta property="og:title" content="motifXD" />
