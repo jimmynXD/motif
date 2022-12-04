@@ -1,0 +1,5 @@
+---
+"web": patch
+---
+
+cdn assets

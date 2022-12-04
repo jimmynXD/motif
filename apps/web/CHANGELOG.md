@@ -1,5 +1,11 @@
 # web
 
+## 0.1.0-alpha.2
+
+### Patch Changes
+
+- cdn assets
+
 ## 0.1.0-alpha.1
 
 ### Minor Changes

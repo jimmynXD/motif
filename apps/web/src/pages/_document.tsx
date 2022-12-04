@@ -45,7 +45,10 @@ class MyDocument extends Document {
             name="twitter:description"
             content="Haus of XD is the voice for motifXD, developing the DesignOps toolchain."
           />
-          <meta name="twitter:image" content="https://motif.com/cover.png" />
+          <meta
+            name="twitter:image"
+            content="https://cdn.jsdelivr.net/npm/@labxd/assets@latest/src/motif-cover.png"
+          />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
             rel="preconnect"
@@ -56,13 +59,13 @@ class MyDocument extends Document {
             rel="icon"
             type="image/png"
             sizes="16x16"
-            href="favicon-16.png"
+            href="https://cdn.jsdelivr.net/npm/@labxd/assets@latest/src/favicon-16.png"
           />
           <link
             rel="icon"
             type="image/png"
             sizes="32x32"
-            href="favicon-32.png"
+            href="https://cdn.jsdelivr.net/npm/@labxd/assets@latest/src/favicon-32.png"
           />
         </Head>
         <body>
