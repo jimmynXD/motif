@@ -11,6 +11,7 @@ export const service = {
   storage: proxy({
     get: figma.clientStorage.getAsync,
     set: figma.clientStorage.setAsync,
+    delete: figma.clientStorage.deleteAsync,
   }),
 }
 export default createMainService(service)

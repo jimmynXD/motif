@@ -84,7 +84,6 @@ export const DeployPage = () => {
         </section>
         <section className="pt-8 px-8">
           <button
-            disabled
             // disabled={deployMutation.isLoading}
             className="w-full button button-primary button-sm"
             onClick={handleSubmission}

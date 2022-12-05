@@ -3,7 +3,7 @@ import { publicProcedure, router } from "./_app"
 import { tokenRouter } from "@/tokens/api"
 import { projectRouter, userRouter, workspaceRouter } from "@/user/api"
 import { authRouter } from "@/auth/api/router"
-
+import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server"
 export const testRouter = router({
   hello: publicProcedure
     .input(
@@ -29,3 +29,5 @@ export const appRouter = router({
 
 // export type definition of API
 export type AppRouter = typeof appRouter
+export type RouterInput = inferRouterInputs<AppRouter>
+export type RouterOutput = inferRouterOutputs<AppRouter>

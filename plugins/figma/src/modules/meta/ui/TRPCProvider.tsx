@@ -1,6 +1,8 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { httpBatchLink } from "@trpc/client"
 import { FC, ReactNode, useState } from "react"
+import { RouterOutput } from "web/api"
+import mainServices from "./mainService"
 import { trpc } from "./trpc"
 
 export const getUrl = () => {
@@ -26,6 +28,19 @@ export const TRPCProvider: FC<TRPCProviderProps> = ({ children }) => {
       links: [
         httpBatchLink({
           url: getUrl(),
+          headers: async () => {
+            try {
+              const res: RouterOutput["auth"]["createAPIKey"] =
+                await mainServices.meta.storage.get("auth.api-key")
+
+              return {
+                "x-api-key": res.key ?? "",
+              }
+            } catch (error) {
+              console.info("error no api key", error)
+              return {}
+            }
+          },
           // optional
           /* headers() { */
           /*   return { */
