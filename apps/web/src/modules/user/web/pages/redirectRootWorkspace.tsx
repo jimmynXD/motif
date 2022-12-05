@@ -6,7 +6,7 @@ import { useEffect } from "react"
 export const RedirectRootWorkspace: NextPage = () => {
   const { isLoading, data, error } = trpc.user.getDefaultWorkspace.useQuery()
   const router = useRouter()
-
+  console.log("data", data)
   useEffect(() => {
     if (data) {
       router.push(`/app/workspace/${data.slug}`)

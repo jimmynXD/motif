@@ -9,16 +9,20 @@ export const WorkspaceRootContainer: FC<{ slug: string }> = ({ slug }) => {
   })
 
   if (isLoading) {
-    return <h1>Loading...</h1>
+    return <div className="p-4 md:pl-[19rem]">Loading...</div>
   }
 
   // TODO: redirect not found error to /404 page
   if (error) {
-    return <h1>Error</h1>
+    return <div className="p-4 md:pl-[19rem]">Error</div>
   }
 
   return (
-    <div className={clsx("pl-72 pt-20")}>
+    <div
+      className={clsx(
+        "overflow-auto md:absolute md:top-0 md:bottom-0 md:right-0 left-80"
+      )}
+    >
       <ProjectsContainer workspaceName={data.name} workspaceId={data.id} />
     </div>
   )

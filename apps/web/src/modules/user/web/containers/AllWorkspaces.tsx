@@ -4,10 +4,13 @@ import { FC } from "react"
 import Link from "next/link"
 import clsx from "clsx"
 import { InputButton } from "../components"
+import { useRouter } from "next/router"
 
 export const AllWorkspaces: FC = () => {
   const { data, isLoading, error, refetch } =
     trpc.user.getAllWorkspaces.useQuery()
+
+  const router = useRouter()
 
   const createWorkspaceMutation = trpc.workspace.create.useMutation()
 
@@ -34,48 +37,83 @@ export const AllWorkspaces: FC = () => {
   }
 
   if (isLoading) {
-    return <h1>Loading...</h1>
+    return <div className="p-4">Loading...</div>
   }
 
   if (error) {
-    return <h1>Error</h1>
+    return <div className="p-4">Error</div>
   }
 
   return (
     <aside
       className={clsx(
-        "absolute left-0 top-16 bottom-0 overflow-auto",
-        "w-72 border-r border-r-gray-300"
+        "md:absolute md:left-0 md:top-0 md:bottom-0 md:w-72 md:block md:overflow-auto",
+        "md:border-r md:border-r-gray-300"
       )}
     >
-      <div className="px-4 py-8 flex flex-col justify-center">
+      <div className="p-4 block md:hidden">
+        <div className="flex justify-between items-end md:items-center">
+          <span className="font-medium">Workspaces</span>
+          <span>
+            <InputButton
+              label="Add new workspace"
+              onSubmit={onWorkspaceSubmit}
+            />
+          </span>
+        </div>
+        <select
+          className={clsx(
+            "mt-2 md:mt-0",
+            "w-full",
+            "px-4 py-2",
+            "text-gray-700",
+            "bg-white",
+            "border border-purple-500",
+            "rounded-lg",
+            "focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent",
+            "mt-1 md:mt-0"
+          )}
+          onChange={(e) => {
+            // go to workspace
+            router.push(`/app/workspace/${e.target.value}`)
+          }}
+        >
+          {data?.map((workspace) => (
+            <option
+              key={workspace.id}
+              value={workspace.slug !== null ? workspace.slug : workspace.id}
+              selected={router.query.workspaceSlug === workspace.slug}
+            >
+              {workspace.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="hidden md:flex px-4 pt-2 pb-8 flex-col justify-center">
         <div>
-          <span
-            className={clsx(
-              "px-2 py-1 rounded-full",
-              "text-sm font-medium pb-1",
-              "text-white bg-gray-500 "
-            )}
-          >
+          <span className={clsx("pl-4 pr-2 py-2 bg-gray-100 flex rounded-md")}>
             Workspaces
           </span>
         </div>
-        {data.map((workspace) => (
-          <Link
-            className="button button-link justify-start"
-            href={`/app/workspace/${workspace.slug}`}
-            key={workspace.id}
-          >
-            {workspace.name}
-          </Link>
-        ))}
+        <div className="flex flex-col pt-2">
+          {data.map((workspace) => (
+            <Link
+              className={clsx("p-2 flex items-start space-x-1 rounded-md", {
+                "bg-purple-200": router.query.workspaceSlug === workspace.slug,
+                "hover:bg-purple-100":
+                  router.query.workspaceSlug !== workspace.slug,
+              })}
+              href={`/app/workspace/${workspace.slug}`}
+              key={workspace.id}
+            >
+              <span className="material-symbols-outlined">arrow_right</span>
+              <span>{workspace.name}</span>
+            </Link>
+          ))}
+        </div>
 
-        <InputButton
-          className="pt-10"
-          inputWrapperClassName="flex-1"
-          label="New workspace"
-          onSubmit={onWorkspaceSubmit}
-        />
+        <InputButton label="Add new workspace" onSubmit={onWorkspaceSubmit} />
       </div>
     </aside>
   )

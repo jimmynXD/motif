@@ -1,7 +1,8 @@
 import { FC } from "react"
 import { ToastBanner, trpc } from "@/meta/web"
-import { InputButton } from "../components"
+import { LargeInputButton } from "../components"
 import { format } from "date-fns"
+import clsx from "clsx"
 interface ProjectContainerProps {
   workspaceId: string
   workspaceName: string
@@ -36,46 +37,58 @@ export const ProjectsContainer: FC<ProjectContainerProps> = ({
     }
   }
 
+  const projectButtonCls = clsx(
+    "flex flex-col items-start justify-start",
+    "min-h-[140px] text-left relative py-4 px-2 border-2 border-purple-700 rounded-lg transition-all group",
+    "hover:bg-purple-600 hover:text-white"
+  )
   if (isLoading) {
-    return <h1>Loading...</h1>
+    return <div className="p-4">Loading...</div>
   }
 
   if (error) {
-    return <h1>Error</h1>
+    return <div className="p-4">Error</div>
   }
 
   return (
-    <div className="px-4">
-      <div className="flex justify-between">
-        <h1>{workspaceName}</h1>
-        <div className="">
-          <InputButton
-            labelRight
-            label="Add new project"
-            onSubmit={createProject}
-          />
-        </div>
+    <div className="pl-4 pr-4 md:pt-4 md:pl-0 md:pb-8">
+      <div
+        className={clsx(
+          "flex flex-col items-center space-y-2",
+          "md:flex-row md:justify-between md:space-y-0"
+        )}
+      >
+        <h2 className="font-semibold">{workspaceName}</h2>
       </div>
       <div className="pt-8 grid gap-6 grid-cols-[repeat(auto-fill,_minmax(200px,_1fr))]">
+        <LargeInputButton label="Add new project" onSubmit={createProject} />
         {data.map((item) => (
-          <button
-            className={
-              "relative button button-outline h-[200px] border border-purple-700 rounded-lg items-start justify-start flex-col"
-            }
-            key={item.id}
-          >
-            <div>{item.name}</div>
-            <div className="pt-4 text-gray-500 flex flex-col items-start text-sm font-normal">
-              <div>last update:</div>
-              <div>
+          <button className={projectButtonCls} key={item.id}>
+            <h4 className="pr-4">{item.name}</h4>
+            <span
+              className={clsx(
+                "absolute right-1 top-4",
+                "material-symbols-outlined"
+              )}
+            >
+              bolt
+            </span>
+
+            <div className={clsx("pt-4 flex flex-col items-start", "text-sm")}>
+              <div
+                className={clsx(
+                  "text-xs bg-gray-500 text-white rounded-full px-2 py-1",
+                  "group-hover:bg-white group-hover:text-black"
+                )}
+              >
+                Last update:
+              </div>
+              <p className="pt-1">
                 {item?.updatedAt
                   ? format(new Date(item?.updatedAt), "MM-dd-yyyy hh:mm a")
                   : "--"}
-              </div>
+              </p>
             </div>
-            <span className="absolute bottom-1 right-1 material-symbols-outlined">
-              reply
-            </span>
           </button>
         ))}
       </div>

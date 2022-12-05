@@ -9,49 +9,72 @@ interface InputButtonProps {
   label: string
   labelRight?: boolean
 }
-export const InputButton: FC<InputButtonProps> = ({
-  className,
-  inputWrapperClassName,
-  onSubmit,
-  label,
-  labelRight,
-}) => {
+
+export const InputButton: FC<InputButtonProps> = ({ onSubmit, label }) => {
   const [inputValue, setInputValue] = useState<string>("")
   const [parseNewInput, setPasteNewInput] = useState(false)
 
   return (
-    <div className={clsx(className, "flex")}>
+    <section
+      className={clsx(
+        "md:mt-4 flex justify-center items-center flex-1",
+        "border-2 border-dotted border-gray-500 rounded-lg",
+        {
+          "md:bg-gray-100": parseNewInput,
+        }
+      )}
+    >
+      {/* Open Button */}
       <Button
         onPress={() => setPasteNewInput(true)}
-        className={clsx("flex-1 button-red button-sm space-x-2", {
+        className={clsx("flex-1 h-full p-2 md:px-4 md:py-3", {
           hidden: parseNewInput,
         })}
       >
-        <span className="material-symbols-outlined font-lg">add</span>
-        <span>{label}</span>
+        <div className={clsx("flex space-x-2")}>
+          <span className="material-symbols-outlined font-lg">add</span>
+          <span>{label}</span>
+        </div>
       </Button>
+      {/* Input */}
       <div
-        className={clsx(inputWrapperClassName, {
+        className={clsx("md:p-2 flex flex-col justify-between w-full h-full", {
           hidden: !parseNewInput,
         })}
       >
-        <label className="relative group">
-          <span
-            className={clsx(
-              "absolute",
-              "px-2 py-1 rounded-full",
-              "text-xs font-medium pb-1 text-gray-700 bg-gray-200",
-              "group-focus-within:text-white group-focus-within:bg-purple-700",
-              {
-                "-translate-x-full -translate-y-1/2 top-1/2 left-0": labelRight,
-                "left-0 -top-1 -translate-y-full": !labelRight,
+        <div
+          className={clsx("flex md:flex-col justify-between w-full h-full", {
+            hidden: !parseNewInput,
+          })}
+        >
+          <input
+            className={clsx("w-full rounded md:border md:border-purple-500")}
+            type="text"
+            placeholder="Enter workspace name"
+            onKeyDown={async (e) => {
+              if (e.key === "Enter") {
+                onSubmit(e.currentTarget.value)
+                setPasteNewInput(false)
+                setInputValue("")
               }
-            )}
+            }}
+            onChange={(e) => setInputValue(e.currentTarget.value)}
+            value={inputValue}
+          />
+          <Button
+            onPress={(e) => {
+              if (e.type === "press") {
+                setPasteNewInput(false)
+                setInputValue("")
+              }
+            }}
+            className="p-1 text-sm button-icon-ghost md:hidden md:button-outline button-sm rounded ring-gray-700"
           >
-            {label}
-          </span>
-          <div className={clsx("w-full", "flex items-center relative")}>
+            <span className="material-symbols-outlined">close</span>
+          </Button>
+          <div className="hidden md:flex justify-between space-x-2 pt-4">
             <Button
+              isDisabled={inputValue.length === 0}
               onPress={(e) => {
                 if (e.type === "press") {
                   onSubmit(inputValue)
@@ -59,25 +82,13 @@ export const InputButton: FC<InputButtonProps> = ({
                   setInputValue("")
                 }
               }}
-              className="absolute left-0 button button-icon-ghost button-sm rounded-full text-purple-500"
-            >
-              <span className="material-symbols-outlined text-xl">send</span>
-            </Button>
-            <input
               className={clsx(
-                "px-7 flex-1 border border-gray-300 ml-1 rounded-lg"
+                "button-primary button-sm rounded",
+                "disabled:bg-gray-300"
               )}
-              type="text"
-              onKeyDown={async (e) => {
-                if (e.key === "Enter") {
-                  onSubmit(e.currentTarget.value)
-                  setPasteNewInput(false)
-                  setInputValue("")
-                }
-              }}
-              onChange={(e) => setInputValue(e.currentTarget.value)}
-              value={inputValue}
-            />
+            >
+              Create
+            </Button>
             <Button
               onPress={(e) => {
                 if (e.type === "press") {
@@ -85,15 +96,95 @@ export const InputButton: FC<InputButtonProps> = ({
                   setInputValue("")
                 }
               }}
-              className="absolute right-1 button-icon-ghost button-sm p-0"
+              className="button-outline button-sm rounded ring-gray-700"
             >
-              <span className="text-lg material-symbols-outlined text-normal">
-                close
-              </span>
+              Cancel
             </Button>
           </div>
-        </label>
+        </div>
       </div>
-    </div>
+    </section>
+  )
+}
+
+export const LargeInputButton: FC<InputButtonProps> = ({ onSubmit, label }) => {
+  const [inputValue, setInputValue] = useState<string>("")
+  const [parseNewInput, setPasteNewInput] = useState(false)
+
+  return (
+    <section
+      className={clsx(
+        "flex justify-center items-center flex-1",
+        "min-h-[140px] border-2 border-dotted border-gray-500 rounded-lg",
+        {
+          "bg-gray-100": parseNewInput,
+        }
+      )}
+    >
+      {/* Open button */}
+      <Button
+        onPress={() => setPasteNewInput(true)}
+        className={clsx("flex-1 h-full p-4", {
+          hidden: parseNewInput,
+        })}
+      >
+        <div className={clsx("flex flex-col")}>
+          <span className="material-symbols-outlined font-lg">add</span>
+          <span>{label}</span>
+        </div>
+      </Button>
+
+      {/* Input */}
+      <div
+        className={clsx("p-4 flex flex-col justify-between w-full h-full", {
+          hidden: !parseNewInput,
+        })}
+      >
+        <input
+          className={clsx("w-full rounded border border-purple-500")}
+          type="text"
+          placeholder="Enter project name"
+          onKeyDown={async (e) => {
+            if (e.key === "Enter") {
+              onSubmit(e.currentTarget.value)
+              setPasteNewInput(false)
+              setInputValue("")
+            }
+          }}
+          onChange={(e) => setInputValue(e.currentTarget.value)}
+          value={inputValue}
+        />
+
+        <div className="flex justify-between space-x-2">
+          <Button
+            isDisabled={inputValue.length === 0}
+            onPress={(e) => {
+              if (e.type === "press") {
+                onSubmit(inputValue)
+                setPasteNewInput(false)
+                setInputValue("")
+              }
+            }}
+            className={clsx(
+              "button-primary button-sm rounded",
+              "disabled:bg-gray-300"
+            )}
+          >
+            Create
+          </Button>
+          <Button
+            onPress={(e) => {
+              if (e.type === "press") {
+                setPasteNewInput(false)
+                setInputValue("")
+              }
+            }}
+            className="button-outline button-sm rounded ring-gray-700"
+          >
+            Cancel
+          </Button>
+        </div>
+      </div>
+    </section>
   )
 }

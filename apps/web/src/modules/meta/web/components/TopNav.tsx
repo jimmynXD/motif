@@ -4,12 +4,16 @@ import Image from "next/image"
 import XDLogo from "../assets/xd-logo-dark.png"
 import clsx from "clsx"
 import LogoSrc from "../assets/xd-logo.png"
+import { Button } from "ui"
+import { signIn, signOut, useSession } from "next-auth/react"
 interface TopNavInterface {
   children?: ReactNode
   pageLevel?: boolean
 }
 
 export const TopNav: FC<TopNavInterface> = ({ children, pageLevel }) => {
+  const { data: session } = useSession()
+
   if (pageLevel) {
     return (
       <header
@@ -65,12 +69,16 @@ export const TopNav: FC<TopNavInterface> = ({ children, pageLevel }) => {
             </Link>
           </span>
         </div>
-        <div className="hidden lg:block absolute top-1/2 -translate-y-1/2 -translate-x-1/2 left-1/2">
+        {/* <div
+          className={clsx(
+            "hidden lg:block absolute top-1/2 -translate-y-1/2 -translate-x-1/2 left-1/2"
+          )}
+        >
           <span className="font-semibold tracking-wider font-display text-lg lg:text-3xl">
             DesignOps starts here
           </span>
-        </div>
-        <div className="flex items-center justify-center md:justify-end">
+        </div> */}
+        <div className="flex items-center justify-center md:justify-end space-x-4">
           <Link
             href="https://www.figma.com/community/plugin/1176582292266618363"
             target={"_blank"}
@@ -78,6 +86,20 @@ export const TopNav: FC<TopNavInterface> = ({ children, pageLevel }) => {
           >
             Figma Plugin Now Available
           </Link>
+          <Button
+            className="button button-primary"
+            onPress={() => {
+              session
+                ? signOut()
+                : signIn("google", {
+                    redirect: true,
+                    // TODO: replace /w url from env
+                    callbackUrl: "http://localhost:3000/app/workspace",
+                  })
+            }}
+          >
+            {session ? "Log out" : "Go to your workspaces"}
+          </Button>
         </div>
       </div>
     </nav>

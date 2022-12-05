@@ -32,7 +32,7 @@ export const ToastBanner = ({
         return "bg-blue-100 text-blue-800"
       case "success":
       default:
-        return "bg-green-100 text-green-800"
+        return "bg-green-800 text-white"
     }
   }
 
@@ -62,7 +62,9 @@ export const ToastBanner = ({
         onClick={() => toast.dismiss(id)}
         className="absolute top-2 right-2 button button-icon-ghost button-sm"
       >
-        <span className="material-symbols-rounded text-sm">close</span>
+        <span className="material-symbols-rounded text-sm text-white">
+          close
+        </span>
       </button>
       <div
         className={clsx("page-max-xl p-4 flex space-x-4", {

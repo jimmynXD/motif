@@ -20,7 +20,7 @@ export const WorkspaceRoot: NextPage = () => {
   }, [workspaceSlug, router.isReady])
 
   if (!router.isReady) {
-    return <h1>Loading</h1>
+    return <div className="p-4">Loading...</div>
   }
 
   if (typeof workspaceSlug !== "string") {
@@ -30,7 +30,12 @@ export const WorkspaceRoot: NextPage = () => {
 
   return (
     <PageLayout pageTitle="Workspace" topNav={<TopNav pageLevel />}>
-      <main className={clsx("fixed inset-0")}>
+      <main
+        className={clsx(
+          "fixed left-0 right-0 bottom-0 top-16",
+          "flex flex-col"
+        )}
+      >
         <AllWorkspaces />
         <WorkspaceRootContainer slug={workspaceSlug} />
       </main>
