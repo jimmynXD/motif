@@ -77,7 +77,7 @@ importers:
       '@types/react-dom': ^18.0.8
       '@types/uuid': ^8.3.4
       '@xata.io/cli': ^0.11.0
-      '@xata.io/client': ^0.20.2
+      '@xata.io/client': ^0.21.0
       autoprefixer: ^10.4.13
       clsx: ^1.2.1
       cors: ^2.8.5
@@ -106,13 +106,13 @@ importers:
       uuid: ^9.0.0
       zod: ^3.19.1
     dependencies:
-      '@next-auth/xata-adapter': 0.2.0_wyw54qouhfdj3py7dhwgdpl7fi
+      '@next-auth/xata-adapter': 0.2.0_5m34pynm7tp2x23yj54gwu2yae
       '@tanstack/react-query': 4.15.1_biqbaboplfbrettd7655fr4n2y
       '@trpc/client': 10.1.0_@trpc+server@10.1.0
       '@trpc/next': 10.1.0_gszrbgarvoptog25w4plexeym4
       '@trpc/react-query': 10.1.0_hpbkghdppc7g5ylia5jzahhlk4
       '@trpc/server': 10.1.0
-      '@xata.io/client': 0.20.2_typescript@4.8.4
+      '@xata.io/client': 0.21.3_typescript@4.8.4
       autoprefixer: 10.4.13_postcss@8.4.19
       cors: 2.8.5
       date-fns: 2.29.3
@@ -2265,13 +2265,13 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@next-auth/xata-adapter/0.2.0_wyw54qouhfdj3py7dhwgdpl7fi:
+  /@next-auth/xata-adapter/0.2.0_5m34pynm7tp2x23yj54gwu2yae:
     resolution: {integrity: sha512-EtB+utpOljCShqIP8OjF1HpBicdXJqxX5NB6Yh1Jo1tdhuM+splzw3f/QFiZ5xfHM+hY97ecgQiAELdUi9Mrcg==}
     peerDependencies:
       '@xata.io/client': '>=0.13.0'
       next-auth: ^4
     dependencies:
-      '@xata.io/client': 0.20.2_typescript@4.8.4
+      '@xata.io/client': 0.21.3_typescript@4.8.4
       next-auth: 4.16.4_6jx7hpii6hgsrmhxgqrmo3277u
     dev: false
 
@@ -5092,21 +5092,12 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@xata.io/client/0.20.2_typescript@4.8.4:
-    resolution: {integrity: sha512-GT88eGcuS/6iNI9LXrQvhj7zL0SCcGu7X5cgPAxSqX9X2YeAwTcBY+BH+KcibhCphKS/eJOxlo/jaYGRvDgTQg==}
-    peerDependencies:
-      typescript: '>=4.5'
-    dependencies:
-      typescript: 4.8.4
-    dev: false
-
   /@xata.io/client/0.21.3_typescript@4.8.4:
     resolution: {integrity: sha512-y0ITyIqw8JcqlynxvoAIJLiPj5j6CldIcwlOuUIXJ9RyxipevCCliDT/PbJUegHkj3hS+eTPPT9SVmvRJBQ6SA==}
     peerDependencies:
       typescript: '>=4.5'
     dependencies:
       typescript: 4.8.4
-    dev: true
 
   /@xata.io/codegen/0.21.0:
     resolution: {integrity: sha512-XxfQ9/+gVwjXFeFWSzJ83SEi/VkIf87kp9m+2cg/F3BDZMqwfmXPvEYGjXloJzomdE3uOKK1Tln5ycTs2+Dh7w==}
