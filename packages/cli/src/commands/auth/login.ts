@@ -10,6 +10,8 @@ import envPaths from "../../env-paths"
 import fs from "node:fs/promises"
 import path from "node:path"
 import { z } from "zod"
+import { renderInk } from "../../modules/meta/utils"
+import { SignInCommand } from "../../modules/auth/commands/signin"
 const paths = envPaths("motifxd")
 
 export default class Login extends Command {
@@ -48,34 +50,37 @@ export default class Login extends Command {
   }
 
   async run(): Promise<void> {
-    const { flags } = await this.parse(Login)
+    const { flags, ...opts } = await this.parse(Login)
 
     const loginUrl = "https://motifxd.com/login"
 
     await this.getAPIKey()
 
-    if (flags.token) {
-      const json = JSON.stringify(
-        {
-          token: flags.token,
-          createdAt: new Date().toLocaleString(),
-          expiresAt: new Date(Date.now() + 60 * 60 * 1000).toLocaleString(),
-        },
-        null,
-        2
-      )
-      try {
-        await fs.stat(paths.data)
-      } catch {
-        await fs.mkdir(paths.data)
-      }
+    /* if (flags.token) { */
+    /*   const json = JSON.stringify( */
+    /*     { */
+    /*       token: flags.token, */
+    /*       createdAt: new Date().toLocaleString(), */
+    /*       expiresAt: new Date(Date.now() + 60 * 60 * 1000).toLocaleString(), */
+    /*     }, */
+    /*     null, */
+    /*     2 */
+    /*   ) */
+    /*   try { */
+    /*     await fs.stat(paths.data) */
+    /*   } catch { */
+    /*     await fs.mkdir(paths.data) */
+    /*   } */
+    /**/
+    /*   const filePath = path.join(paths.data, "api-key.json") */
+    /*   await fs.writeFile(filePath, json) */
+    /*   this.log(`generated ${filePath}`) */
+    /* } else { */
+    /*   this.log("redirected to login page") */
+    /*   /* CliUx.ux.open(loginUrl) */
+    /* } */
+    const { waitUntilExit, unmount } = renderInk(SignInCommand)
 
-      const filePath = path.join(paths.data, "api-key.json")
-      await fs.writeFile(filePath, json)
-      this.log(`generated ${filePath}`)
-    } else {
-      this.log("redirected to login page")
-      CliUx.ux.open(loginUrl)
-    }
+    await waitUntilExit()
   }
 }

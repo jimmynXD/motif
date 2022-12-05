@@ -3,6 +3,7 @@ import type { Config } from "tailwindcss"
 import { TypographyClasses } from "./plugin/typography"
 
 type PresetConfig = Omit<Config, "content">
+
 const config: PresetConfig = {
   theme: {
     fontFamily: {
@@ -23,7 +24,6 @@ const config: PresetConfig = {
       },
     },
   },
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
   plugins: [TypographyClasses],
 }
 

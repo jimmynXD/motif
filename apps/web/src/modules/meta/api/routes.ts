@@ -2,6 +2,7 @@ import { z } from "zod"
 import { publicProcedure, router } from "./_app"
 import { tokenRouter } from "@/tokens/api"
 import { projectRouter, userRouter, workspaceRouter } from "@/user/api"
+import { authRouter } from "@/auth/api/router"
 
 export const testRouter = router({
   hello: publicProcedure
@@ -23,6 +24,7 @@ export const appRouter = router({
   user: userRouter,
   workspace: workspaceRouter,
   project: projectRouter,
+  auth: authRouter,
 })
 
 // export type definition of API

@@ -1,4 +1,5 @@
 import { createMainService } from "@/comlinkFigma"
+import { proxy } from "comlink"
 
 export const service = {
   close: () => {
@@ -7,5 +8,9 @@ export const service = {
   resize: (width: number, height: number) => {
     figma.ui.resize(width, height)
   },
+  storage: proxy({
+    get: figma.clientStorage.getAsync,
+    set: figma.clientStorage.setAsync,
+  }),
 }
 export default createMainService(service)

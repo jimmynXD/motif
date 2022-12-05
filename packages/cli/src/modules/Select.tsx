@@ -22,7 +22,7 @@ const CustomItem: FC<Props> = ({ isSelected = false, label }) => (
 )
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const Select = ({ items }: SelectInterface) => {
+export const Select: FC<SelectInterface> = ({ items }: SelectInterface) => {
   const handleSelect = ({ label, value }: SelectProps) => {
     return console.log(`Selected ${label} (${value})`)
   }

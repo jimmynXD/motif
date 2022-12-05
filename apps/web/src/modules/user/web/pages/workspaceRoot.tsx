@@ -24,6 +24,7 @@ export const WorkspaceRoot: NextPage = () => {
   }
 
   if (typeof workspaceSlug !== "string") {
+    // useEffect redirects to 404
     return null
   }
 

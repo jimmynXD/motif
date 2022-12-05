@@ -12,7 +12,15 @@ export interface TRPCProviderProps {
 }
 
 export const TRPCProvider: FC<TRPCProviderProps> = ({ children }) => {
-  const [queryClient] = useState(() => new QueryClient())
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: { refetchOnWindowFocus: false },
+        },
+      })
+  )
+
   const [trpcClient] = useState(() =>
     trpc.createClient({
       links: [
