@@ -13,6 +13,7 @@ import { WorkspaceRecord } from "@/db/api"
 import { enhanceWithUserWorkspaceRoles } from "./middlewares"
 import { z } from "zod"
 import { nanoid } from "nanoid"
+import { pick } from "remeda"
 
 /**
  * TODO: projectRouter isn't working with projectProcedure
@@ -54,6 +55,17 @@ export const projectRouter = router({
       }).getAll()
 
       return res
+    }),
+  deleteProject: userProcedure
+    .input(
+      z.object({
+        wkspcId: z.string(),
+        projectId: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const res = await ctx.xata.db.Project.deleteOrThrow(input.projectId)
+      return pick(res, ["id", "name", "slug"])
     }),
 })
 export const workspaceRouter = router({
