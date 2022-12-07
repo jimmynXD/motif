@@ -1,5 +1,5 @@
 import clsx from "clsx"
-import { FC, ReactNode } from "react"
+import { ReactNode } from "react"
 import { toast } from "react-hot-toast"
 
 export enum Variant {
@@ -25,11 +25,11 @@ export const ToastBanner = ({
   const variantClass = () => {
     switch (variant) {
       case "error":
-        return "bg-red-100 text-red-800"
+        return "bg-red-800 text-white"
       case "warning":
-        return "bg-yellow-100 text-yellow-800"
+        return "bg-yellow-800 text-white"
       case "info":
-        return "bg-blue-100 text-blue-800"
+        return "bg-blue-800 text-white"
       case "success":
       default:
         return "bg-green-800 text-white"

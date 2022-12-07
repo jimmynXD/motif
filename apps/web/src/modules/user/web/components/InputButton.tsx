@@ -115,7 +115,7 @@ export const LargeInputButton: FC<InputButtonProps> = ({ onSubmit, label }) => {
     <section
       className={clsx(
         "flex justify-center items-center flex-1",
-        "min-h-[140px] border-2 border-dotted border-gray-500 rounded-lg",
+        "group min-h-[140px] border-2 border-dotted border-gray-500 rounded-lg",
         {
           "bg-gray-100": parseNewInput,
         }
@@ -128,8 +128,10 @@ export const LargeInputButton: FC<InputButtonProps> = ({ onSubmit, label }) => {
           hidden: parseNewInput,
         })}
       >
-        <div className={clsx("flex flex-col")}>
-          <span className="material-symbols-outlined font-lg">add</span>
+        <div className={clsx("flex flex-col", "group-hover:text-purple-700")}>
+          <span className="material-symbols-outlined font-lg group-hover:text-purple-700">
+            add
+          </span>
           <span>{label}</span>
         </div>
       </Button>
@@ -145,6 +147,8 @@ export const LargeInputButton: FC<InputButtonProps> = ({ onSubmit, label }) => {
           type="text"
           placeholder="Enter project name"
           onKeyDown={async (e) => {
+            // do not submit if input is empty
+            if (e.currentTarget.value.length === 0) return
             if (e.key === "Enter") {
               onSubmit(e.currentTarget.value)
               setPasteNewInput(false)
@@ -160,7 +164,6 @@ export const LargeInputButton: FC<InputButtonProps> = ({ onSubmit, label }) => {
             isDisabled={inputValue.length === 0}
             onPress={(e) => {
               if (e.type === "press") {
-                onSubmit(inputValue)
                 setPasteNewInput(false)
                 setInputValue("")
               }

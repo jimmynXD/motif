@@ -6,6 +6,7 @@ module.exports = {
   content: [
     "./src/**/*.{html,tsx}",
     "./node_modules/@labxd/gustxd/dist/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/ui/src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {

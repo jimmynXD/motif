@@ -63,16 +63,12 @@ export const AllWorkspaces: FC = () => {
         </div>
         <select
           className={clsx(
-            "mt-2 md:mt-0",
-            "w-full",
-            "px-4 py-2",
-            "text-gray-700",
-            "bg-white",
-            "border border-purple-500",
-            "rounded-lg",
-            "focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent",
-            "mt-1 md:mt-0"
+            "mt-2 md:mt-0 px-4 py-2 w-full",
+            "border border-purple-500 rounded-lg",
+            "text-gray-700 bg-white",
+            "focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
           )}
+          defaultValue={data[0].id}
           onChange={(e) => {
             // go to workspace
             router.push(`/app/workspace/${e.target.value}`)
@@ -82,7 +78,6 @@ export const AllWorkspaces: FC = () => {
             <option
               key={workspace.id}
               value={workspace.slug !== null ? workspace.slug : workspace.id}
-              selected={router.query.workspaceSlug === workspace.slug}
             >
               {workspace.name}
             </option>
