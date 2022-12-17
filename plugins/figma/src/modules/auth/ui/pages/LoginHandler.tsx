@@ -20,7 +20,7 @@ export const HandleLogin: FC = () => {
   const retryDelay = 1000 // 1s
   const retry = 60 // try for 1 min
 
-  const createAPIKeyMutation = trpc.auth.createAPIKey.useMutation({
+  const createAPIKeyMutation = trpc.api.auth.createAPIKey.useMutation({
     retry,
     retryDelay,
     onError: (e) => {

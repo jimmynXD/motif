@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin")
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin")
 const WatchExternalFilesPlugin = require("webpack-watch-files-plugin").default
 const RemovePlugin = require("remove-files-webpack-plugin")
+const PostCompilePlugin = require("webpack-post-compile-plugin")
 
 const path = require("path")
 const webpack = require("webpack")
@@ -18,13 +19,26 @@ module.exports = (env, argv) => {
       filename: "ui.html",
       chunks: ["ui"],
     }),
+    new PostCompilePlugin({
+      compilePaths: [
+        "node_modules/@trpc",
+        "node_modules/zod",
+        "node_modules/ui",
+      ],
+    }),
     new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/ui/]),
   ]
 
   if (argv.mode === "development") {
     plugins.push(
       new WatchExternalFilesPlugin({
-        files: ["./src/**/*.ts", "./src/**/*.tsx", "./src/**/*.css"],
+        files: [
+          "./src/**/*.ts",
+          "./src/**/*.tsx",
+          "./src/**/*.css",
+          "./node_modules/ui/**/src/*.ts",
+          "./node_modules/ui/**/src/*.tsx",
+        ],
       })
     )
   } else {
@@ -55,7 +69,7 @@ module.exports = (env, argv) => {
       rules: [
         // Converts TypeScript code to JavaScript
         {
-          test: /\.tsx?$/,
+          test: /\.(tsx?|jsx?)$/,
           use: "ts-loader",
           exclude: /node_modules/,
         },

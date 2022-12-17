@@ -26,7 +26,9 @@
     "react-dom": "18.2.0",
     "react-error-boundary": "^3.1.4",
     "react-router-dom": "^6.4.3",
-    "type-fest": "^3.2.0"
+    "trpc-figma": "^0.1.2",
+    "type-fest": "^3.2.0",
+    "zod": "^3.19.1"
   },
   "devDependencies": {
     "@figma/plugin-typings": "^1.55.1",
@@ -57,6 +59,7 @@
     "web": "workspace:*",
     "webpack": "^5.74.0",
     "webpack-cli": "^5.0.0",
+    "webpack-post-compile-plugin": "^1.2.3",
     "webpack-watch-files-plugin": "^1.2.1"
   },
   "keywords": []

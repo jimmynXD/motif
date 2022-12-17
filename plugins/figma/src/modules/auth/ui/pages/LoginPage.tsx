@@ -3,7 +3,7 @@ import clsx from "clsx"
 import { FC } from "react"
 import { useNavigate } from "react-router-dom"
 export const LoginPage: FC = () => {
-  const createTokenMutation = trpc.auth.createToken.useMutation()
+  const createTokenMutation = trpc.api.auth.createToken.useMutation()
   const navigate = useNavigate()
 
   const handleOnClickLogin = async () => {

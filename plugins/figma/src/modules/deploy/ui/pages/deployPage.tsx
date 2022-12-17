@@ -24,7 +24,7 @@ export const DeployPage = () => {
     return data?.textResults.length
   }, [data])
 
-  const deployMutation = trpc.token.publishMany.useMutation()
+  const deployMutation = trpc.api.token.publishMany.useMutation()
 
   const handleSubmission = async () => {
     if (!data || isLoading) {

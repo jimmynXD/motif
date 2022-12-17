@@ -29,7 +29,7 @@ export const useAuth = (
     }
   )
 
-  const meQuery = trpc.user.me.useQuery(undefined, {
+  const meQuery = trpc.api.user.me.useQuery(undefined, {
     suspense,
     enabled: !!apiKey,
     initialData: () => queryClient.getQueryData(["user", "me"]),
