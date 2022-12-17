@@ -1,15 +1,17 @@
 import "./styles/globals.css"
 
-import { DeployPage, SuccessPage } from "@/deploy/ui/pages"
-import { TokenPage } from "@/tokens/ui/pages"
+import { DeployPage, SuccessPage } from "@/deploy/ui"
+import { TokenPage } from "@/tokens/ui"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { HashRouter as Router, Routes, Route, Outlet } from "react-router-dom"
 import { TRPCProvider } from "./TRPCProvider"
 import { FC } from "react"
-import { AuthenticatedLayout } from "@/auth/ui/pages/Root"
-import { LoginPage } from "@/auth/ui/pages/LoginPage"
-import { HandleLogin } from "@/auth/ui/pages/LoginHandler"
-import { LoginFailure } from "@/auth/ui/pages/LoginFailure"
+import {
+  AuthenticatedLayout,
+  LoginPage,
+  HandleLogin,
+  LoginFailure,
+} from "@/auth/ui"
 
 const App: FC = () => {
   return (

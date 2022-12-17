@@ -3,7 +3,7 @@ import { FC, ReactNode } from "react"
 interface ErrorUIInterface {
   children?: ReactNode
   icon?: string
-  subMsg?: string
+  subMsg?: ReactNode
 }
 export const DiffStateUI: FC<ErrorUIInterface> = ({
   children,

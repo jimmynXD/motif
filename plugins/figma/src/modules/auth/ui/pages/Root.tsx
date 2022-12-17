@@ -1,9 +1,9 @@
-import { mainServices, trpc } from "@/meta/ui"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { createContext, FC, ReactNode, Suspense, useContext } from "react"
+import { createContext, FC, ReactNode, Suspense } from "react"
 import { Outlet, useNavigate } from "react-router-dom"
 import { ErrorBoundary } from "react-error-boundary"
-
+import clsx from "clsx"
+import { mainServices, trpc, DiffStateUI, LoadingIntroUI } from "@/meta/ui"
 export const getToken = async (): Promise<string> =>
   mainServices.meta.storage.get("auth.api-key")
 
@@ -63,15 +63,41 @@ export const AuthenticatedLayout: FC = () => {
   return (
     <>
       <ErrorBoundary
-        fallback={<h1>error auth</h1>}
+        fallback={<DiffStateUI />}
         onError={() => navigate("/auth/login", { replace: true })}
       >
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<LoadingIntroUI />}>
           <AuthContainer>
             {({ logout }) => (
               <div>
-                <button onClick={logout}>Log Out</button>
                 <Outlet />
+                <footer
+                  className={clsx(
+                    "flex items-center fixed bottom-0 left-0 right-0",
+                    "bg-gray-100 border-t-2 border-t-gray-200",
+                    "text-xd-secondary-black-rgb text-[10px] leading-none"
+                  )}
+                >
+                  <div className="pl-4">
+                    <span>v.alpha-1</span>
+                  </div>
+                  <div className="pr-3 flex-1 flex justify-end items-center">
+                    <button
+                      onClick={logout}
+                      className={clsx(
+                        "button button-sm button-icon-ghost",
+                        "p-1",
+                        "space-x-1",
+                        "text-[10px] leading-none"
+                      )}
+                    >
+                      <span className="material-symbols-rounded text-base">
+                        logout
+                      </span>
+                      <span>Log out</span>
+                    </button>
+                  </div>
+                </footer>
               </div>
             )}
           </AuthContainer>

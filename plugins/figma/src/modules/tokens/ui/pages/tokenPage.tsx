@@ -1,7 +1,7 @@
 import clsx from "clsx"
 import { useQuery } from "@tanstack/react-query"
 import { getFigmaData } from "../api"
-import { DiffStateUI, LoadingUI, TopNav } from "@/meta/ui/components"
+import { DiffStateUI, LoadingUI, TopNav } from "@/meta/ui"
 import { mainServices } from "@/meta/ui"
 import { useState } from "react"
 import { EmptySection } from "../components"
@@ -337,20 +337,6 @@ export const TokenPage = () => {
           )}
         </div>
       </section>
-      <footer className="text-xd-secondary-black-rgb bg-gray-100 flex items-center fixed bottom-0 left-0 right-0 text-[10px] leading-none bg-white border-t-2 border-t-gray-200">
-        <div className="pl-4">
-          <span>v.alpha-1</span>
-        </div>
-        <div className="px-4 flex-1 flex justify-end items-center">
-          <span>updated: {lastRefresh}</span>
-          <button
-            onClick={createTokenHandler}
-            className="button button-sm button-icon-ghost py-1"
-          >
-            <span className="material-symbols-rounded text-lg">sync</span>
-          </button>
-        </div>
-      </footer>
     </main>
   )
 }

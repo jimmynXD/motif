@@ -1,5 +1,6 @@
 import { mainServices, trpc } from "@/meta/ui"
-import { FC, useEffect } from "react"
+import { LoadingLogo, IntroLayout } from "@/meta/ui"
+import { FC, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 
 const useToken = () => {
@@ -36,9 +37,24 @@ export const HandleLogin: FC = () => {
     createAPIKeyMutation.mutate({ token })
   }, [])
 
+  const [seconds, setSeconds] = useState<number>(60)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSeconds(seconds - 1)
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [seconds])
+
   if (createAPIKeyMutation.isLoading) {
-    // TODO(@jimmynxd): tell users that they have 1min to authenticate
-    return <div>Loading</div>
+    return (
+      <IntroLayout>
+        <LoadingLogo />
+        <div className="pt-12 text-sm">
+          <span>{seconds} seconds remaining to authenticate...</span>
+        </div>
+      </IntroLayout>
+    )
   }
 
   return null

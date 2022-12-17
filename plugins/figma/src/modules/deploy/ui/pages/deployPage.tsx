@@ -94,13 +94,20 @@ export const DeployPage = () => {
         </section>
       </div>
       <footer className="flex items-end">
-        <div className="px-8 py-3 bg-[#121212]/[0.1] border-t border-t-[#CBD2E1]">
+        <div className="px-8 pt-3 pb-12 bg-purple-100 border-t border-t-purple-700">
           <div className="grid grid-cols-[auto_1fr] gap-2">
             <span className="material-symbols-rounded">warning</span>
             <span className="text-xs leading-5">
               We are currently in alpha. Visit{" "}
-              <b className="text-xd-primary-purple-700">motifxd.com</b> for the
-              latest updates XD
+              <a
+                href={"https://motifxd.com"}
+                target="_blank"
+                className="text-xd-primary-purple-700"
+                rel="noreferrer"
+              >
+                motifxd.com
+              </a>{" "}
+              for the latest updates XD
             </span>
           </div>
         </div>
