@@ -20,6 +20,7 @@ export const HandleLogin: FC = () => {
   const retryDelay = 1000 // 1s
   const retry = 60 // try for 1 min
 
+  const saveAPIKeyMutation = trpc.figma.auth.saveAPIKey.useMutation()
   const createAPIKeyMutation = trpc.api.auth.createAPIKey.useMutation({
     retry,
     retryDelay,
@@ -28,8 +29,14 @@ export const HandleLogin: FC = () => {
       navigate("/auth/login/failure")
     },
     onSuccess: async (res) => {
-      await mainServices.meta.storage.set("auth.api-key", res)
-      navigate(`/`, { replace: true })
+      if (!res.key || !res.createdAt || !res.updatedAt) {
+        return navigate("/auth/login/failure")
+      }
+
+      await saveAPIKeyMutation.mutateAsync({
+        key: res.key,
+      })
+      return navigate(`/`, { replace: true })
     },
   })
 

@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { useQueryClient } from "@tanstack/react-query"
 import { createContext, FC, ReactNode, Suspense } from "react"
 import { Outlet, useNavigate } from "react-router-dom"
 import { ErrorBoundary } from "react-error-boundary"
@@ -17,30 +17,31 @@ export const useAuth = (
   const navigate = useNavigate()
 
   const onErrorHandler = () => navigate("/auth/login", { replace: true })
-  const _onError = onError ?? onErrorHandler
+  const onErrorFn = onError ?? onErrorHandler
 
-  const { data: apiKey, ...apiKeyQuery } = useQuery(
-    ["auth.api-key"],
-    getToken,
+  const { data: apiKey, ...apiKeyQuery } = trpc.figma.auth.getAPIKey.useQuery(
+    undefined,
     {
+      onError: onErrorFn,
       suspense,
       initialData: () =>
-        queryClient.getQueryData(["api.auth-key"]) ?? undefined,
+        queryClient.getQueryData(["figma", "auth", "getAPIKey"]),
     }
   )
 
   const meQuery = trpc.api.user.me.useQuery(undefined, {
     suspense,
     enabled: !!apiKey,
-    initialData: () => queryClient.getQueryData(["user", "me"]),
+    initialData: () => queryClient.getQueryData(["api", "user", "me"]),
   })
+  const deleteAPIKeyMutation = trpc.figma.auth.deleteAPIKey.useMutation()
 
   const isLoading = apiKeyQuery.isLoading || meQuery.isLoading
 
   const error = apiKeyQuery.error || meQuery.error
 
   const logout = async () => {
-    mainServices.meta.storage.delete("auth.api-key")
+    await deleteAPIKeyMutation.mutateAsync()
     navigate("/auth/login", { replace: true })
   }
 

@@ -5,7 +5,7 @@
     "declaration": false,
     "declarationMap": false,
     "moduleResolution": "node",
-    "target": "es6",
+    "target": "ES5",
     "jsx": "react-jsx",
     "allowSyntheticDefaultImports": true,
     "typeRoots": [
@@ -22,7 +22,10 @@
       "@labxd/comlink-figma": [
         "src/modules/comlinkFigma"
       ]
-    }
+    },
+    "allowJs": true,
+    "strict": true,
+    "strictNullChecks": true
   },
   "include": [
     "src/**/*.ts",

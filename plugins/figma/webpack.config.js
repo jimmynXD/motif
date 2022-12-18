@@ -27,6 +27,9 @@ module.exports = (env, argv) => {
       ],
     }),
     new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/ui/]),
+    new RemovePlugin({
+      after: { include: ["dist/ui.js"] },
+    }),
   ]
 
   if (argv.mode === "development") {
@@ -39,12 +42,6 @@ module.exports = (env, argv) => {
           "./node_modules/ui/**/src/*.ts",
           "./node_modules/ui/**/src/*.tsx",
         ],
-      })
-    )
-  } else {
-    plugins.push(
-      new RemovePlugin({
-        after: { include: ["dist/ui.js"] },
       })
     )
   }

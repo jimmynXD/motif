@@ -1,9 +1,17 @@
 import { exposeMainServices } from "@labxd/comlink-figma"
+import { createFigmaHandler } from "trpc-figma"
 
 import { linkedServices } from "@/meta/main"
+import { figmaRouter } from "@/meta/main/router"
+import { createContext } from "@/meta/main/context"
 
 const main = () => {
   exposeMainServices(linkedServices)
+
+  createFigmaHandler({
+    router: figmaRouter,
+    createContext,
+  })
 
   figma.showUI(__html__, {
     width: 400,

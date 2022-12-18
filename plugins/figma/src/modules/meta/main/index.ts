@@ -5,5 +5,6 @@ export const linkedServices = {
   meta: metaMainService,
   tokens: tokenService,
 }
+export * from "./trpc"
 
 export type LinkedMainServices = typeof linkedServices
