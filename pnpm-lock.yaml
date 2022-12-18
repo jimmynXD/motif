@@ -333,6 +333,7 @@ importers:
       css-loader: ^6.7.1
       eslint: 7.32.0
       eslint-config-custom: workspace:*
+      fork-ts-checker-webpack-plugin: ^7.2.14
       html-webpack-inline-source-plugin: ^0.0.10
       html-webpack-plugin: ^5.5.0
       motifxd-tailwind-config: workspace:*
@@ -386,6 +387,7 @@ importers:
       css-loader: 6.7.1_webpack@5.74.0
       eslint: 7.32.0
       eslint-config-custom: link:../../packages/eslint-config-custom
+      fork-ts-checker-webpack-plugin: 7.2.14_qqxisngxjbp7lstdk7boexbu3e
       html-webpack-inline-source-plugin: 0.0.10
       html-webpack-plugin: 5.5.0_webpack@5.74.0
       motifxd-tailwind-config: link:../../packages/tailwind
@@ -10190,6 +10192,36 @@ packages:
       webpack: 5.74.0_webpack-cli@5.0.0
     dev: true
 
+  /fork-ts-checker-webpack-plugin/7.2.14_qqxisngxjbp7lstdk7boexbu3e:
+    resolution:
+      {
+        integrity: sha512-Tg2feh/n8k486KX0EbXVUfJj3j0xnnbKYTJw0fnIb2QdV0+lblOYZSal5ed9hARoWVwKeOC7sYE2EakSRLo5ZA==,
+      }
+    engines: { node: ">=12.13.0", yarn: ">=1.0.0" }
+    peerDependencies:
+      typescript: ">3.6.0"
+      vue-template-compiler: "*"
+      webpack: ^5.11.0
+    peerDependenciesMeta:
+      vue-template-compiler:
+        optional: true
+    dependencies:
+      "@babel/code-frame": 7.18.6
+      chalk: 4.1.2
+      chokidar: 3.5.3
+      cosmiconfig: 7.1.0
+      deepmerge: 4.2.2
+      fs-extra: 10.1.0
+      memfs: 3.4.10
+      minimatch: 3.1.2
+      node-abort-controller: 3.0.1
+      schema-utils: 3.1.1
+      semver: 7.3.8
+      tapable: 2.2.1
+      typescript: 4.8.4
+      webpack: 5.74.0_webpack-cli@5.0.0
+    dev: true
+
   /formdata-polyfill/4.0.10:
     resolution:
       {
@@ -10211,6 +10243,18 @@ packages:
       {
         integrity: sha512-y6OAwoSIf7FyjMIv94u+b5rdheZEjzR63GTyZJm5qh4Bi+2YgwLCcI/fPFZkL5PSixOt6ZNKm+w+Hfp/Bciwow==,
       }
+
+  /fs-extra/10.1.0:
+    resolution:
+      {
+        integrity: sha512-oRXApq54ETRj4eMiFzGnHWGy+zo5raudjuxN0b8H7s/RU2oW0Wvsx9O0ACRN/kRq9E8Vu/ReskGB5o3ji+FzHQ==,
+      }
+    engines: { node: ">=12" }
+    dependencies:
+      graceful-fs: 4.2.10
+      jsonfile: 6.1.0
+      universalify: 2.0.0
+    dev: true
 
   /fs-extra/6.0.1:
     resolution:
@@ -13218,6 +13262,13 @@ packages:
     dependencies:
       semver: 7.3.8
     dev: false
+
+  /node-abort-controller/3.0.1:
+    resolution:
+      {
+        integrity: sha512-/ujIVxthRs+7q6hsdjHMaj8hRG9NuWmwrz+JdRwZ14jdFoKSkm+vDsCbF9PLpnSqjaWQJuTmVtcWHNLr+vrOFw==,
+      }
+    dev: true
 
   /node-addon-api/5.0.0:
     resolution:

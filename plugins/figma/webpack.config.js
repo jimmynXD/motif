@@ -4,6 +4,7 @@ const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin")
 const WatchExternalFilesPlugin = require("webpack-watch-files-plugin").default
 const RemovePlugin = require("remove-files-webpack-plugin")
 const PostCompilePlugin = require("webpack-post-compile-plugin")
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin")
 
 const path = require("path")
 const webpack = require("webpack")
@@ -30,6 +31,7 @@ module.exports = (env, argv) => {
     new RemovePlugin({
       after: { include: ["dist/ui.js"] },
     }),
+    new ForkTsCheckerWebpackPlugin(),
   ]
 
   if (argv.mode === "development") {
@@ -67,8 +69,11 @@ module.exports = (env, argv) => {
         // Converts TypeScript code to JavaScript
         {
           test: /\.(tsx?|jsx?)$/,
-          use: "ts-loader",
+          loader: "ts-loader",
           exclude: /node_modules/,
+          options: {
+            transpileOnly: true,
+          },
         },
 
         // Enables including CSS by doing "import './file.css'" in your TypeScript code
