@@ -1,5 +1,5 @@
 import { exposeMainServices } from "@labxd/comlink-figma"
-import { createFigmaHandler } from "trpc-figma"
+import { createFigmaHandler } from "trpc-figma/adapter"
 
 import { linkedServices } from "@/meta/main"
 import { figmaRouter as router } from "@/meta/main/router"

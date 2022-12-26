@@ -1,9 +1,15 @@
 import { z } from "zod"
 import { publicProcedure, router } from "./_app"
 import { tokenRouter } from "@/tokens/api"
-import { projectRouter, userRouter, workspaceRouter } from "@/user/api"
+import {
+  productAnalyticsRouter,
+  projectRouter,
+  userRouter,
+  workspaceRouter,
+} from "@/user/api"
 import { authRouter } from "@/auth/api/router"
 import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server"
+
 export const testRouter = router({
   hello: publicProcedure
     .input(
@@ -22,6 +28,7 @@ export const appRouter = router({
   test: testRouter,
   token: tokenRouter,
   user: userRouter,
+  analytics: productAnalyticsRouter,
   workspace: workspaceRouter,
   project: projectRouter,
   auth: authRouter,

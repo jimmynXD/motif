@@ -12,28 +12,34 @@ import {
   HandleLogin,
   LoginFailure,
 } from "@/auth/ui"
+import { AnalyticsProvider } from "use-analytics"
+import { analytics } from "./analytics"
+
+analytics.track("Booted up")
 
 const App: FC = () => {
   return (
-    <Router>
-      <TRPCProvider>
-        <ReactQueryDevtools initialIsOpen={false} />
-        <Routes>
-          <Route path="/" element={<AuthenticatedLayout />}>
-            <Route index element={<TokenPage />} />
-            <Route path="deploy" element={<DeployPage />}>
-              <Route path="success" element={<SuccessPage />} />
+    <AnalyticsProvider instance={analytics}>
+      <Router>
+        <TRPCProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
+          <Routes>
+            <Route path="/" element={<AuthenticatedLayout />}>
+              <Route index element={<TokenPage />} />
+              <Route path="deploy" element={<DeployPage />}>
+                <Route path="success" element={<SuccessPage />} />
+              </Route>
             </Route>
-          </Route>
 
-          <Route path="auth" element={<Outlet />}>
-            <Route path="login" element={<LoginPage />} />
-            <Route path="login/failure" element={<LoginFailure />} />
-            <Route path="login/:token" element={<HandleLogin />} />
-          </Route>
-        </Routes>
-      </TRPCProvider>
-    </Router>
+            <Route path="auth" element={<Outlet />}>
+              <Route path="login" element={<LoginPage />} />
+              <Route path="login/failure" element={<LoginFailure />} />
+              <Route path="login/:token" element={<HandleLogin />} />
+            </Route>
+          </Routes>
+        </TRPCProvider>
+      </Router>
+    </AnalyticsProvider>
   )
 }
 

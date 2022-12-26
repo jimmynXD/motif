@@ -5,7 +5,8 @@ const WatchExternalFilesPlugin = require("webpack-watch-files-plugin").default
 const RemovePlugin = require("remove-files-webpack-plugin")
 const PostCompilePlugin = require("webpack-post-compile-plugin")
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin")
-
+const TerserPlugin = require("terser-webpack-plugin")
+const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 const path = require("path")
 const webpack = require("webpack")
 
@@ -46,6 +47,8 @@ module.exports = (env, argv) => {
         ],
       })
     )
+  } else {
+    plugins.push(new CleanWebpackPlugin())
   }
 
   return {
@@ -105,6 +108,16 @@ module.exports = (env, argv) => {
     output: {
       filename: "[name].js",
       path: path.resolve(__dirname, "dist"), // Compile into a folder called "dist"
+    },
+
+    optimization: {
+      minimizer: [
+        new TerserPlugin({
+          // Use multi-process parallel running to improve the build speed
+          // Default number of concurrent runs: os.cpus().length - 1
+          parallel: true,
+        }),
+      ],
     },
 
     // Tells Webpack to generate "ui.html" and to inline "ui.ts" into it

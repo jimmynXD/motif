@@ -4,6 +4,7 @@ import type { CreateNextContextOptions } from "@trpc/server/adapters/next"
 import type { NextApiRequest, NextApiResponse } from "next"
 import { unstable_getServerSession } from "next-auth"
 import { options } from "@/auth/api"
+import Mixpanel from "mixpanel"
 
 // Helper method to wait for a middleware to execute before continuing
 // And to throw an error when an error happens in a middleware
@@ -59,6 +60,7 @@ export const createContext = async ({ req, res }: CreateNextContextOptions) => {
     res,
     user: await getUserFromReq(req, res),
     xata: getXataClient(),
+    mixpanel: Mixpanel.init(process.env.MIXPANEL_ID ?? ""),
   }
 }
 

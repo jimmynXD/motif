@@ -15,6 +15,24 @@ import { z } from "zod"
 import { nanoid } from "nanoid"
 import { pick } from "remeda"
 
+export const productAnalyticsRouter = router({
+  track: publicProcedure
+    .input(
+      z.object({
+        event: z.string(),
+        properties: z.record(z.unknown()).default({}).nullish(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return new Promise<void>((resolve, reject) => {
+        ctx.mixpanel.track(input.event, { ...input.properties }, (err) => {
+          if (err) reject(err)
+          resolve()
+        })
+      })
+    }),
+})
+
 /**
  * TODO: projectRouter isn't working with projectProcedure
  */
@@ -38,7 +56,6 @@ export const projectRouter = router({
         createdAt: new Date(),
         updatedAt: new Date(),
       })
-      console.log("res", res)
       return res
     }),
   getAllProjectsInWorkspace: userProcedure
