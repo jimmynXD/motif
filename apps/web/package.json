@@ -65,7 +65,7 @@
     "eslint-config-custom": "workspace:*",
     "motifxd-tailwind-config": "workspace:*",
     "tsconfig": "workspace:*",
-    "typescript": "4.8.4"
+    "typescript": "4.9.4"
   },
   "typesVersions": {
     "*": {
