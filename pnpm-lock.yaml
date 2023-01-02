@@ -103,7 +103,7 @@ importers:
       sharp: ^0.31.2
       tailwindcss: 3.2.4
       trpc-panel: ^1.2.3
-      trpc-playground: 1.0.1
+      trpc-playground: 1.0.4
       tsconfig: workspace:*
       typescript: 4.9.4
       ui: workspace:*
@@ -138,7 +138,7 @@ importers:
       sharp: 0.31.2
       tailwindcss: 3.2.4_postcss@8.4.20
       trpc-panel: 1.2.3_jbxvuspeueuz65qtjuti2zszzi
-      trpc-playground: 1.0.1_b5pqz67esu3x7w5gxdtje6thfa
+      trpc-playground: 1.0.4_b5pqz67esu3x7w5gxdtje6thfa
       ui: link:../../packages/ui
       uuid: 9.0.0
       zod: 3.19.1
@@ -4580,8 +4580,8 @@ packages:
     engines: {node: '>= 10'}
     dev: true
 
-  /@trpc-playground/html/1.0.1_@types+node@18.11.9:
-    resolution: {integrity: sha512-VIEpeINR0m+SqrzeZZfc1rVSZSg0iP+u5ncl4v4eD5uZFBj9Kg+YchGrmsLoOwalmCKEtBO/NJ1oaITn26Q2yw==}
+  /@trpc-playground/html/1.0.4_@types+node@18.11.9:
+    resolution: {integrity: sha512-HVnqaUXxEJJcrAHvVgivwtZFqTE6NNxXxrXEnd+rCxun97xnZknwdiTxq69wQEsZYxPrgtwPmO/nAEZL8AReWg==}
     dependencies:
       vite: 4.0.3_@types+node@18.11.9
       xss: 1.0.14
@@ -12733,19 +12733,19 @@ packages:
       zod-to-json-schema: 3.20.1_zod@3.19.1
     dev: false
 
-  /trpc-playground/1.0.1_b5pqz67esu3x7w5gxdtje6thfa:
-    resolution: {integrity: sha512-kjY5k8YaOeIDW2JzjV8DT1pxSv7su+ZooN+BXlHiwFT49Ksemxht169yqOmt7d6H1yOO7vDdId8ZSr5QlkIfug==}
+  /trpc-playground/1.0.4_b5pqz67esu3x7w5gxdtje6thfa:
+    resolution: {integrity: sha512-6nVf1o2LNoo1g6oTS24yajoH7xV4CFjxGAbAH7qLXqa3yo9qB5QHsWLbrm1hNt51SyCG++P0zHJaCdVfgvEVDg==}
     peerDependencies:
       '@trpc/server': ^10
       zod: ^3
     dependencies:
-      '@trpc-playground/html': 1.0.1_@types+node@18.11.9
+      '@trpc-playground/html': 1.0.4_@types+node@18.11.9
       '@trpc-playground/types': 1.0.0_irbtpk6grltnwp5h7f3uqygiey
       '@trpc/server': 10.5.0
       lodash: 4.17.21
       uttp: 0.1.3
       zod: 3.19.1
-      zod-to-ts: 1.1.1_72g5fy2tbbanlxwfrd7r4ugb6u
+      zod-to-ts: 1.1.2_72g5fy2tbbanlxwfrd7r4ugb6u
     transitivePeerDependencies:
       - '@types/node'
       - express
@@ -13873,10 +13873,10 @@ packages:
       zod: 3.19.1
     dev: false
 
-  /zod-to-ts/1.1.1_72g5fy2tbbanlxwfrd7r4ugb6u:
-    resolution: {integrity: sha512-7UGV+GnuKLUyJbJeyrkfMqCP8wk37dFkOwguIWN/jVL7kQg2e1N5o0SDPVodlfTutxeAP9IRXsWLoSlEnmetCA==}
+  /zod-to-ts/1.1.2_72g5fy2tbbanlxwfrd7r4ugb6u:
+    resolution: {integrity: sha512-IZdM0Ga1l/vQnrNy63aV3qsLNchD0aUYZEtXcyt8A3xA7+erFO0zeImEcUH5qNLA6tXDTjRpcWp0paoVoH/D0A==}
     peerDependencies:
-      typescript: ^4
+      typescript: ^4.9.4
       zod: ^3
     dependencies:
       typescript: 4.9.4
