@@ -66,7 +66,9 @@ module.exports = (env, argv) => {
       static: "./dist",
       hot: true,
     },
-
+    snapshot: {
+      managedPaths: [],
+    },
     module: {
       rules: [
         // Converts TypeScript code to JavaScript

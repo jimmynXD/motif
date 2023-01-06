@@ -11,9 +11,9 @@ export const DiffStateUI: FC<ErrorUIInterface> = ({
   subMsg,
 }) => {
   return (
-    <main className="flex flex-col h-full">
+    <main className="flex flex-col h-full darK:text-white">
       <div className="flex flex-col justify-center items-center px-4 pt-16 py-4 space-y-6">
-        <span className="material-symbols-rounded text-7xl">
+        <span className="material-symbols-rounded text-7xl dark:text-white">
           {icon ?? "priority_high"}
         </span>
         <p className="font-medium">

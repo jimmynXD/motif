@@ -1,11 +1,13 @@
 import { createMainService } from "@/comlinkFigma"
+import { replaceSlashesAndDashes } from "./utils"
 
 export const getTypes = () => {
   // get all text styles from figma
   const textStyles = figma.getLocalTextStyles()
 
   const typographyValues = textStyles.map((style) => {
-    const name = style.name.toLowerCase().replace(/\//g, ".")
+    const id = style.id
+    const name = replaceSlashesAndDashes(style.name)
     const lineHeightRelative =
       style.lineHeight.unit === "PIXELS"
         ? Math.round((style.lineHeight.value / style.fontSize) * 100) / 100
@@ -17,6 +19,7 @@ export const getTypes = () => {
         : undefined
 
     const typography = {
+      id,
       name,
       font: {
         weight: style.fontName.style.toLowerCase(),

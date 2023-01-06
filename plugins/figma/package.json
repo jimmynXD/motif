@@ -1,6 +1,6 @@
 {
   "name": "@motifxd/figma-plugin",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "description": "figma plugin for motifXD",
   "author": {
     "name": "labXD",
@@ -25,11 +25,14 @@
     "analytics-plugin-event-validation": "^0.1.2",
     "comlink": "^4.3.1",
     "react": "18.2.0",
+    "react-aria": "^3.21.0",
+    "react-color": "^2.19.3",
     "react-dom": "18.2.0",
     "react-error-boundary": "^3.1.4",
     "react-router-dom": "^6.4.3",
     "trpc-figma": "^0.2.3",
     "type-fest": "^3.2.0",
+    "ui": "workspace:*",
     "use-analytics": "^0.0.5",
     "zod": "^3.19.1"
   },
@@ -38,6 +41,7 @@
     "@types/dlv": "^1.1.2",
     "@types/node": "^18",
     "@types/react": "^18.0.25",
+    "@types/react-color": "^3.0.6",
     "@types/react-dom": "^18.0.8",
     "autoprefixer": "^10.4.13",
     "clean-webpack-plugin": "^4.0.0",

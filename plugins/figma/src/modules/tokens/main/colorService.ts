@@ -1,6 +1,6 @@
 import { createMainService } from "@/comlinkFigma"
 import { ColorToken } from "../shared/types"
-import { genRootTextColor } from "./generateService"
+import { replaceSlashesAndDashes } from "./utils"
 
 // multiple rgb values by 255
 const rgbValue = (value: number) => Math.round(value * 255)
@@ -14,14 +14,14 @@ const rgbToHex = (r: number, g: number, b: number) => {
 }
 
 export const getColors = () => {
+  const isColor = (val?: ColorToken): val is ColorToken => !!val
   // get all colors from figma
   const colors = figma.getLocalPaintStyles()
 
-  const isColor = (val?: ColorToken): val is ColorToken => !!val
-
   const colorValues = colors
     .map((style) => {
-      const name = style.name.toLowerCase().replace(/\//g, ".")
+      const id = style.id
+      const name = replaceSlashesAndDashes(style.name)
       const rgbColor = style.paints[0].type === "SOLID" && style.paints[0].color
 
       if (rgbColor) {
@@ -32,6 +32,7 @@ export const getColors = () => {
         }
 
         const color = {
+          id,
           name,
           hex: `#${rgbToHex(rgb.r, rgb.g, rgb.b)}`,
           rgb,
@@ -45,28 +46,8 @@ export const getColors = () => {
   return colorValues
 }
 
-const getRootTextColor = () => {
-  const data = genRootTextColor("Typography")
-
-  if (!data) return
-
-  const rgb: RGB = {
-    r: rgbValue(data.r),
-    g: rgbValue(data.g),
-    b: rgbValue(data.b),
-  }
-  const color = {
-    name: "root/color",
-    hex: `#${rgbToHex(rgb.r, rgb.g, rgb.b)}`,
-    rgb,
-  }
-
-  return color
-}
-
 export const service = {
   getColors,
-  getRootTextColor,
 }
 
 export default createMainService(service)

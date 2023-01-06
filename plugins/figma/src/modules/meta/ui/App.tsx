@@ -1,7 +1,14 @@
 import "./styles/globals.css"
 
 import { DeployPage, SuccessPage } from "@/deploy/ui"
-import { TokenPage } from "@/tokens/ui"
+import {
+  ColorPage,
+  DefaultTextPage,
+  NewColorPage,
+  NewTextPage,
+  TextPage,
+  TokenPage,
+} from "@/tokens/ui"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { HashRouter as Router, Routes, Route, Outlet } from "react-router-dom"
 import { TRPCProvider } from "./TRPCProvider"
@@ -14,6 +21,7 @@ import {
 } from "@/auth/ui"
 import { AnalyticsProvider } from "use-analytics"
 import { analytics } from "./analytics"
+import { InstructionPage } from "@/instruction/ui"
 
 analytics.track("Booted up")
 
@@ -24,8 +32,15 @@ const App: FC = () => {
         <TRPCProvider>
           <ReactQueryDevtools initialIsOpen={false} />
           <Routes>
-            <Route path="/" element={<AuthenticatedLayout />}>
-              <Route index element={<TokenPage />} />
+            <Route path="/" element={<TokenPage />}>
+              <Route index element={<ColorPage />} />
+              <Route path="text" element={<TextPage />} />
+            </Route>
+            <Route path="color/new" element={<NewColorPage />} />
+            <Route path="text/new" element={<NewTextPage />} />
+            <Route path="text/default" element={<DefaultTextPage />} />
+            <Route path="instruction" element={<InstructionPage />} />
+            <Route path="auth" element={<AuthenticatedLayout />}>
               <Route path="deploy" element={<DeployPage />}>
                 <Route path="success" element={<SuccessPage />} />
               </Route>

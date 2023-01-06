@@ -1,23 +1,44 @@
 import { createMainService } from "@/comlinkFigma"
+import { findFrame, replacePeriods } from "./utils"
+
+export const deleteColorToken = (frame: string, name: string, id: string) => {
+  const isRectangle = (val?: SceneNode): val is RectangleNode => !!val
+
+  const transpileName = replacePeriods(name)
+  const findColorToken = figma.getStyleById(id) as PaintStyle
+  const findColorElement = findFrame(frame)
+    .children.filter((node) => node.type === "RECTANGLE")
+    .filter(isRectangle)
+    .find((rect) => rect.name === transpileName)
+
+  findColorToken.remove()
+  return findColorElement?.remove()
+}
+
+export const deleteTextToken = (frame: string, name: string, id: string) => {
+  const isText = (val?: SceneNode): val is TextNode => !!val
+  const transpileName = replacePeriods(name)
+  const findTextToken = figma.getStyleById(id) as TextStyle
+  const findTextElement = findFrame(frame)
+    .findAll((node) => node.type === "TEXT")
+    .filter(isText)
+    .find((txt) => txt.name === transpileName)
+
+  findTextToken.remove()
+  return findTextElement?.remove()
+}
 
 export const removeColorTokens = (sectionName: string[]) => {
   // type guards
   const isRectangle = (val?: SceneNode): val is RectangleNode => !!val
 
-  const isSection = (val?: SceneNode): val is SectionNode =>
-    !!val && val.type === "SECTION"
-
   let allRects: RectangleNode[] = []
 
   sectionName.forEach((section) => {
-    const [findSection] = figma.currentPage
-      .findChildren((node) => node.type === "SECTION" && node.name === section)
-      .filter(isSection)
-
-    if (!findSection) return
+    if (!findFrame(section)) return
     // find all rectangles inside the section
     // sort alphabetically
-    const findRectangles = findSection
+    const findRectangles = findFrame(section)
       .findAll((node) => node.type === "RECTANGLE")
       .filter(isRectangle)
       .sort((a, b) => a.name.localeCompare(b.name))
@@ -41,22 +62,15 @@ export const removeColorTokens = (sectionName: string[]) => {
   return console.log("No missing colors")
 }
 
-export const removeTypographyTokens = (sectionName: string[]) => {
+export const removeTypographyTokens = (frames: string[]) => {
   const isText = (val?: SceneNode): val is TextNode => !!val
-
-  const isSection = (val?: SceneNode): val is SectionNode =>
-    !!val && val.type === "SECTION"
 
   let allText: TextNode[] = []
 
-  sectionName.forEach((section) => {
-    const [findSection] = figma.currentPage
-      .findChildren((node) => node.type === "SECTION" && node.name === section)
-      .filter(isSection)
+  frames.forEach((name) => {
+    if (!findFrame(name)) return
 
-    if (!findSection) return
-
-    const findText = findSection
+    const findText = findFrame(name)
       .findAll((node) => node.type === "TEXT")
       .filter(isText)
       .sort((a, b) => a.name.localeCompare(b.name))
@@ -80,6 +94,8 @@ export const removeTypographyTokens = (sectionName: string[]) => {
 export const service = {
   removeColorTokens,
   removeTypographyTokens,
+  deleteColorToken,
+  deleteTextToken,
 }
 
 export default createMainService(service)

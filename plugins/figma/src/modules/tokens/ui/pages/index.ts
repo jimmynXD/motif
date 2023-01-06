@@ -1,1 +1,6 @@
 export * from "./tokenPage"
+export * from "./textPage"
+export * from "./colorPage"
+export * from "./newColorPage"
+export * from "./newTextPage"
+export * from "./defaultTextPage"

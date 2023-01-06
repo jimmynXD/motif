@@ -1,58 +1,86 @@
 import { createMainService } from "@/comlinkFigma"
-import { rgbToHex, rgbValue } from "./utils"
+import {
+  DSName,
+  capitalize,
+  findDSPage,
+  findFrame,
+  findSection,
+  replaceDashesWithSlashes,
+  replaceSlashesAndSpacesWithDashes,
+  reverseRgbValue,
+  rgbToHex,
+  rgbValue,
+} from "./utils"
+import { RGBColor } from "react-color"
 
 export const genPage = () => {
   const root = figma.root
 
   const DSExists =
-    root.children.filter((page) =>
-      page.name.toLowerCase().endsWith("design system")
-    ).length > 0
+    root.children.filter((item) => item.name === DSName()).length > 0
 
-  const dsPage = root.children.filter((page) =>
-    page.name.toLowerCase().endsWith("design system")
-  )[0]
+  if (DSExists) return
 
-  if (DSExists) {
-    if (figma.currentPage !== dsPage) {
-      alert("Redirecting to the Design System page")
-      return (figma.currentPage = dsPage)
-    }
-    return figma.currentPage
-  }
+  const createPage = figma.createPage()
+  createPage.name = DSName()
 
-  figma.createPage().name = "Design System"
-
-  const dsNode = root.findChild((item) =>
-    item.name.toLowerCase().endsWith("Design System")
-  ) as PageNode
+  const dsNode = root.findChild((item) => item.name === DSName()) as PageNode
 
   root.insertChild(0, dsNode)
 
-  return (figma.currentPage = dsNode)
+  return console.log("Design System page created")
 }
 
-export const genColorTokens = (sectionName: string, prefix?: string) => {
+export const genSection = (sectionName: string) => {
+  if (findSection(sectionName))
+    return console.log(sectionName, "already exists")
+
+  const section = figma.createSection()
+  section.resizeWithoutConstraints(1920, 1080)
+  section.name = sectionName
+
+  if (figma.currentPage !== findDSPage()) {
+    return findDSPage().appendChild(section)
+  }
+
+  return section
+}
+
+export const genFrame = (
+  name: string,
+  layout: BaseFrameMixin["layoutMode"] = "HORIZONTAL",
+  x = 0,
+  y = 0,
+  itemSpacing = 20
+) => {
+  if (findFrame(name)) return
+
+  const frame = figma.createFrame()
+  frame.locked = true
+  frame.name = name
+  frame.layoutMode = layout
+  frame.primaryAxisSizingMode = "AUTO"
+  frame.counterAxisSizingMode = "AUTO"
+  frame.x = x
+  frame.y = y
+  frame.itemSpacing = itemSpacing
+
+  findDSPage().appendChild(frame)
+  return console.log(name, " frame created")
+}
+
+export const findColorTokens = (name: string) => {
   // type guards
   const isRectangle = (val?: SceneNode): val is RectangleNode => !!val
 
-  const isSection = (val?: SceneNode): val is SectionNode =>
-    !!val && val.type === "SECTION"
-
-  const [findSection] = figma.currentPage
-    .findChildren(
-      (node) => node.type === "SECTION" && node.name === sectionName
-    )
-    .filter(isSection)
-
-  if (!findSection) return console.log(sectionName, " cannot be found")
+  if (!findFrame(name)) return console.log(name, " frame cannot be found")
 
   // get list of local colors
   const localColors = figma.getLocalPaintStyles()
 
-  // find all rectangles inside the section
+  // find all rectangles inside the frame
   // sort alphabetically
-  const findRectangles = findSection
+  const findRectangles = findFrame(name)
     .findAll((node) => node.type === "RECTANGLE")
     .filter(isRectangle)
     .sort((a, b) => a.name.localeCompare(b.name))
@@ -78,9 +106,7 @@ export const genColorTokens = (sectionName: string, prefix?: string) => {
       colors.push(item)
     })
 
-    newStyle.name = prefix
-      ? prefix + "/" + rec.name.toLowerCase()
-      : rec.name.toLowerCase()
+    newStyle.name = replaceDashesWithSlashes(rec.name.toLowerCase())
 
     newStyle.description = `${rec.name.toLowerCase()} #${rgbToHex(
       rgbValue(rec.fills[0].r),
@@ -92,46 +118,48 @@ export const genColorTokens = (sectionName: string, prefix?: string) => {
   })
 }
 
-export const genTextTokens = (sectionName: string) => {
+export const findTextTokens = (name: string) => {
   // type guards
   const isText = (val?: SceneNode): val is TextNode => !!val
 
-  const isSection = (val?: SceneNode): val is SectionNode =>
-    !!val && val.type === "SECTION"
+  if (!findFrame(name)) return console.log(name, " frame cannot be found")
+  // get list of local text styles
+  const localText = figma.getLocalTextStyles()
 
-  const [findSection] = figma.currentPage
-    .findChildren(
-      (node) => node.type === "SECTION" && node.name === sectionName
-    )
-    .filter(isSection)
-
-  if (!findSection) return console.log(sectionName, " cannot be found")
-
-  // find all text nodes inside the section
-  const findText = findSection
+  // find all rectangles inside the frame
+  // sort alphabetically
+  const findText = findFrame(name)
     .findAll((node) => node.type === "TEXT")
     .filter(isText)
     .sort((a, b) => a.name.localeCompare(b.name))
 
+  console.log("findText", findText)
+
+  // generate text tokens from each text element
   findText.forEach(async (text) => {
-    const { family, style } = text.fontName as FontName
+    await figma.loadFontAsync(text.fontName as FontName)
 
-    // check if token exists
-    const existingStyle = figma
-      .getLocalTextStyles()
-      .find(({ name: localName }) => localName === text.name.toLowerCase())
-
-    // Load font first to get attributes
-    await figma.loadFontAsync({ family, style })
     try {
+      const { family, style } = text.fontName as FontName
+
+      const existingStyle = localText.find(
+        (local) => local.id === text.textStyleId
+      )
+
+      console.log("existing?", existingStyle)
       // update existing token or create new token
       const newStyle = existingStyle ?? figma.createTextStyle()
 
       // exit if there are no changes
-      if (existingStyle?.id === text.textStyleId)
-        return console.log("no changes")
+      console.log("existingStyle?.id", existingStyle?.id)
+      console.log("text.textStyleId", text.textStyleId)
+      console.log("true?", existingStyle?.id === text.textStyleId)
 
-      newStyle.name = text.name.toLowerCase()
+      if (existingStyle?.id === text.textStyleId) {
+        return console.log("no changes")
+      }
+
+      newStyle.name = replaceDashesWithSlashes(text.name.toLowerCase())
       // set font family first before the other
       newStyle.fontName = text.fontName as FontName
       newStyle.description = `${family} ${style} ${text.fontSize as number}px`
@@ -147,41 +175,122 @@ export const genTextTokens = (sectionName: string) => {
   })
 }
 
-export const genRootTextColor = (sectionName: string) => {
-  const isText = (val?: SceneNode): val is TextNode => !!val
-  const isSection = (val?: SceneNode): val is SectionNode =>
-    !!val && val.type === "SECTION"
+export const genDefaultTextToken = async (
+  name: string,
+  family: string,
+  style: string,
+  fontSize: number,
+  lineHeight: number
+) => {
+  await figma.loadFontAsync({
+    family,
+    style: capitalize(style),
+  })
+  try {
+    const createText = figma.createText()
+    createText.name = "default-text"
+    createText.fontName = { family, style: capitalize(style) } as FontName
+    createText.fontSize = fontSize as number
+    createText.lineHeight = {
+      value: lineHeight,
+      unit: "PIXELS",
+    } ?? { unit: "AUTO" }
+    createText.characters = "The spectacle before us was indeed sublime"
 
-  const [findSection] = figma.currentPage
-    .findChildren(
-      (node) => node.type === "SECTION" && node.name === sectionName
-    )
-    .filter(isSection)
+    findFrame(name).appendChild(createText)
 
-  if (!findSection) return console.log(sectionName, " cannot be found")
-  // find the text element labeled text/root
-  const [findBase] = findSection
-    .findAll((node) => node.type === "TEXT")
-    .filter(isText)
-    .filter((text) => text.name === "root/text")
+    return findTextTokens(name)
+  } catch (error) {
+    console.log("error: ", error)
+  }
+  //   const isText = (val?: SceneNode): val is TextNode => !!val
 
-  if (!findBase) return
+  //   if (!findFrame(name)) return console.log(name, " cannot be found (genRoot)")
+  //   // find the text element labeled text/root
+  //   const [findBase] = findFrame(name)
+  //     .findAll((node) => node.type === "TEXT")
+  //     .filter(isText)
+  //     .filter((text) => text.name === "root/text")
 
-  if (!Array.isArray(findBase.fills) || findBase.fills.length <= 0) return
-  const isPaint = (val?: Paint): val is Paint => !!val
+  //   if (!findBase) return
 
-  // type of solid will have the color object we need
-  const [style] = findBase.fills.filter(isPaint).map((item) => {
-    if (item.type === "SOLID") {
-      return item.color
-    }
+  //   if (!Array.isArray(findBase.fills) || findBase.fills.length <= 0) return
+  //   const isPaint = (val?: Paint): val is Paint => !!val
+
+  //   // type of solid will have the color object we need
+  //   const [style] = findBase.fills.filter(isPaint).map((item) => {
+  //     if (item.type === "SOLID") {
+  //       return item.color
+  //     }
+  //   })
+
+  //   return style
+}
+
+export const genColorTokens = (
+  name: string,
+  inputName: string,
+  color: RGBColor
+) => {
+  const colors: Paint[] = []
+  colors.push({
+    type: "SOLID",
+    color: {
+      r: reverseRgbValue(color.r),
+      g: reverseRgbValue(color.g),
+      b: reverseRgbValue(color.b),
+    },
+    opacity: color.a,
+    visible: true,
   })
 
-  return style
+  const createRect = figma.createRectangle()
+
+  createRect.name = replaceSlashesAndSpacesWithDashes(inputName)
+  createRect.fills = colors
+
+  findFrame(name).appendChild(createRect)
+
+  return findColorTokens(name)
+}
+
+export const genTextTokens = async (
+  name: string,
+  inputName: string,
+  family: string,
+  style: string,
+  fontSize: number,
+  lineHeight: number
+) => {
+  await figma.loadFontAsync({
+    family,
+    style: capitalize(style),
+  })
+  try {
+    const createText = figma.createText()
+    createText.name = replaceSlashesAndSpacesWithDashes(inputName)
+    createText.fontName = { family, style: capitalize(style) } as FontName
+    createText.fontSize = fontSize as number
+    createText.lineHeight = {
+      value: lineHeight,
+      unit: "PIXELS",
+    } ?? { unit: "AUTO" }
+    createText.characters = "The spectacle before us was indeed sublime"
+
+    findFrame(name).appendChild(createText)
+
+    return findTextTokens(name)
+  } catch (error) {
+    console.log("error: ", error)
+  }
 }
 
 export const service = {
   genPage,
+  genSection,
+  genFrame,
+  findColorTokens,
+  findTextTokens,
   genColorTokens,
   genTextTokens,
 }

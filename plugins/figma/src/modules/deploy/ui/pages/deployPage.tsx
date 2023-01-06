@@ -3,7 +3,7 @@
  */
 
 import * as React from "react"
-import { DiffStateUI, LoadingUI, TopNav } from "@/meta/ui/components"
+import { DiffStateUI, LoadingUI } from "@/meta/ui/components"
 import { useQuery } from "@tanstack/react-query"
 import { getFigmaData } from "@/tokens/ui/api"
 
@@ -26,20 +26,20 @@ export const DeployPage = () => {
 
   const deployMutation = trpc.api.token.publishMany.useMutation()
 
-  const handleSubmission = async () => {
-    if (!data || isLoading) {
-      return
-    }
+  //   const handleSubmission = async () => {
+  //     if (!data || isLoading) {
+  //       return
+  //     }
 
-    // TODO: Check if there are any changes since last deployment
+  //     // TODO: Check if there are any changes since last deployment
 
-    await deployMutation.mutateAsync({
-      colorTokens: data.colorResults,
-      typographyTokens: data.textResults,
-    })
+  //     await deployMutation.mutateAsync({
+  //       colorTokens: data.colorResults,
+  //       typographyTokens: data.textResults,
+  //     })
 
-    return navigate("/deploy/success", { relative: "route" })
-  }
+  //     return navigate("/deploy/success", { relative: "route" })
+  //   }
 
   if (isLoading) {
     return <LoadingUI />
@@ -60,8 +60,7 @@ export const DeployPage = () => {
 
   return (
     <main className="flex flex-col h-full">
-      <div className="flex-1">
-        <TopNav />
+      {/* <div className="flex-1">
         <section className="py-10 px-8">
           <div className="grid grid-cols-[1fr_1fr] gap-8">
             <aside className="flex flex-col justify-center items-center border border-[#458930] rounded-lg bg-[#458930]/[.10] py-4 text-xd-primary-black-rgb text-sm">
@@ -84,7 +83,6 @@ export const DeployPage = () => {
         </section>
         <section className="pt-8 px-8">
           <button
-            // disabled={deployMutation.isLoading}
             className="w-full button button-primary button-sm"
             onClick={handleSubmission}
           >
@@ -111,7 +109,7 @@ export const DeployPage = () => {
             </span>
           </div>
         </div>
-      </footer>
+      </footer> */}
     </main>
   )
 }
