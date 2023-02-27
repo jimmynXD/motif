@@ -38,7 +38,7 @@ importers:
       postcss: 8.4.21
       react: 18.2.0
       react-dom: 18.2.0
-      tailwindcss: 3.2.4
+      tailwindcss: 3.2.7
       tsconfig: workspace:*
       typescript: 4.9.5
     dependencies:
@@ -55,7 +55,7 @@ importers:
       eslint: 7.32.0
       eslint-config-custom: link:../../packages/eslint-config-custom
       postcss: 8.4.21
-      tailwindcss: 3.2.4_postcss@8.4.21
+      tailwindcss: 3.2.7_postcss@8.4.21
       tsconfig: link:../../packages/tsconfig
       typescript: 4.9.5
 
@@ -101,7 +101,7 @@ importers:
       react-youtube: ^10.0.0
       remeda: ^1.3.0
       sharp: ^0.31.2
-      tailwindcss: 3.2.4
+      tailwindcss: 3.2.7
       trpc-panel: ^1.2.3
       trpc-playground: 1.0.4
       tsconfig: workspace:*
@@ -136,7 +136,7 @@ importers:
       react-youtube: 10.0.0_react@18.2.0
       remeda: 1.3.0
       sharp: 0.31.2
-      tailwindcss: 3.2.4_postcss@8.4.21
+      tailwindcss: 3.2.7_postcss@8.4.21
       trpc-panel: 1.2.3_jbxvuspeueuz65qtjuti2zszzi
       trpc-playground: 1.0.4_zgsvxfwo76owmpghswecm7ia34
       ui: link:../../packages/ui
@@ -267,12 +267,12 @@ importers:
       postcss: 8.4.21
       react: 18.2.0
       react-dom: 18.2.0
-      tailwindcss: 3.2.4
+      tailwindcss: 3.2.7
     dependencies:
       '@headlessui/react': 1.7.12_biqbaboplfbrettd7655fr4n2y
       '@labxd/gustxd': 0.8.2_s6jjzapotnzql6zn7h7xv6vsli
       postcss: 8.4.21
-      tailwindcss: 3.2.4_postcss@8.4.21
+      tailwindcss: 3.2.7_postcss@8.4.21
     devDependencies:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -281,13 +281,13 @@ importers:
     specifiers:
       '@types/node': ^18
       postcss: 8.4.21
-      tailwindcss: 3.2.4
+      tailwindcss: 3.2.7
       tsconfig: workspace:*
       typescript: 4.9.5
     devDependencies:
       '@types/node': 18.11.9
       postcss: 8.4.21
-      tailwindcss: 3.2.4_postcss@8.4.21
+      tailwindcss: 3.2.7_postcss@8.4.21
       tsconfig: link:../tsconfig
       typescript: 4.9.5
 
@@ -10970,10 +10970,18 @@ packages:
       postcss: ^8.2.14
     dependencies:
       postcss: 8.4.21
-      postcss-selector-parser: 6.0.10
+      postcss-selector-parser: 6.0.11
 
   /postcss-selector-parser/6.0.10:
     resolution: {integrity: sha512-IQ7TZdoaqbT+LCpShg46jnZVlhWD2w6iQYAcYXfHARZ7X1t/UGhhceQDs5X0cGqKvYlHNOuv7Oa1xmb0oQuA3w==}
+    engines: {node: '>=4'}
+    dependencies:
+      cssesc: 3.0.0
+      util-deprecate: 1.0.2
+    dev: true
+
+  /postcss-selector-parser/6.0.11:
+    resolution: {integrity: sha512-zbARubNdogI9j7WY4nQJBiNqQf3sLS3wCP4WfOidu+p28LofJqDH1tcXypGrcmMHhDk2t9wGhCsYe/+szLTy1g==}
     engines: {node: '>=4'}
     dependencies:
       cssesc: 3.0.0
@@ -12527,8 +12535,8 @@ packages:
       string-width: 4.2.3
       strip-ansi: 6.0.1
 
-  /tailwindcss/3.2.4_postcss@8.4.21:
-    resolution: {integrity: sha512-AhwtHCKMtR71JgeYDaswmZXhPcW9iuI9Sp2LvZPo9upDZ7231ZJ7eA9RaURbhpXGVlrjX4cFNlB4ieTetEb7hQ==}
+  /tailwindcss/3.2.7_postcss@8.4.21:
+    resolution: {integrity: sha512-B6DLqJzc21x7wntlH/GsZwEXTBttVSl1FtCzC8WP4oBc/NKef7kaax5jeihkkCEWc831/5NDJ9gRNDK6NEioQQ==}
     engines: {node: '>=12.13.0'}
     hasBin: true
     peerDependencies:
@@ -12553,7 +12561,7 @@ packages:
       postcss-js: 4.0.0_postcss@8.4.21
       postcss-load-config: 3.1.4_postcss@8.4.21
       postcss-nested: 6.0.0_postcss@8.4.21
-      postcss-selector-parser: 6.0.10
+      postcss-selector-parser: 6.0.11
       postcss-value-parser: 4.2.0
       quick-lru: 5.1.1
       resolve: 1.22.1
