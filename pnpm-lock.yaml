@@ -62,7 +62,7 @@ importers:
   apps/web:
     specifiers:
       '@babel/core': ^7.20.2
-      '@headlessui/react': 1.7.13
+      '@headlessui/react': 1.7.14
       '@labxd/gustxd': 0.8.2
       '@next-auth/xata-adapter': ^0.2.0
       '@svgr/webpack': ^6.5.1
@@ -110,7 +110,7 @@ importers:
       uuid: ^9.0.0
       zod: ^3.19.1
     dependencies:
-      '@headlessui/react': 1.7.13_biqbaboplfbrettd7655fr4n2y
+      '@headlessui/react': 1.7.14_biqbaboplfbrettd7655fr4n2y
       '@next-auth/xata-adapter': 0.2.0_5m34pynm7tp2x23yj54gwu2yae
       '@tanstack/react-query': 4.15.1_biqbaboplfbrettd7655fr4n2y
       '@trpc/client': 10.5.0_@trpc+server@10.5.0
@@ -144,7 +144,7 @@ importers:
       zod: 3.19.1
     devDependencies:
       '@babel/core': 7.20.2
-      '@labxd/gustxd': 0.8.2_cyf32mzagnnsa4rxm7v56jrkde
+      '@labxd/gustxd': 0.8.2_wa7uzyir7u2kxwut2lz46zkul4
       '@svgr/webpack': 6.5.1
       '@types/cors': 2.8.12
       '@types/lodash.uniqby': 4.7.7
@@ -262,15 +262,15 @@ importers:
 
   packages/tailwind:
     specifiers:
-      '@headlessui/react': 1.7.13
+      '@headlessui/react': 1.7.14
       '@labxd/gustxd': 0.8.2
       postcss: 8.4.22
       react: 18.2.0
       react-dom: 18.2.0
       tailwindcss: 3.2.7
     dependencies:
-      '@headlessui/react': 1.7.13_biqbaboplfbrettd7655fr4n2y
-      '@labxd/gustxd': 0.8.2_cyf32mzagnnsa4rxm7v56jrkde
+      '@headlessui/react': 1.7.14_biqbaboplfbrettd7655fr4n2y
+      '@labxd/gustxd': 0.8.2_wa7uzyir7u2kxwut2lz46zkul4
       postcss: 8.4.22
       tailwindcss: 3.2.7_postcss@8.4.22
     devDependencies:
@@ -296,7 +296,7 @@ importers:
 
   packages/ui:
     specifiers:
-      '@headlessui/react': 1.7.13
+      '@headlessui/react': 1.7.14
       '@types/react': ^18.0.25
       '@types/react-dom': ^18.0.8
       clsx: ^1.2.1
@@ -308,7 +308,7 @@ importers:
       tsconfig: workspace:*
       typescript: 4.9.5
     dependencies:
-      '@headlessui/react': 1.7.13_biqbaboplfbrettd7655fr4n2y
+      '@headlessui/react': 1.7.14_biqbaboplfbrettd7655fr4n2y
       clsx: 1.2.1
       react-aria: 3.21.0_biqbaboplfbrettd7655fr4n2y
     devDependencies:
@@ -324,7 +324,7 @@ importers:
   plugins/figma:
     specifiers:
       '@figma/plugin-typings': ^1.55.1
-      '@headlessui/react': 1.7.13
+      '@headlessui/react': 1.7.14
       '@tanstack/react-query': ^4.15.0
       '@tanstack/react-query-devtools': ^4.15.0
       '@trpc/client': 10.5.0
@@ -379,7 +379,7 @@ importers:
       webpack-watch-files-plugin: ^1.2.1
       zod: ^3.19.1
     dependencies:
-      '@headlessui/react': 1.7.13_biqbaboplfbrettd7655fr4n2y
+      '@headlessui/react': 1.7.14_biqbaboplfbrettd7655fr4n2y
       '@tanstack/react-query': 4.15.1_biqbaboplfbrettd7655fr4n2y
       '@tanstack/react-query-devtools': 4.16.0_hozuwxoptd33escfyk6jkb25zm
       '@trpc/client': 10.5.0_@trpc+server@10.5.0
@@ -2222,8 +2222,8 @@ packages:
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
     dev: true
 
-  /@headlessui/react/1.7.13_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-9n+EQKRtD9266xIHXdY5MfiXPDfYwl7zBM7KOx2Ae3Gdgxy8QML1FkCMjq6AsOf0l6N9uvI4HcFtuFlenaldKg==}
+  /@headlessui/react/1.7.14_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-znzdq9PG8rkwcu9oQ2FwIy0ZFtP9Z7ycS+BAqJ3R5EIqC/0bJGvhT7193rFf+45i9nnPsYvCQVW4V/bB9Xc+gA==}
     engines: {node: '>=10'}
     peerDependencies:
       react: ^16 || ^17 || ^18
@@ -2333,14 +2333,14 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
-  /@labxd/gustxd/0.8.2_cyf32mzagnnsa4rxm7v56jrkde:
+  /@labxd/gustxd/0.8.2_wa7uzyir7u2kxwut2lz46zkul4:
     resolution: {integrity: sha512-9k9zjePHDVkmorHWujnSNzZj0ayYaPDGpB4sr9SHJFU7t11otNcxb9avLyx+YKyCKDqy9nRk7eLzUiuuTXsE6A==}
     engines: {node: '>=14'}
     peerDependencies:
       '@headlessui/react': '>=1.7.0'
       react: '>=17'
     dependencies:
-      '@headlessui/react': 1.7.13_biqbaboplfbrettd7655fr4n2y
+      '@headlessui/react': 1.7.14_biqbaboplfbrettd7655fr4n2y
       mini-svg-data-uri: 1.4.4
       react: 18.2.0
 
