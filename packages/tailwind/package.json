@@ -7,7 +7,7 @@
   "dependencies": {
     "@headlessui/react": "1.7.13",
     "@labxd/gustxd": "0.8.2",
-    "postcss": "8.4.21",
+    "postcss": "8.4.22",
     "tailwindcss": "3.2.7"
   },
   "devDependencies": {

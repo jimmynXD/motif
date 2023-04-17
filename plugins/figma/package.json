@@ -55,7 +55,7 @@
     "html-webpack-plugin": "^5.5.0",
     "motifxd-tailwind-config": "workspace:*",
     "nodemon": "^2.0.20",
-    "postcss": "8.4.21",
+    "postcss": "8.4.22",
     "postcss-loader": "^7.0.1",
     "react-dev-utils": "^12.0.1",
     "remove-files-webpack-plugin": "^1.5.0",
