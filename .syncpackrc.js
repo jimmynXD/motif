@@ -1,6 +1,36 @@
 const config = {
   workspace: false,
   peer: false,
+  source: [
+    "package.json",
+    "apps/*/package.json",
+    "packages/*/package.json",
+    "plugins/*/package.json",
+  ],
+  dependencyTypes: ["dev", "prod"],
+  versionGroups: [
+    {
+      label: "types/node",
+      packages: ["**"],
+      dependencies: ["@types/node"],
+      dependencyTypes: ["dev"],
+      pinVersion: "^18",
+    },
+    {
+      label: "Internal configs",
+      packages: ["**"],
+      dependencies: [
+        "eslint-config-custom",
+        "tsconfig",
+        "@motifxd/tailwind",
+        "motifxd-tailwind-config",
+        "ui",
+        "@motifxd/cli",
+      ],
+      dependencyTypes: ["dev", "prod"],
+      pinVersion: "workspace:*",
+    },
+  ],
   sortAz: [
     "scripts",
     "dependencies",

@@ -3,31 +3,34 @@
   "private": true,
   "scripts": {
     "bootstrap": "pnpm install && husky install",
-    "typecheck": "turbo run typecheck --parallel",
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
-    "dev:web": "pnpm run dev --filter web",
-    "dev:docs": "pnpm run dev --filter docs",
-    "dev:cli:only": "pnpm run dev --filter @motifxd/cli",
     "dev:cli": "pnpm run dev:cli:only --filter web",
-    "dev:plugin:only": "pnpm run dev --filter @motifxd/figma-plugin",
+    "dev:cli:only": "pnpm run dev --filter @motifxd/cli",
+    "dev:docs": "pnpm run dev --filter docs",
     "dev:plugin": "pnpm run dev --filter web --filter @motifxd/figma-plugin",
-    "lint": "turbo run lint --parallel",
+    "dev:plugin:only": "pnpm run dev --filter @motifxd/figma-plugin",
+    "dev:web": "pnpm run dev --filter web",
+    "format": "prettier --write \"**/*.{js,ts,tsx,md}\"",
+    "hook:pre-commit": "concurrently pnpm:hook:pre-commit:lint pnpm:hook:pre-commit:typecheck",
     "hook:pre-commit:lint": "lint-staged",
     "hook:pre-commit:typecheck": "pnpm run typecheck",
-    "hook:pre-commit": "concurrently pnpm:hook:pre-commit:lint pnpm:hook:pre-commit:typecheck",
-    "format": "prettier --write \"**/*.{js,ts,tsx,md}\""
+    "lint": "turbo run lint --parallel",
+    "sync": "syncpack format && syncpack list-mismatches",
+    "sync:fix": "syncpack fix-mismatches",
+    "typecheck": "turbo run typecheck --parallel"
   },
   "devDependencies": {
     "@changesets/cli": "^2.25.2",
     "concurrently": "^7.6.0",
-    "eslint-config-custom": "0.0.0",
+    "eslint-config-custom": "workspace:*",
     "git-commit-msg-linter": "^4.2.1",
     "husky": "^8.0.2",
     "lint-staged": "^13.0.3",
     "prettier": "^2.8.0",
-    "turbo": "^1.6.3",
-    "tsconfig": "workspace:*"
+    "syncpack": "^10.1.0",
+    "tsconfig": "workspace:*",
+    "turbo": "^1.6.3"
   },
   "engines": {
     "node": ">=18.0.0"
