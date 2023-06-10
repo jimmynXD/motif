@@ -1,6 +1,6 @@
 import { TopActionNav, trpc } from "@/meta/ui"
-import { FC, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { FC, useMemo, useState } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 import { PageLayout } from "../containers"
 import clsx from "clsx"
 import {
@@ -13,6 +13,10 @@ import {
 
 export const NewTextPage: FC = () => {
   const navigate = useNavigate()
+  const { name: paramName } = useParams()
+  const [data] = trpc.figma.token.getTokens.useSuspenseQuery()
+
+  const textCount = data?.typography.length
 
   const createTextTokenMutation = trpc.figma.token.createText.useMutation()
 
@@ -35,13 +39,21 @@ export const NewTextPage: FC = () => {
   const [fontSelected, setFontSelected] = useState(fontFamily[0])
   const [weightSelected, setWeightSelected] = useState(fontWeight[1])
 
+  const parseInputValue = useMemo(() => {
+    if (paramName === "default-text") {
+      setInputValue(paramName)
+    }
+    if (inputValue.length === 0) return `text-${textCount + 1}`
+    return inputValue
+  }, [inputValue, textCount])
+
   const _onClickBack = () => {
     return navigate(-1)
   }
 
-  const _onClickSave = () => {
+  const _onClickSave = async () => {
     createTextTokenMutation.mutateAsync({
-      inputValue: inputValue,
+      inputValue: parseInputValue,
       inputFamily: fontSelected,
       inputWeight: weightSelected,
       inputSize: fontSize,
@@ -60,12 +72,18 @@ export const NewTextPage: FC = () => {
       >
         <div className="pt-8">
           <LabelInput
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
+            onKeyDown={async (e) => {
+              if (
+                inputValue.length !== 0 &&
+                e.key === "Enter" &&
+                inputValue !== "default-text"
+              ) {
+                e.preventDefault()
                 _onClickSave()
               }
             }}
-            placeholder="Eg. h1/primary"
+            disabled={paramName === "default-text"}
+            placeholder="Eg. headline-h1"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
           />

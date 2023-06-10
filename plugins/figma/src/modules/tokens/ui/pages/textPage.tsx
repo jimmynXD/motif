@@ -1,13 +1,19 @@
-import { FC } from "react"
-import { Badge, EmptySection, LineHeightIcon } from "../components"
+import { FC, useMemo } from "react"
+import {
+  Badge,
+  EditDeleteButtons,
+  EmptySection,
+  LineHeightIcon,
+} from "../components"
 import clsx from "clsx"
-import { trpc } from "@/meta/ui"
-import { Disclosure } from "@headlessui/react"
-import { NavLink } from "react-router-dom"
+import { Accordion, trpc } from "@/meta/ui"
+import { NavLink, useNavigate } from "react-router-dom"
+import { replacePeriods } from "@/tokens/main/utils"
 
 const rootTextName = "default.text"
 
 export const TextPage: FC = () => {
+  const navigate = useNavigate()
   const [data, { refetch }] = trpc.figma.token.getTokens.useSuspenseQuery()
 
   const deleteTextTokenMutation = trpc.figma.token.deleteTextToken.useMutation()
@@ -21,67 +27,45 @@ export const TextPage: FC = () => {
     </div>
   )
 
+  const displayTokens = useMemo(() => {
+    if (data?.typography.length > 0 && !textRoot) {
+      return true
+    }
+    if (textRoot && data?.typography.length > 1) return true
+    return false
+  }, [data?.typography])
   return (
     <>
       {!!textRoot && textRoot ? (
         <section className="pt-8">
-          <Disclosure
-            as={"div"}
-            className={clsx(
-              "py-2",
-              "bg-white dark:bg-[#1C1C1E] border-y border-y-[#3C3C43]/40 dark:border-y-[#444444]"
-            )}
+          <Accordion
+            heading="Default Text Token"
+            openComponent={
+              <EditDeleteButtons
+                left
+                onClickEdit={() =>
+                  navigate(
+                    `/text/default-text/${textRoot.id.replace(/S:/g, "")}`
+                  )
+                }
+                onClickDelete={async () => {
+                  await deleteTextTokenMutation.mutateAsync({
+                    id: textRoot.id,
+                  })
+                  try {
+                    refetch()
+                  } catch (error) {
+                    console.log(error)
+                  }
+                }}
+              />
+            }
           >
-            {({ open }) => (
-              <>
-                <div className="px-4 flex justify-between items-center w-full dark:text-white">
-                  <span className="flex-1 text-left">Default Text Token</span>
-                  <div className={clsx({ "space-x-2": open })}>
-                    <button
-                      onClick={async () => {
-                        await deleteTextTokenMutation.mutateAsync({
-                          name: "default-text",
-                          id: textRoot.id,
-                        })
-                        refetch()
-                      }}
-                      className={clsx({
-                        hidden: !open,
-                      })}
-                    >
-                      <span
-                        className={clsx(
-                          "material-symbols-rounded text-xd-danger-700"
-                        )}
-                      >
-                        delete
-                      </span>
-                    </button>
-                    <Disclosure.Button>
-                      <span className="material-symbols-rounded">
-                        {open ? "expand_less" : "expand_more"}
-                      </span>
-                    </Disclosure.Button>
-                  </div>
-                </div>
-                <Disclosure.Panel
-                  as="div"
-                  className={clsx(
-                    "space-y-1 mt-2 ml-4 pt-2 px-2 border-t border-t-[#3C3C43]/40 dark:border-t-[#444444] transition-all",
-                    "text-sm"
-                  )}
-                >
-                  {/* {!!data.rootTextColorResults &&
-                    data.rootTextColorResults.hex &&
-                    defaultLabel("color", data.rootTextColorResults.hex)} */}
-                  {defaultLabel("font family", textRoot.font.family)}
-                  {defaultLabel("size", `${textRoot.font.size}px`)}
-                  {defaultLabel("weight", textRoot.font.weight)}
-                  {defaultLabel("line height", textRoot.line.height ?? "Auto")}
-                </Disclosure.Panel>
-              </>
-            )}
-          </Disclosure>
+            {defaultLabel("font family", textRoot.font.family)}
+            {defaultLabel("size", `${textRoot.fontSize}px`)}
+            {defaultLabel("weight", textRoot.font.style)}
+            {defaultLabel("line height", textRoot.lineHeight ?? "Auto")}
+          </Accordion>
         </section>
       ) : (
         <EmptySection divider imgSrc={require("../assets/no-root.svg")}>
@@ -89,7 +73,7 @@ export const TextPage: FC = () => {
             <p>No base tokens found</p>
             <p>
               <NavLink
-                to={"/text/default"}
+                to={"/text/default-text"}
                 className={clsx("button button-sm button-red space-x-1")}
               >
                 <span className="material-symbols-rounded">add</span>
@@ -99,7 +83,7 @@ export const TextPage: FC = () => {
           </div>
         </EmptySection>
       )}
-      {!!data?.typography && data?.typography.length > 0 ? (
+      {displayTokens ? (
         <div className="pt-8">
           <section className={clsx("mt-2 mx-3")}>
             {data?.typography
@@ -108,47 +92,47 @@ export const TextPage: FC = () => {
                 <div
                   key={index}
                   className={clsx(
-                    "flex flex-col",
-                    "p-2",
+                    "relative group overflow-hidden",
+                    "flex flex-col p-2",
                     "border-b border-b-black/10 dark:border-b-white/[.15]",
                     "text-sm bg-white dark:bg-[#1C1C1E] dark:text-white",
                     "first:rounded-t-lg last:rounded-b-lg last:border-b-0"
                   )}
                 >
-                  <div className={clsx("flex justify-between group")}>
-                    <span className="flex-1 font-medium">
+                  <div className={clsx("flex")}>
+                    <span className="font-medium">
                       {text.name.replace(/\./g, "-")}
                     </span>
-                    <button
-                      onClick={async () => {
-                        await deleteTextTokenMutation.mutateAsync({ ...text })
-                        refetch()
-                      }}
-                      className={clsx(
-                        "flex items-center justify-center",
-                        "w-4 h-4 rounded-full"
-                      )}
-                    >
-                      <span
-                        className={clsx(
-                          "material-symbols-rounded",
-                          "transition-all text-lg",
-                          "text-transparent group-hover:text-xd-primary-purple-700 dark:group-hover:text-[#D0B4FF]"
-                        )}
-                      >
-                        delete
-                      </span>
-                    </button>
                   </div>
-                  <aside className={clsx("flex flex-wrap")}>
+                  <div className={clsx("flex flex-wrap")}>
                     <Badge label={text.font.family} />
-                    <Badge label={`${text.font.size}px`} />
-                    <Badge label={text.font.weight} />
+                    <Badge label={`${text.fontSize}px`} />
+                    <Badge label={text.font.style} />
                     <Badge
-                      label={text.line.height ? text.line.height : "Auto"}
+                      label={text.lineHeight ? text.lineHeight : "Auto"}
                       icon={<LineHeightIcon />}
                     />
-                  </aside>
+                  </div>
+                  <EditDeleteButtons
+                    onClickEdit={() =>
+                      navigate(
+                        `/text/${replacePeriods(text.name)}/${text.id.replace(
+                          /S:/g,
+                          ""
+                        )}`
+                      )
+                    }
+                    onClickDelete={async () => {
+                      await deleteTextTokenMutation.mutateAsync({
+                        id: text.id,
+                      })
+                      try {
+                        refetch()
+                      } catch (error) {
+                        console.log(error)
+                      }
+                    }}
+                  />
                 </div>
               ))}
           </section>

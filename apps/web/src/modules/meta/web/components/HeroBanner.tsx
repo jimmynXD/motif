@@ -3,7 +3,7 @@ import Image from "next/image"
 import { FC } from "react"
 
 import { EmailSignUp } from "@/meta/web"
-import DemoAnimation from "../assets/demo-colors-animation.gif"
+import LandingImage from "../assets/landing-full.png"
 
 export const HeroBanner: FC = () => {
   return (
@@ -20,18 +20,18 @@ export const HeroBanner: FC = () => {
           <div
             className={clsx("font-bold tracking-wider text-3xl", "md:text-3xl")}
           >
-            Design systems for every project and every team
+            Design System Dashboard
           </div>
           <p className={clsx("text-xl font-medium text-slate-200 text-center")}>
-            We are making handoffs easier. Manage designs in Figma and devs get
-            them into the codebase instantly!
+            We are making design systems easier by providing a dashboard to view
+            and manage your design tokens.
           </p>
         </div>
         <EmailSignUp inputId="signUpEmailTop" />
       </div>
       <aside className={clsx("pt-12", "lg:pt-0 lg:pr-4")}>
         <div className="max-w-2xl rounded">
-          <Image priority src={DemoAnimation} alt="demo-image" />
+          <Image priority src={LandingImage} alt="demo-image" />
         </div>
       </aside>
     </section>

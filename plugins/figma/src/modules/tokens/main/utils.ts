@@ -14,11 +14,13 @@ export const rgbToHex = (r: number, g: number, b: number) => {
 // create rgb values
 export const rgbValue = (value: number) => Math.round(value * 255)
 // create reverse rgb values
-export const reverseRgbValue = (value: number) => Math.round(value / 255)
+export const reverseRgbValue = (value: number) => value / 255
 
 export const DSName = () => {
   const fileKey = figma.fileKey?.toString()
   const DSName = "Design System (" + fileKey + ")"
+  const DSNameNoKey = "Design System (master - motifXD)"
+  if (!fileKey) return DSNameNoKey
 
   return DSName
 }
@@ -53,6 +55,40 @@ export const findFrame = (frameName: string) => {
     .filter(isFrame)
 
   return findFrame
+}
+
+export const findText = (frameName: string) => {
+  const isText = (val?: SceneNode): val is TextNode => !!val
+
+  const findText = findFrame(frameName)
+    .findAll((node) => node.type === "TEXT")
+    .filter(isText)
+    .sort((a, b) => a.name.localeCompare(b.name))
+
+  return findText
+}
+
+export const findRectangle = (frameName: string) => {
+  const isRectangle = (val?: SceneNode): val is RectangleNode => !!val
+
+  const findRectangle = findFrame(frameName)
+    .findAll((node) => node.type === "RECTANGLE")
+    .filter(isRectangle)
+    .sort((a, b) => a.name.localeCompare(b.name))
+
+  return findRectangle
+}
+
+export const findElements = (frameName: string, type: string) => {
+  const isText = (val?: SceneNode): val is TextNode => !!val
+  const isRectangle = (val?: SceneNode): val is RectangleNode => !!val
+
+  const findElement = findFrame(frameName)
+    .findAll((node) => node.type === type.toUpperCase())
+    .filter(type === "text" ? isText : isRectangle)
+    .sort((a, b) => a.name.localeCompare(b.name))
+
+  return findElement
 }
 
 // replace dashes with periods from a string

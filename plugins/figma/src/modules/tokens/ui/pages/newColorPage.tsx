@@ -46,12 +46,13 @@ export const NewColorPage: FC = () => {
       >
         <div className="pt-8">
           <LabelInput
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
+            onKeyDown={async (e) => {
+              if (inputValue.length !== 0 && e.key === "Enter") {
+                e.preventDefault()
                 _onClickSave()
               }
             }}
-            placeholder="Eg. primary/red"
+            placeholder="Eg. primary-red"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
           />

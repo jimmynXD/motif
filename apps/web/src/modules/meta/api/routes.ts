@@ -1,5 +1,4 @@
-import { z } from "zod"
-import { publicProcedure, router } from "./_app"
+import { router } from "./_app"
 import { tokenRouter } from "@/tokens/api"
 import {
   productAnalyticsRouter,
@@ -10,22 +9,7 @@ import {
 import { authRouter } from "@/auth/api/router"
 import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server"
 
-export const testRouter = router({
-  hello: publicProcedure
-    .input(
-      z.object({
-        text: z.string().nullish(),
-      })
-    )
-    .query(({ input }) => {
-      return {
-        greeting: `hello ${input?.text ?? "world"}`,
-      }
-    }),
-})
-
 export const appRouter = router({
-  test: testRouter,
   token: tokenRouter,
   user: userRouter,
   analytics: productAnalyticsRouter,

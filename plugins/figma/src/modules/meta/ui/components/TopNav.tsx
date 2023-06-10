@@ -5,8 +5,13 @@ import { NavLink, useLocation } from "react-router-dom"
 export interface TopNavProps {
   children: ReactNode
   noAction?: boolean
+  workspaceId?: string
 }
-export const TopNav: FC<TopNavProps> = ({ children, noAction = false }) => {
+export const TopNav: FC<TopNavProps> = ({
+  children,
+  noAction = false,
+  workspaceId,
+}) => {
   const location = useLocation()
 
   const nowActive = useMemo(() => {
@@ -17,6 +22,8 @@ export const TopNav: FC<TopNavProps> = ({ children, noAction = false }) => {
     switch (location.pathname) {
       case "/":
         return "Color Token"
+      case "/deploy":
+        return "Deploy"
       case "/text":
         return "Text Token"
       case "/instruction":
@@ -29,10 +36,11 @@ export const TopNav: FC<TopNavProps> = ({ children, noAction = false }) => {
   const newLink = useMemo(() => {
     if (location.pathname === "/") return "/color/new"
     if (location.pathname === "/text") return "/text/new"
+    if (workspaceId) return `/deploy/setting/${workspaceId}`
     return "/"
   }, [location.pathname])
 
-  const buttonCls = (isActive: boolean) =>
+  const buttonCls = (isActive: boolean, mid?: boolean, disabled?: boolean) =>
     clsx(
       "flex-1 flex justify-center items-center z-10",
       "rounded-lg px-1 py-[6px]",
@@ -40,6 +48,8 @@ export const TopNav: FC<TopNavProps> = ({ children, noAction = false }) => {
       {
         "shadow-sm bg-white dark:bg-[#636366] font-semibold text-xd-primary-purple-700 dark:text-white":
           isActive,
+        "-mx-1": mid,
+        "cursor-not-allowed opacity-50": disabled,
       }
     )
 
@@ -63,16 +73,8 @@ export const TopNav: FC<TopNavProps> = ({ children, noAction = false }) => {
             <NavLink to={"/"} className={buttonCls(nowActive)}>
               <span className="dark:text-white">Tokens</span>
             </NavLink>
-            <button
-              disabled
-              className={clsx(
-                "flex-1 flex justify-center items-center z-10",
-                "rounded-lg px-1 py-[6px]",
-                "text-[13px] leading-none",
-                "disabled:text-black/20 dark:disabled:text-white/20"
-              )}
-            >
-              <span>Deploy</span>
+            <button disabled className={buttonCls(false, true, true)}>
+              <span className="dark:text-white">API</span>
             </button>
 
             <NavLink
@@ -96,7 +98,9 @@ export const TopNav: FC<TopNavProps> = ({ children, noAction = false }) => {
                 to={newLink}
                 className="rounded-full bg-xd-primary-purple-700 w-8 h-8 flex justify-center items-center"
               >
-                <span className="material-symbols-rounded text-white">add</span>
+                <span className="material-symbols-rounded text-white">
+                  {workspaceId ? "settings" : "add"}
+                </span>
               </NavLink>
             )}
           </div>

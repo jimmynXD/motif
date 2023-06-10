@@ -16,7 +16,7 @@ export const LandingPage: NextPage = () => {
       pageTitle="motifXD DesignOps"
       topNav={<TopNav />}
       footer={<Footer />}
-      cls={"bg-black/90"}
+      cls={"bg-black"}
     >
       <main className="pt-16 pb-8 text-white">
         <HeroBanner />

@@ -3,8 +3,8 @@ const path = require("node:path")
 module.exports = {
   reactStrictMode: true,
   output: "standalone",
+  transpilePackages: ["ui"],
   experimental: {
-    transpilePackages: ["ui"],
     outputFileTracingRoot: path.join(__dirname, "../../"),
   },
   webpack(config) {

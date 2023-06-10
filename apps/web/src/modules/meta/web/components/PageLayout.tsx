@@ -7,6 +7,7 @@ export type PageLayoutProps = {
   children: ReactNode
   cls?: string
   footer?: ReactNode
+  outsideFooter?: ReactNode
   innerCls?: string
   topNav?: ReactNode
   primary?: boolean
@@ -16,6 +17,7 @@ export const PageLayout: FC<PageLayoutProps> = ({
   children,
   cls,
   footer,
+  outsideFooter,
   innerCls,
   topNav,
   pageTitle,
@@ -31,6 +33,7 @@ export const PageLayout: FC<PageLayoutProps> = ({
         <div className={clsx(innerCls, "flex-1")}>{children}</div>
         {footer}
       </BaseLayout>
+      {outsideFooter}
     </>
   )
 }

@@ -8,28 +8,19 @@ export const getTypes = () => {
   const typographyValues = textStyles.map((style) => {
     const id = style.id
     const name = replaceSlashesAndDashes(style.name)
-    const lineHeightRelative =
-      style.lineHeight.unit === "PIXELS"
-        ? Math.round((style.lineHeight.value / style.fontSize) * 100) / 100
-        : undefined
 
     const lineHeightAbsolute =
-      style.lineHeight.unit === "PIXELS"
-        ? `${style.lineHeight.value}px`
-        : undefined
+      style.lineHeight.unit === "PIXELS" ? style.lineHeight.value : undefined
 
     const typography = {
       id,
       name,
+      fontSize: style.fontSize,
       font: {
-        weight: style.fontName.style.toLowerCase(),
         family: style.fontName.family,
-        size: style.fontSize,
+        style: style.fontName.style.toLowerCase(),
       },
-      line: {
-        height: lineHeightAbsolute,
-        heightRelative: lineHeightRelative,
-      },
+      lineHeight: lineHeightAbsolute,
       letterSpacing: style.letterSpacing.value,
     }
 

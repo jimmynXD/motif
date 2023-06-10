@@ -4,6 +4,7 @@ import { trpc } from "@/meta/web"
 import { Session } from "next-auth"
 import { SessionProvider } from "next-auth/react"
 import { Toaster } from "react-hot-toast"
+import { ThemeProvider } from "next-themes"
 
 interface AppProps {
   session: Session
@@ -11,10 +12,12 @@ interface AppProps {
 
 const App: AppType<AppProps> = ({ Component, pageProps }) => {
   return (
-    <SessionProvider session={pageProps.session}>
-      <Component {...pageProps} />
-      <Toaster />
-    </SessionProvider>
+    <ThemeProvider>
+      <SessionProvider session={pageProps.session}>
+        <Component {...pageProps} />
+        <Toaster />
+      </SessionProvider>
+    </ThemeProvider>
   )
 }
 

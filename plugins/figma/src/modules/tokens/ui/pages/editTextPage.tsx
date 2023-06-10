@@ -1,6 +1,6 @@
 import { TopActionNav, trpc } from "@/meta/ui"
 import { FC, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { PageLayout } from "../containers"
 import clsx from "clsx"
 import {
@@ -11,10 +11,15 @@ import {
   NumberInput,
 } from "../components"
 
-export const DefaultTextPage: FC = () => {
+export const EditTextPage: FC = () => {
   const navigate = useNavigate()
+  const { name, id } = useParams()
+  const transpileId = "S:" + id
 
-  const createTextTokenMutation = trpc.figma.token.createText.useMutation()
+  const [data] = trpc.figma.token.getTokens.useSuspenseQuery()
+
+  const updateTextTokenMutation = trpc.figma.token.updateText.useMutation()
+  const token = data.typography.find((token) => token?.id === transpileId)
 
   const fontFamily = [
     "Red Hat Display",
@@ -28,24 +33,25 @@ export const DefaultTextPage: FC = () => {
     "Raleway",
     "Oswald",
   ]
-
+  const [inputValue, setInputValue] = useState(name)
   const fontWeight = ["light", "regular", "medium", "semibold", "bold"]
-  const [fontSize, setFontSize] = useState<number>(16)
-  const [lineHeight, setLineHeight] = useState<number>(16)
-  const [fontSelected, setFontSelected] = useState(fontFamily[0])
-  const [weightSelected, setWeightSelected] = useState(fontWeight[1])
+  const [fontSize, setFontSize] = useState(token?.fontSize)
+  const [lineHeight, setLineHeight] = useState(token?.lineHeight)
+  const [fontSelected, setFontSelected] = useState(token?.font.family)
+  const [weightSelected, setWeightSelected] = useState(token?.font.style)
 
   const _onClickBack = () => {
     return navigate(-1)
   }
 
-  const _onClickSave = () => {
-    createTextTokenMutation.mutateAsync({
-      inputValue: "default-text",
-      inputFamily: fontSelected,
-      inputWeight: weightSelected,
-      inputSize: fontSize,
-      inputLineHeight: lineHeight,
+  const _onClickSave = async () => {
+    updateTextTokenMutation.mutateAsync({
+      inputValue: inputValue ?? "",
+      id: id ?? "",
+      family: fontSelected ?? "",
+      style: weightSelected ?? "",
+      fontSize: fontSize ?? 0,
+      lineHeight: lineHeight ?? 0,
     })
     return navigate(-1)
   }
@@ -56,10 +62,25 @@ export const DefaultTextPage: FC = () => {
         onClickSave={_onClickSave}
         onClickBack={_onClickBack}
         backLabel="Text Token"
-        title="New Text Token"
+        title="Edit Text Token"
       >
         <div className="pt-8">
-          <LabelInput disabled placeholder="Default Text Token" />
+          <LabelInput
+            onKeyDown={async (e) => {
+              if (
+                inputValue?.length !== 0 &&
+                e.key === "Enter" &&
+                inputValue !== "default-text"
+              ) {
+                e.preventDefault()
+                _onClickSave()
+              }
+            }}
+            disabled={name === "default-text"}
+            placeholder="Eg. h1-primary"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+          />
           <div className="pt-8">
             <header
               className={clsx(
@@ -90,9 +111,9 @@ export const DefaultTextPage: FC = () => {
                   selected={weightSelected}
                   setSelected={setWeightSelected}
                 />
-                <NumberInput value={fontSize} setValue={setFontSize} />
+                <NumberInput value={fontSize ?? 0} setValue={setFontSize} />
                 <NumberInput
-                  value={lineHeight}
+                  value={lineHeight ?? 0}
                   setValue={setLineHeight}
                   icon={
                     <LineHeightIcon

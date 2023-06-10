@@ -1,9 +1,12 @@
 import { FC } from "react"
-import { EmptySection } from "../components"
+import { EditDeleteButtons, EmptySection } from "../components"
 import clsx from "clsx"
 import { trpc } from "@/meta/ui"
+import { useNavigate } from "react-router-dom"
+import { replacePeriods } from "@/tokens/main/utils"
 
 export const ColorPage: FC = () => {
+  const navigate = useNavigate()
   const [data, { refetch }] = trpc.figma.token.getTokens.useSuspenseQuery()
 
   const deleteColorTokenMutation =
@@ -28,37 +31,38 @@ export const ColorPage: FC = () => {
               <div
                 key={index}
                 className={clsx(
+                  "relative group overflow-hidden",
                   "first:rounded-t-lg last:rounded-b-lg flex items-start",
                   "space-x-2 py-2 border-b border-b-black/10 dark:border-b-white/[.15] last:border-b-0",
                   "text-sm bg-white dark:bg-[#1C1C1E] dark:text-white"
                 )}
               >
-                <button
-                  onClick={async () => {
-                    await deleteColorTokenMutation.mutateAsync({ ...color })
-                    refetch()
-                  }}
+                <span
                   style={{ backgroundColor: color.hex }}
                   className={clsx(
                     "ml-2 flex items-center justify-center",
                     "w-6 h-6 rounded-full",
-                    "ring-1 ring-inset ring-white/[.15]"
+                    "ring-1 ring-inset ring-white/20"
                   )}
-                >
-                  <span
-                    className={clsx(
-                      "material-symbols-rounded",
-                      "transition-all text-lg",
-                      "text-transparent hover:text-white"
-                    )}
-                  >
-                    delete
-                  </span>
-                </button>
+                />
                 <span className={clsx("flex-1 font-medium")}>
                   {color.name.replace(/\./g, "-")}
                 </span>
                 <span className="uppercase pr-2">{color.hex}</span>
+                <EditDeleteButtons
+                  onClickEdit={() =>
+                    navigate(
+                      `/color/${replacePeriods(color.name)}/${color.id.replace(
+                        /S:/g,
+                        ""
+                      )}`
+                    )
+                  }
+                  onClickDelete={async () => {
+                    await deleteColorTokenMutation.mutateAsync({ ...color })
+                    refetch()
+                  }}
+                />
               </div>
             )
         )}

@@ -1,46 +1,52 @@
-import { ToastBanner, trpc } from "@/meta/web"
+import { trpc } from "@/meta/web"
 import { FC } from "react"
 
 import Link from "next/link"
 import clsx from "clsx"
-import { InputButton } from "../components"
 import { useRouter } from "next/router"
 
 export const AllWorkspaces: FC = () => {
   const { data, isLoading, error, refetch } =
     trpc.user.getAllWorkspaces.useQuery()
-
+  const {
+    isLoading: projectIsLoading,
+    error: projectError,
+    data: projectData,
+    refetch: projectRefetch,
+  } = trpc.project.getAllProjectsInWorkspace.useQuery({
+    id: data ? data[0].id : "none",
+  })
   const router = useRouter()
 
-  const createWorkspaceMutation = trpc.workspace.create.useMutation()
+  //   const createWorkspaceMutation = trpc.workspace.create.useMutation()
 
-  const createWorkspace = async (name: string) => {
-    await createWorkspaceMutation.mutateAsync({ name })
-    await refetch()
-  }
+  //   const createWorkspace = async (name: string) => {
+  //     await createWorkspaceMutation.mutateAsync({ name })
+  //     await refetch()
+  //   }
 
-  const onWorkspaceSubmit = async (workspaceId: string) => {
-    try {
-      createWorkspace(workspaceId)
-      ToastBanner({
-        duration: 4000,
-        title: (
-          <span>
-            Successfully created{" "}
-            <b className="underline underline-offset-2">{workspaceId}</b>
-          </span>
-        ),
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  //   const onWorkspaceSubmit = async (workspaceId: string) => {
+  //     try {
+  //       createWorkspace(workspaceId)
+  //       ToastBanner({
+  //         duration: 4000,
+  //         title: (
+  //           <span>
+  //             Successfully created{" "}
+  //             <b className="underline underline-offset-2">{workspaceId}</b>
+  //           </span>
+  //         ),
+  //       })
+  //     } catch (error) {
+  //       console.error(error)
+  //     }
+  //   }
 
-  if (isLoading) {
+  if (projectIsLoading) {
     return <div className="p-4">Loading...</div>
   }
 
-  if (error) {
+  if (projectError) {
     return <div className="p-4">Error</div>
   }
 
@@ -53,13 +59,13 @@ export const AllWorkspaces: FC = () => {
     >
       <div className="p-4 block md:hidden">
         <div className="flex justify-between items-end md:items-center">
-          <span className="font-medium">Workspaces</span>
-          <span>
+          <span className="font-medium">{data && data[0].name}</span>
+          {/* <span>
             <InputButton
               label="Add new workspace"
               onSubmit={onWorkspaceSubmit}
             />
-          </span>
+          </span> */}
         </div>
         <select
           className={clsx(
@@ -68,7 +74,7 @@ export const AllWorkspaces: FC = () => {
             "text-gray-700 bg-white",
             "focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
           )}
-          defaultValue={data[0].id}
+          defaultValue={data && data[0].id}
           onChange={(e) => {
             // go to workspace
             router.push(`/app/workspace/${e.target.value}`)
@@ -88,18 +94,18 @@ export const AllWorkspaces: FC = () => {
       <div className="hidden md:flex px-4 pt-2 pb-8 flex-col justify-center">
         <div>
           <span className={clsx("pl-4 pr-2 py-2 bg-gray-100 flex rounded-md")}>
-            Workspaces
+            {data && data[0].name}
           </span>
         </div>
         <div className="flex flex-col pt-2">
-          {data.map((workspace) => (
+          {projectData.map((workspace) => (
             <Link
               className={clsx("p-2 flex items-start space-x-1 rounded-md", {
                 "bg-purple-200": router.query.workspaceSlug === workspace.slug,
                 "hover:bg-purple-100":
                   router.query.workspaceSlug !== workspace.slug,
               })}
-              href={`/app/workspace/${workspace.slug}`}
+              href={`/app/workspace/${router.query.workspaceSlug}/${workspace.name}`}
               key={workspace.id}
             >
               <span className="material-symbols-outlined">arrow_right</span>
@@ -108,7 +114,7 @@ export const AllWorkspaces: FC = () => {
           ))}
         </div>
 
-        <InputButton label="Add new workspace" onSubmit={onWorkspaceSubmit} />
+        {/* <InputButton label="Add new workspace" onSubmit={onWorkspaceSubmit} /> */}
       </div>
     </aside>
   )

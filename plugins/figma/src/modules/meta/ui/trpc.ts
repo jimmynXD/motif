@@ -18,8 +18,11 @@ export const trpc = createTRPCReact<
   unknown,
   "ExperimentalSuspense"
 >()
+
+const isDev = process.env.NODE_ENV === "development"
+
 export const getUrl = () => {
-  return "http://localhost:3000/api/v0/trpc"
+  return isDev ? "http://localhost:3000/api/v0/trpc" : process.env.API_URL || ""
 }
 
 export const queryClient = new QueryClient()

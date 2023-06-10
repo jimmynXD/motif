@@ -2,8 +2,10 @@ import { useQueryClient } from "@tanstack/react-query"
 import { createContext, FC, ReactNode, Suspense } from "react"
 import { Outlet, useNavigate } from "react-router-dom"
 import { ErrorBoundary } from "react-error-boundary"
-import clsx from "clsx"
 import { mainServices, trpc, DiffStateUI, LoadingIntroUI } from "@/meta/ui"
+import { PageLayout } from "@/tokens/ui"
+import { LogoutHandler } from "../components"
+
 export const getToken = async (): Promise<string> =>
   mainServices.meta.storage.get("auth.api-key")
 
@@ -58,52 +60,26 @@ export const AuthContainer: FC<{ children: AuthContainerRenderFn }> = ({
   return <>{children(authArgs)}</>
 }
 
-export const AuthenticatedLayout: FC = () => {
+export const AuthLayout: FC = () => {
   const navigate = useNavigate()
 
   return (
-    <>
+    <PageLayout>
       <ErrorBoundary
-        fallback={<DiffStateUI />}
+        fallback={<DiffStateUI subMsg="Try Reloading." />}
         onError={() => navigate("/auth/login", { replace: true })}
       >
         <Suspense fallback={<LoadingIntroUI />}>
           <AuthContainer>
             {({ logout }) => (
-              <div>
+              <>
                 <Outlet />
-                <footer
-                  className={clsx(
-                    "flex items-center fixed bottom-0 left-0 right-0",
-                    "bg-gray-100 border-t-2 border-t-gray-200",
-                    "text-xd-secondary-black-rgb text-[10px] leading-none"
-                  )}
-                >
-                  <div className="pl-4">
-                    <span>v.alpha-1</span>
-                  </div>
-                  <div className="pr-3 flex-1 flex justify-end items-center">
-                    <button
-                      onClick={logout}
-                      className={clsx(
-                        "button button-sm button-icon-ghost",
-                        "p-1",
-                        "space-x-1",
-                        "text-[10px] leading-none"
-                      )}
-                    >
-                      <span className="material-symbols-rounded text-base">
-                        logout
-                      </span>
-                      <span>Log out</span>
-                    </button>
-                  </div>
-                </footer>
-              </div>
+                <LogoutHandler onClick={logout} />
+              </>
             )}
           </AuthContainer>
         </Suspense>
       </ErrorBoundary>
-    </>
+    </PageLayout>
   )
 }

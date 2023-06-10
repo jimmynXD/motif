@@ -5,8 +5,16 @@ import SpotifyImage from "../assets/Spotify_Icon_RGB_White.png"
 import Image from "next/image"
 import { HighlightButton, HightlightVariant } from "./HightlightButton"
 import clsx from "clsx"
+import LogoDark from "../assets/xd-logo-dark.png"
+import LogoLight from "../assets/xd-logo.png"
+import { useTheme } from "next-themes"
 
-export const Footer: FC = () => {
+interface FooterInterface {
+  pageLevel?: boolean
+}
+export const Footer: FC<FooterInterface> = ({ pageLevel }) => {
+  const currentYear = new Date().getFullYear()
+  const theme = useTheme()
   const FOOTER_ARRAY = [
     {
       href: "https://discord.gg/2JzNrn4P6N",
@@ -36,6 +44,27 @@ export const Footer: FC = () => {
       children: "Hear us on Spotify",
     },
   ]
+
+  if (pageLevel) {
+    return (
+      <footer className={clsx("py-8 px-8 dark:bg-black", "flex")}>
+        <div
+          className={clsx(
+            "min-w-[min-content]",
+            "flex items-center text-xs space-x-2 dark:text-gray-300"
+          )}
+        >
+          <span className="w-8 h-8 aspect-square">
+            <Image
+              src={theme.systemTheme === "dark" ? LogoDark : LogoLight}
+              alt="motifXD"
+            />
+          </span>
+          <span>© labXD {currentYear}</span>
+        </div>
+      </footer>
+    )
+  }
   return (
     <footer className="pt-12 pb-8 px-4">
       <div className="page-max-xl">

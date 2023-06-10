@@ -2,13 +2,13 @@ import { createMainService } from "@/comlinkFigma"
 import colorService from "./colorService"
 import typographyService from "./typographyService"
 import templateService from "./generateService"
-import removeService from "./removeService"
+import deleteService from "./deleteService"
 
 export const service = {
   color: colorService,
   typography: typographyService,
   template: templateService,
-  remove: removeService,
+  delete: deleteService,
 }
 
 export const mainService = createMainService(service)

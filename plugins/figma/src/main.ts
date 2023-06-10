@@ -16,7 +16,8 @@ const main = () => {
   figma.showUI(__html__, {
     width: 400,
     height: 600,
-    position: { x: 0, y: 0 },
+
+    themeColors: true,
   })
 }
 

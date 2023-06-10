@@ -54,7 +54,12 @@ export const InstructionPage: FC = () => {
 
                   <li>
                     For <b>Text</b>, select the font family, font weight, font
-                    size, and line height (usually 1.5x of font size).
+                    size, and line height.
+                    <ul className={clsx(ulClass)}>
+                      <li>
+                        <b>Line height</b> - set it to 0 for auto.
+                      </li>
+                    </ul>
                   </li>
                 </ul>
               </li>
@@ -67,6 +72,22 @@ export const InstructionPage: FC = () => {
               </li>
             </ol>
           </Section>
+          <Section header="Editing Tokens">
+            <ol className={clsx(olClass)}>
+              <li>
+                Navigate to either the <b>Color</b> or <b>Text</b> tab at the
+                bottom of the Tokens page.
+              </li>
+              <li>
+                Hover over the token and press the{" "}
+                <span className="w-4 h-4 text-center bg-[#8E8E93] rounded-sm text-base material-symbols-rounded text-white leading-none">
+                  edit
+                </span>{" "}
+                icon.
+              </li>
+              <li>Any changes you make will be reflected in that token.</li>
+            </ol>
+          </Section>
           <Section header="Deleting Tokens">
             <ol className={clsx(olClass)}>
               <li>
@@ -74,25 +95,13 @@ export const InstructionPage: FC = () => {
                 bottom of the Tokens page.
               </li>
               <li>
-                Hover over the token you want to delete.
-                <ul className={clsx(ulClass)}>
-                  <li>
-                    For <b>Color</b>, hover over the token swatch and press the
-                    delete icon.
-                  </li>
-                  <li>
-                    For <b>Text</b>, hover over the token name and press the
-                    delete icon
-                  </li>
-                </ul>
+                Hover over the token and press the{" "}
+                <span className="w-4 h-4 text-center bg-[#FF3B30] rounded-sm text-base material-symbols-rounded text-white leading-none">
+                  delete
+                </span>{" "}
+                icon.
               </li>
             </ol>
-          </Section>
-          <Section header="Editing Tokens">
-            <div>
-              The plugin will not allow duplicate names. Instead, it will update
-              that token. Treat it the same as adding a new token.
-            </div>
           </Section>
           <Section header="Visualize your tokens">
             Our plugin creates a custom <b>Design System</b> page, located at

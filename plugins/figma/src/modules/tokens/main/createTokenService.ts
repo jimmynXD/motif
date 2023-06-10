@@ -5,10 +5,11 @@ import {
   replaceSlashesAndSpacesWithDashes,
   replaceDashesWithSlashes,
   reverseRgbValue,
-  rgbToHex,
+  findText,
+  findRectangle,
 } from "./utils"
 
-export const createTextToken = (
+export const createTextToken = async (
   name: string,
   inputName: string,
   family: string,
@@ -16,105 +17,50 @@ export const createTextToken = (
   fontSize: number,
   lineHeight: number
 ) => {
-  const isText = (val?: SceneNode): val is TextNode => !!val
-
   const transpileName = replaceSlashesAndSpacesWithDashes(inputName)
 
-  const textTokens = figma.getLocalTextStyles()
+  // check if there are similar elements with the same name, but different numbers
+  const similarElements = findText(name).filter(
+    (text) => text.name.replace(/-\d+$/, "") === transpileName
+  )
 
-  const textElements = findFrame(name)
-    .findAll((node) => node.type === "TEXT")
-    .filter(isText)
-    .sort((a, b) => a.name.localeCompare(b.name))
+  // Create token and give it a different name if name already exists
+  const compileName =
+    similarElements.length > 0
+      ? `${transpileName.replace(/-\d+$/, "")}-${similarElements.length + 1}`
+      : transpileName
 
-  const existingText = textElements.find((text) => text.name === transpileName)
-
-  if (!existingText) {
-    const createText = async () => {
-      await figma.loadFontAsync({
-        family,
-        style: capitalize(style),
-      })
-      try {
-        const genText = figma.createText()
-        genText.name = transpileName
-        genText.fontName = {
-          family,
-          style: capitalize(style),
-        } as FontName
-        genText.fontSize = fontSize as number
-        genText.lineHeight =
-          lineHeight !== 0
-            ? {
-                value: lineHeight,
-                unit: "PIXELS",
-              }
-            : { unit: "AUTO" }
-        genText.characters = "The spectacle before us was indeed sublime"
-
-        const genStyle = figma.createTextStyle()
-        genStyle.name = replaceDashesWithSlashes(transpileName)
-        genStyle.fontName = {
-          family,
-          style: capitalize(style),
-        } as FontName
-        genStyle.fontSize = fontSize as number
-        genStyle.lineHeight =
-          lineHeight !== 0
-            ? {
-                value: lineHeight,
-                unit: "PIXELS",
-              }
-            : { unit: "AUTO" }
-        genStyle.description = `${family} ${capitalize(style)} ${fontSize}px`
-
-        genText.textStyleId = genStyle.id
-        return findFrame(name).appendChild(genText)
-      } catch (error) {
-        console.error("create Text Token error: ", error)
-      }
-    }
-    return createText()
-  }
-
-  textElements.forEach(async (element) => {
-    await figma.loadFontAsync(element.fontName as FontName)
-    try {
-      const existingStyle = textTokens.find(
-        (token) => token.id === element.textStyleId
-      )
-      if (existingStyle) {
-        existingStyle.fontName = {
-          family,
-          style: capitalize(style),
-        } as FontName
-        existingStyle.fontSize = fontSize as number
-        existingStyle.lineHeight =
-          lineHeight !== 0
-            ? {
-                value: lineHeight,
-                unit: "PIXELS",
-              }
-            : { unit: "AUTO" }
-        element.fontName = {
-          family,
-          style: capitalize(style),
-        } as FontName
-        element.fontSize = fontSize as number
-        element.lineHeight =
-          lineHeight !== 0
-            ? {
-                value: lineHeight,
-                unit: "PIXELS",
-              }
-            : { unit: "AUTO" }
-        element.textStyleId = existingStyle.id
-        return existingStyle
-      }
-    } catch (error) {
-      console.error("update Text Token error: ", error)
-    }
+  await figma.loadFontAsync({
+    family,
+    style: capitalize(style),
   })
+  try {
+    const createToken = figma.createTextStyle()
+    createToken.name = replaceDashesWithSlashes(compileName)
+    createToken.fontName = {
+      family,
+      style: capitalize(style),
+    } as FontName
+    createToken.fontSize = fontSize as number
+    createToken.lineHeight =
+      lineHeight !== 0
+        ? {
+            value: lineHeight,
+            unit: "PIXELS",
+          }
+        : { unit: "AUTO" }
+    createToken.description = `token: ${compileName}`
+
+    const createElement = figma.createText()
+    createElement.name = compileName
+    createElement.textStyleId = createToken.id
+    findFrame(name).appendChild(createElement)
+
+    return (createElement.characters =
+      "The spectacle before us was indeed sublime")
+  } catch (error) {
+    console.error("create Text Token error: ", error)
+  }
 }
 
 export const createColorToken = (
@@ -135,47 +81,26 @@ export const createColorToken = (
     visible: true,
   })
 
-  const isRectangle = (val?: SceneNode): val is RectangleNode => !!val
-  const colorTokens = figma.getLocalPaintStyles()
-  const colorElements = findFrame(name)
-    .findAll((node) => node.type === "RECTANGLE")
-    .filter(isRectangle)
-    .sort((a, b) => a.name.localeCompare(b.name))
-
-  const existingColor = colorElements.find(
-    (color) => color.name === transpileName
+  // check if there are similar elements with the same name, but different numbers
+  const similarElements = findRectangle(name).filter(
+    (color) => color.name.replace(/-\d+$/, "") === transpileName
   )
 
-  if (!existingColor) {
-    const genColorRect = figma.createRectangle()
-    genColorRect.name = transpileName
-    genColorRect.fills = colors
-    const genColorToken = figma.createPaintStyle()
-    genColorToken.name = replaceDashesWithSlashes(transpileName)
-    genColorToken.paints = colors
-    genColorToken.description = `${transpileName} #${rgbToHex(
-      color.r,
-      color.g,
-      color.b
-    )}`
-    genColorRect.fillStyleId = genColorToken.id
-    return findFrame(name).appendChild(genColorRect)
-  }
+  // Create token and give it a different name if name already exists
+  const compileName =
+    similarElements.length > 0
+      ? `${transpileName.replace(/-\d+$/, "")}-${similarElements.length + 1}`
+      : transpileName
 
-  colorElements.forEach((element) => {
-    const existingStyle = colorTokens.find(
-      (token) => token.id === element.fillStyleId
-    )
-    if (existingStyle) {
-      existingStyle.paints = colors
-      existingStyle.description = `${transpileName} #${rgbToHex(
-        color.r,
-        color.g,
-        color.b
-      )}`
-      element.fills = colors
-      element.fillStyleId = existingStyle.id
-      return existingStyle
-    }
-  })
+  const createToken = figma.createPaintStyle()
+  createToken.name = replaceDashesWithSlashes(compileName)
+  createToken.paints = colors
+  createToken.description = `token: ${compileName}`
+
+  const createElement = figma.createRectangle()
+  createElement.name = compileName
+
+  createElement.fillStyleId = createToken.id
+
+  return findFrame(name).appendChild(createElement)
 }

@@ -27,18 +27,16 @@ export const IntroLayout: FC<IntroLayoutProps> = ({
           {children}
         </div>
       ) : (
-        <div className="relative w-full flex flex-col items-center justify-center">
-          <div
-            className={clsx(
-              "absolute -top-12 -translate-y-full space-y-1",
-              "capitalize text-base font-semibold text-center"
-            )}
-          >
-            <div>Design Systems</div>
-            <div>For every team and every project</div>
-          </div>
+        <div className="h-full flex flex-col items-center pt-20">
           {children}
           {subMessage}
+          <div
+            className={clsx(
+              "pt-8 capitalize text-base font-semibold text-center"
+            )}
+          >
+            Authenticating...
+          </div>
         </div>
       )}
     </main>

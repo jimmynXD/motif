@@ -9,9 +9,11 @@ const TerserPlugin = require("terser-webpack-plugin")
 const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 const path = require("path")
 const webpack = require("webpack")
+const Dotenv = require("dotenv-webpack")
 
 module.exports = (env, argv) => {
   const plugins = [
+    new Dotenv(),
     new webpack.DefinePlugin({
       global: {}, // Fix missing symbol error when running in developer VM
     }),

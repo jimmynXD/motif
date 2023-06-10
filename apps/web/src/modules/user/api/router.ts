@@ -37,6 +37,56 @@ export const productAnalyticsRouter = router({
  * TODO: projectRouter isn't working with projectProcedure
  */
 export const projectRouter = router({
+  getProjectTokens: userProcedure
+    .input(
+      z.object({
+        workspaceId: z.string(),
+        projectId: z.string(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const res = await ctx.xata.db.TokenRelease.filter({
+        "Project.id": input.projectId,
+        "Workspace.id": input.workspaceId,
+      }).getAll()
+
+      return res
+    }),
+  update: userProcedure
+    .input(
+      z.object({
+        projectId: z.string(),
+        name: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const res = await ctx.xata.db.Project.update(input.projectId, {
+        name: input.name,
+        updatedAt: new Date(),
+      })
+      return res
+    }),
+  deploy: userProcedure
+    .input(
+      z.object({
+        projectId: z.string(),
+        workspaceId: z.string(),
+        tokens: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const res = await ctx.xata.db.TokenRelease.create({
+        Project: {
+          id: input.projectId,
+        },
+        Workspace: {
+          id: input.workspaceId,
+        },
+        createdAt: new Date(),
+        tokens: input.tokens,
+        version: nanoid(5),
+      })
+    }),
   create: userProcedure
     .input(
       z.object({
@@ -45,11 +95,26 @@ export const projectRouter = router({
       })
     )
     .mutation(async ({ ctx, input }) => {
+      const req = await ctx.xata.db.Project.filter({
+        name: input.name,
+        workspace: {
+          id: input.id,
+        },
+      }).getFirst()
+
+      if (req) {
+        input.name = `${input.name} (${nanoid(3)})`
+      }
       const res = await ctx.xata.db.Project.create({
         name: input.name,
         slug:
-          input.name.replace("'", "").toLowerCase().split(" ").join("-") +
-          `-${nanoid()}`,
+          input.name
+            .replace("'", "")
+            .replace("(", "")
+            .replace(")", "")
+            .toLowerCase()
+            .split(" ")
+            .join("-") + `-${nanoid()}`,
         workspace: {
           id: input.id,
         },
@@ -76,7 +141,7 @@ export const projectRouter = router({
   deleteProject: userProcedure
     .input(
       z.object({
-        wkspcId: z.string(),
+        // wkspcId: z.string(),
         projectId: z.string(),
       })
     )
@@ -85,7 +150,30 @@ export const projectRouter = router({
       return pick(res, ["id", "name", "slug"])
     }),
 })
+
 export const workspaceRouter = router({
+  deleteWorkspace: userProcedure
+    .input(z.object({ workspaceId: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const res = await ctx.xata.db.Workspace.deleteOrThrow(input.workspaceId)
+      return pick(res, ["id", "name", "slug"])
+    }),
+  update: userProcedure
+    .input(
+      z.object({
+        workspaceId: z.string(),
+        slug: z.string(),
+        name: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const res = await ctx.xata.db.Workspace.update(input.workspaceId, {
+        name: input.name,
+        slug: input.slug,
+        updatedAt: new Date(),
+      })
+      return res
+    }),
   create: userProcedure
     .input(createWorkspaceInput)
     .mutation(async ({ ctx, input }) => {

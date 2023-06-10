@@ -1,10 +1,10 @@
-import { PageLayout, TopNav } from "@/meta/web"
-import clsx from "clsx"
+import { Footer, PageLayout, TopNav } from "@/meta/web"
 import { NextPage } from "next"
 import { useRouter } from "next/router"
 import { useEffect } from "react"
-import { AllWorkspaces } from "../containers"
 import { WorkspaceRootContainer } from "../containers/WorkspaceRootContainer"
+import { Tabs } from "../components"
+import clsx from "clsx"
 
 /**
  * Workspace root page
@@ -24,21 +24,32 @@ export const WorkspaceRoot: NextPage = () => {
   }
 
   if (typeof workspaceSlug !== "string") {
-    // useEffect redirects to 404
     return null
   }
 
+  const contentArray = [
+    {
+      title: "Projects",
+      content: <WorkspaceRootContainer slug={workspaceSlug} />,
+    },
+    {
+      title: "Settings",
+      content: <div className="py-12">Settings</div>,
+    },
+  ]
+
   return (
-    <PageLayout pageTitle="Workspace" topNav={<TopNav pageLevel />}>
-      <main
-        className={clsx(
-          "fixed left-0 right-0 bottom-0 top-16",
-          "flex flex-col"
-        )}
-      >
-        <AllWorkspaces />
-        <WorkspaceRootContainer slug={workspaceSlug} />
-      </main>
+    <PageLayout
+      cls={clsx(
+        "bg-gray-100 dark:bg-[#111111]",
+        "shadow-[inset_0_-1px_0_0_rgb(0_0_0_/_0.1)]",
+        "dark:shadow-[inset_0_-1px_0_0_rgb(255_255_255_/_0.1)]"
+      )}
+      pageTitle="Workspace"
+      topNav={<TopNav pageLevel />}
+      outsideFooter={<Footer pageLevel />}
+    >
+      <Tabs contentArray={contentArray} />
     </PageLayout>
   )
 }

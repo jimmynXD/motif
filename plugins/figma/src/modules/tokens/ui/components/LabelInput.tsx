@@ -26,7 +26,8 @@ export const LabelInput: FC<LabelInputProps> = ({ placeholder, ...other }) => {
         className={clsx(
           "w-full rounded-xs p-2",
           "bg-white dark:bg-[#1C1C1E] border border-[#3C3C43]/40 dark:border-[#545458]/[.65]",
-          "dark:text-white placeholder:text-[#C5C5C7] dark:placeholder:text-[#C5C5C7]"
+          "dark:text-white placeholder:text-[#C5C5C7] dark:placeholder:text-[#C5C5C7]",
+          "disabled:text-black/20 dark:disabled:text-white/20"
         )}
         placeholder={placeholder}
       />

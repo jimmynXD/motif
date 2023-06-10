@@ -6,7 +6,6 @@ export enum IconSize {
   LG = "lg",
 }
 
-// type IconSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl"
 export interface LineHeightIconProps {
   color?: string
   size?: IconSize

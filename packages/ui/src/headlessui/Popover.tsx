@@ -32,6 +32,7 @@ export const Popover: FC<PopoverProps> = ({ menuItems }) => {
           className={clsx(
             "absolute right-0 origin-top-right flex flex-col",
             "divide-y divide-gray-400 rounded bg-white border border-gray-400 min-w-[80px]",
+            "dark:bg-black",
             "shadow-md text-xs text-black"
           )}
         >
@@ -42,7 +43,7 @@ export const Popover: FC<PopoverProps> = ({ menuItems }) => {
               onClick={item.onClick}
               className={clsx(
                 "px-2 py-1 flex justify-start items-center",
-                "space-x-1 text-gray-500 transition-all",
+                "space-x-1 text-gray-500 dark:text-gray-300 transition-all",
                 "hover:text-white hover:bg-gray-500"
               )}
             >

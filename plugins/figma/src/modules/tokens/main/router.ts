@@ -1,20 +1,23 @@
 import { publicProcedure, router } from "@/meta/main"
 import { z } from "zod"
-import { genColorTokens, genFrame, genPage } from "./generateService"
-import {
-  deleteColorToken,
-  deleteTextToken,
-  removeColorTokens,
-  removeTypographyTokens,
-} from "./removeService"
+import { genFrame, genPage } from "./generateService"
+import { deleteColorToken, deleteTextToken } from "./deleteService"
 import { getTypes } from "./typographyService"
 import { getColors } from "./colorService"
 import { createColorToken, createTextToken } from "./createTokenService"
+import { updateColorToken, updateTextToken } from "./editTokenService"
+import {
+  updateMismatchedColorTokens,
+  updateMismatchedTextTokens,
+} from "./updateService"
+
 export const tokenRouter = router({
   getTokens: publicProcedure.query(async () => {
     genPage()
     genFrame("Colors", "HORIZONTAL", 3000, 0)
     genFrame("Typography", "VERTICAL", 2000, 0)
+    updateMismatchedColorTokens("Colors")
+    updateMismatchedTextTokens("Typography")
     return { typography: getTypes(), colors: getColors() }
   }),
   createText: publicProcedure
@@ -37,18 +40,38 @@ export const tokenRouter = router({
         input.inputLineHeight
       )
     }),
-  deleteMismatchTextTokens: publicProcedure.mutation(async () => {
-    removeTypographyTokens(["Typography"])
+  updateText: publicProcedure
+    .input(
+      z.object({
+        inputValue: z.string(),
+        id: z.string(),
+        family: z.string(),
+        style: z.string(),
+        fontSize: z.number(),
+        lineHeight: z.number(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      return updateTextToken(
+        input.inputValue,
+        input.id,
+        input.family,
+        input.style,
+        input.fontSize,
+        input.lineHeight
+      )
+    }),
+  updateMismatchTextTokens: publicProcedure.mutation(async () => {
+    updateMismatchedTextTokens("Typography")
   }),
   deleteTextToken: publicProcedure
     .input(
       z.object({
-        name: z.string(),
         id: z.string(),
       })
     )
     .mutation(async ({ input }) => {
-      deleteTextToken("Typography", input.name, input.id)
+      deleteTextToken("Typography", input.id)
     }),
   createColor: publicProcedure
     .input(
@@ -65,8 +88,24 @@ export const tokenRouter = router({
     .mutation(async ({ input }) => {
       return createColorToken("Colors", input.inputValue, input.color)
     }),
-  deleteMismatchColorTokens: publicProcedure.mutation(async () => {
-    removeColorTokens(["Typography"])
+  updateColor: publicProcedure
+    .input(
+      z.object({
+        inputValue: z.string(),
+        id: z.string(),
+        color: z.object({
+          a: z.number().optional(),
+          r: z.number(),
+          g: z.number(),
+          b: z.number(),
+        }),
+      })
+    )
+    .mutation(async ({ input }) => {
+      return updateColorToken(input.inputValue, input.id, input.color)
+    }),
+  updateMismatchColorTokens: publicProcedure.mutation(async () => {
+    updateMismatchedColorTokens("Colors")
   }),
   deleteColorToken: publicProcedure
     .input(
@@ -76,6 +115,6 @@ export const tokenRouter = router({
       })
     )
     .mutation(async ({ input }) => {
-      deleteColorToken("Colors", input.name, input.id)
+      deleteColorToken("Colors", input.id)
     }),
 })

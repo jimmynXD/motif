@@ -36,7 +36,7 @@ export const HandleLogin: FC = () => {
       await saveAPIKeyMutation.mutateAsync({
         key: res.key,
       })
-      return navigate(`/`, { replace: true })
+      return navigate(`/deploy`, { replace: true })
     },
   })
 

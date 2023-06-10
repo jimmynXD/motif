@@ -3,7 +3,7 @@
 
 /* @tailwind base;
 @tailwind components;
-@tailwind utilities; */
+@tailwind utilities;
 
 @import "@labxd/gustxd/styles.css";
 
@@ -21,4 +21,54 @@
   position: absolute;
   top: 0;
   left: 0;
+}
+ */
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Text:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded");
+/* We will use sharp for filled icons */
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20,700,1,0");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .local-link {
+    @apply font-normal text-sm text-gray-300;
+    @apply hover:text-white;
+    @apply transition-all;
+  }
+  /* .xd-divider {
+    @apply flex items-center text-xd-secondary-black-rgb font-semibold px-4;
+    @apply after:flex after:flex-grow after:content-[''] after:h-[1px] after:bg-neutral-300;
+    @apply before:flex before:flex-grow before:content-[''] before:h-[1px] before:bg-neutral-300;
+  }
+
+  .xd-card {
+    @apply bg-white rounded-sm px-4 py-3 relative ring-1 ring-xd-primary-purple-700/10;
+  }
+  .xd-card-border {
+    @apply after:content-[''] after:rounded after:absolute after:inset-0 after:ring-4 after:ring-inset after:ring-[#F75480];
+  }
+  .xd-card-border-l {
+    @apply after:content-[''] after:absolute after:w-1 after:h-full after:bg-[#F75480] after:top-0 after:left-0;
+    @apply after:rounded-l-sm;
+  }
+  .xd-card-border-r {
+    @apply after:content-[''] after:absolute after:w-1 after:h-full after:bg-[#F75480] after:top-0 after:right-0;
+    @apply after:rounded-r-sm;
+  }
+  .xd-card-border-t {
+    @apply after:content-[''] after:absolute after:h-1 after:w-full after:bg-[#F75480] after:top-0 after:left-0 after:right-0;
+    @apply after:rounded-t-sm;
+  }
+  .xd-card-border-b {
+    @apply after:content-[''] after:absolute after:h-1 after:w-full after:bg-[#F75480] after:bottom-0 after:right-0 after:left-0;
+    @apply after:rounded-b-sm;
+  }
+  .xd-card-focus {
+    @apply after:transition-all;
+    @apply after:opacity-10 focus-within:after:opacity-100;
+  } */
 }
